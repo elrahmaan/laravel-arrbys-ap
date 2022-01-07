@@ -31,16 +31,16 @@
                             <a href="{{route('monitor.index')}}">Monitor</a>
                         </li>
                         <li class="submenu-item {{Route::is('printer.index') ? 'active' : ''}}">
-                            <a href="{{Route::is('printer.index')}}">Printer</a>
+                            <a href="{{route('printer.index')}}">Printer</a>
                         </li>
                         <li class="submenu-item {{Route::is('keyboard.index') ? 'active' : ''}}">
-                            <a href="{{Route::is('keyboard.index')}}">Keyboard</a>
+                            <a href="{{route('keyboard.index')}}">Keyboard</a>
                         </li>
                         <li class="submenu-item {{Route::is('mouse.index') ? 'active' : ''}}">
-                            <a href="{{Route::is('mouse.index')}}">Mouse</a>
+                            <a href="{{route('mouse.index')}}">Mouse</a>
                         </li>
                         <li class="submenu-item {{Route::is('cpu.index') ? 'active' : ''}}">
-                            <a href="{{Route::is('cpu.index')}}">CPU</a>
+                            <a href="{{route('cpu.index')}}">CPU</a>
                         </li>
                     </ul>
                 </li>
