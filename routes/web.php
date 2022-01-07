@@ -16,6 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('layouts.dashboard');
 });
+Route::get('/monitor', function () {
+    return view('layouts.monitor');
+});
+Route::get('/printer', function () {
+    return view('layouts.printer');
+});
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

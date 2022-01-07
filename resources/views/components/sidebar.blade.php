@@ -31,7 +31,7 @@
                             <a href="/monitor">Monitor</a>
                         </li>
                         <li class="submenu-item">
-                            <a href="component-badge.html">Printer</a>
+                            <a href="/printer">Printer</a>
                         </li>
                         <li class="submenu-item">
                             <a href="component-breadcrumb.html">Keyboard</a>
