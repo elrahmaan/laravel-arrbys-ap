@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\CpuController;
+use App\Http\Controllers\KeyboardController;
+use App\Http\Controllers\MonitorController;
+use App\Http\Controllers\MouseController;
+use App\Http\Controllers\PrinterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,13 +21,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('layouts.dashboard');
 });
-Route::get('/monitor', function () {
-    return view('layouts.monitor');
-});
-Route::get('/printer', function () {
-    return view('layouts.printer');
-});
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+
+Route::resources([
+    'monitor' => MonitorController::class,
+    'printer' => PrinterController::class,
+    'keyboard' => KeyboardController::class,
+    'mouse' => MouseController::class,
+    'cpu' => CpuController::class,
+]);
