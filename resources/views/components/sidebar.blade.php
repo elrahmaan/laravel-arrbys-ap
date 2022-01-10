@@ -24,7 +24,7 @@
                 <li class="sidebar-item has-sub {{Route::is('monitor.index') || Route::is('printer.index') || Route::is('keyboard.index') || Route::is('mouse.index') || Route::is('cpu.index') ? 'active' : ''}}">
                     <a href="#" class="sidebar-link">
                         <i class="bi bi-stack"></i>
-                        <span>Assets</span>
+                        <span>Unit Services</span>
                     </a>
                     <ul class="submenu">
                         <li class="submenu-item {{Route::is('monitor.index') ? 'active' : ''}}">

@@ -5,6 +5,7 @@ use App\Http\Controllers\KeyboardController;
 use App\Http\Controllers\MonitorController;
 use App\Http\Controllers\MouseController;
 use App\Http\Controllers\PrinterController;
+use App\Http\Controllers\OthersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,4 +34,5 @@ Route::resources([
     'keyboard' => KeyboardController::class,
     'mouse' => MouseController::class,
     'cpu' => CpuController::class,
+    'others' => OthersController::class,
 ]);
