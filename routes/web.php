@@ -6,6 +6,8 @@ use App\Http\Controllers\MonitorController;
 use App\Http\Controllers\MouseController;
 use App\Http\Controllers\PrinterController;
 use App\Http\Controllers\OthersController;
+use App\Http\Controllers\LoanController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,4 +37,6 @@ Route::resources([
     'mouse' => MouseController::class,
     'cpu' => CpuController::class,
     'others' => OthersController::class,
+    'loan' => LoanController::class,
+    'report-repairing' => ReportController::class,
 ]);
