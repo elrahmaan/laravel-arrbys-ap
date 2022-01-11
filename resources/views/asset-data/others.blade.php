@@ -46,6 +46,7 @@
                 </a>
                 <!-- Assets Datatable -->
             </div>
+            <!-- Add Data Modal -->
             <div class="modal fade text-left" id="addData" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                     <div class="modal-content">
@@ -62,47 +63,116 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group has-icon-left">
-                                                <label for="first-name-icon">First Name</label>
+                                                <label for="id-icon">ID</label>
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control" placeholder="Input with icon left" id="first-name-icon">
+                                                    <input type="text" class="form-control" placeholder="ID" id="id-icon" disabled>
                                                     <div class="form-control-icon">
-                                                        <i class="bi bi-person"></i>
+                                                        <i class="bi bi-key-fill"></i>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-12">
+                                            <div class="form-group has-icon-left">
+                                                <label for="first-name-icon">Asset Name</label>
+                                                <div class="position-relative">
+                                                    <input type="text" class="form-control" placeholder="Asset Name" id="first-name-icon">
+                                                    <div class="form-control-icon">
+                                                        <i class="fa fa-box"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="email-id-icon">Image</label>
+                                            <div class="position-relative mb-2">
+                                                <img src="" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="mobile-id-icon">Detail (Specification)</label>
+                                            <div class="position-relative mb-2">
+                                                <textarea class="form-control" name="" id="" rows="5">tes</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group has-icon-left">
+                                                <label for="password-id-icon">Quantity</label>
+                                                <div class="position-relative">
+                                                    <input type="password" class="form-control" placeholder="Quantity" id="password-id-icon">
+                                                    <div class="form-control-icon">
+                                                        <i class="fa fa-sort-numeric-up"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
+                                        <div class="col-12">
                                             <div class="form-group has-icon-left">
-                                                <label for="email-id-icon">Email</label>
+                                                <label for="password-id-icon">Complainant</label>
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control" placeholder="Email" id="email-id-icon">
+                                                    <input type="password" class="form-control" placeholder="Complainant Name" id="password-id-icon">
                                                     <div class="form-control-icon">
-                                                        <i class="bi bi-envelope"></i>
+                                                        <i class="fa fa-user"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="form-group has-icon-left">
+                                                <label for="password-id-icon">Department</label>
+                                                <div class="position-relative">
+                                                    <input type="password" class="form-control" placeholder="Department of Complainant" id="password-id-icon">
+                                                    <div class="form-control-icon">
+                                                        <i class="fa fa-window-restore"></i>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <div class="form-group has-icon-left">
-                                                <label for="mobile-id-icon">Mobile</label>
-                                                <div class="position-relative">
-                                                    <input type="text" class="form-control" placeholder="Mobile" id="mobile-id-icon">
-                                                    <div class="form-control-icon">
-                                                        <i class="bi bi-phone"></i>
-                                                    </div>
-                                                </div>
+                                            <label for="password-id-icon">Status</label>
+                                            <div class="position-relative mb-2">
+                                                <span class="badge bg-success">Good</span>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label for="password-id-icon">Complain Desc</label>
+                                            <div class="position-relative mb-2">
+                                                <textarea class="form-control" name="" id="" rows="5">tes</textarea>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label for="password-id-icon">Diagnose</label>
+                                            <div class="position-relative mb-2">
+                                                <textarea class="form-control" name="" id="" rows="5">tes</textarea>
                                             </div>
                                         </div>
+
                                         <div class="col-12">
-                                            <div class="form-group has-icon-left">
-                                                <label for="password-id-icon">Password</label>
-                                                <div class="position-relative">
-                                                    <input type="password" class="form-control" placeholder="Password" id="password-id-icon">
-                                                    <div class="form-control-icon">
-                                                        <i class="bi bi-lock"></i>
-                                                    </div>
-                                                </div>
+                                            <label for="password-id-icon">Date of entry</label>
+                                            <div class="position-relative mb-2">
+                                                <input type="datetime-local" class="form-control" placeholder="Choose a date" id="password-id-icon">
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label for="password-id-icon">Estimated date completed</label>
+                                            <div class="position-relative mb-2">
+                                                <input type="datetime-local" class="form-control" placeholder="Choose a date" id="password-id-icon">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label for="password-id-icon">Date Fixed</label>
+                                            <div class="position-relative mb-2">
+                                                <input type="datetime-local" class="form-control" placeholder="Choose a date" id="password-id-icon">
                                             </div>
                                         </div>
                                     </div>
@@ -126,22 +196,29 @@
                 <table class="table" id="table1">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>City</th>
+                            <th>ID</th>
+                            <th>Asset Name</th>
+                            <th>Image</th>
+                            <th>Qty</th>
+                            <th>Complainant</th>
+                            <th>Department</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Graiden</td>
-                            <td>vehicula.aliquet@semconsequat.co.uk</td>
-                            <td>076 4820 8838</td>
-                            <td>Offenburg</td>
+                            <td>10111200</td>
+                            <td>Laptop Asus</td>
+                            <td><img src="" alt=""></td>
+                            <td>5</td>
+                            <td>Oni</td>
+                            <td>AOB</td>
                             <td>
-                                <span class="badge bg-success">Active</span>
+                                <span class="badge bg-success">Good</span>
+                                <span class="badge bg-warning">In Repair</span>
+                                <span class="badge bg-danger">Broken</span>
+                                <span class="badge bg-info">New</span>
                             </td>
                             <td>
                                 <a href="#"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#showData">
@@ -149,15 +226,15 @@
                                     </button>
                                 </a>
                                 <a href="#"><button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editData">
-                                    <i class="fa fa-edit"></i>
+                                        <i class="fa fa-edit"></i>
                                     </button>
                                 </a>
                                 <a href="#"><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteData">
-                                    <i class="fa fa-trash-alt"></i>
+                                        <i class="fa fa-trash-alt"></i>
                                     </button>
                                 </a>
                                 <a href="#"><button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#repairData">
-                                    <i class="fa fa-wrench"></i>
+                                        <i class="fa fa-wrench"></i>
                                     </button>
                                 </a>
                             </td>
@@ -179,47 +256,116 @@
                                                     <div class="row">
                                                         <div class="col-12">
                                                             <div class="form-group has-icon-left">
-                                                                <label for="first-name-icon">First Name</label>
+                                                                <label for="id-icon">ID</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" class="form-control" placeholder="Input with icon left" id="first-name-icon">
+                                                                    <input type="text" class="form-control" placeholder="ID" id="id-icon" disabled>
                                                                     <div class="form-control-icon">
-                                                                        <i class="bi bi-person"></i>
+                                                                        <i class="bi bi-key-fill"></i>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
+                                                            <div class="form-group has-icon-left">
+                                                                <label for="first-name-icon">Asset Name</label>
+                                                                <div class="position-relative">
+                                                                    <input type="text" class="form-control" placeholder="Asset Name" id="first-name-icon">
+                                                                    <div class="form-control-icon">
+                                                                        <i class="fa fa-box"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <label for="email-id-icon">Image</label>
+                                                            <div class="position-relative mb-2">
+                                                                <img src="" alt="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <label for="mobile-id-icon">Detail (Specification)</label>
+                                                            <div class="position-relative mb-2">
+                                                                <textarea class="form-control" name="" id="" rows="5">tes</textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <div class="form-group has-icon-left">
+                                                                <label for="password-id-icon">Quantity</label>
+                                                                <div class="position-relative">
+                                                                    <input type="password" class="form-control" placeholder="Quantity" id="password-id-icon">
+                                                                    <div class="form-control-icon">
+                                                                        <i class="fa fa-sort-numeric-up"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
+                                                        <div class="col-12">
                                                             <div class="form-group has-icon-left">
-                                                                <label for="email-id-icon">Email</label>
+                                                                <label for="password-id-icon">Complainant</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" class="form-control" placeholder="Email" id="email-id-icon">
+                                                                    <input type="password" class="form-control" placeholder="Complainant Name" id="password-id-icon">
                                                                     <div class="form-control-icon">
-                                                                        <i class="bi bi-envelope"></i>
+                                                                        <i class="fa fa-user"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-12">
+                                                            <div class="form-group has-icon-left">
+                                                                <label for="password-id-icon">Department</label>
+                                                                <div class="position-relative">
+                                                                    <input type="password" class="form-control" placeholder="Department of Complainant" id="password-id-icon">
+                                                                    <div class="form-control-icon">
+                                                                        <i class="fa fa-window-restore"></i>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
-                                                            <div class="form-group has-icon-left">
-                                                                <label for="mobile-id-icon">Mobile</label>
-                                                                <div class="position-relative">
-                                                                    <input type="text" class="form-control" placeholder="Mobile" id="mobile-id-icon">
-                                                                    <div class="form-control-icon">
-                                                                        <i class="bi bi-phone"></i>
-                                                                    </div>
-                                                                </div>
+                                                            <label for="password-id-icon">Status</label>
+                                                            <div class="position-relative mb-2">
+                                                                <span class="badge bg-success">Good</span>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="col-12">
+                                                            <label for="password-id-icon">Complain Desc</label>
+                                                            <div class="position-relative mb-2">
+                                                                <textarea class="form-control" name="" id="" rows="5">tes</textarea>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="col-12">
+                                                            <label for="password-id-icon">Diagnose</label>
+                                                            <div class="position-relative mb-2">
+                                                                <textarea class="form-control" name="" id="" rows="5">tes</textarea>
                                                             </div>
                                                         </div>
+
                                                         <div class="col-12">
-                                                            <div class="form-group has-icon-left">
-                                                                <label for="password-id-icon">Password</label>
-                                                                <div class="position-relative">
-                                                                    <input type="password" class="form-control" placeholder="Password" id="password-id-icon">
-                                                                    <div class="form-control-icon">
-                                                                        <i class="bi bi-lock"></i>
-                                                                    </div>
-                                                                </div>
+                                                            <label for="password-id-icon">Date of entry</label>
+                                                            <div class="position-relative mb-2">
+                                                                <input type="datetime-local" class="form-control" placeholder="Choose a date" id="password-id-icon">
+
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="col-12">
+                                                            <label for="password-id-icon">Estimated date completed</label>
+                                                            <div class="position-relative mb-2">
+                                                                <input type="datetime-local" class="form-control" placeholder="Choose a date" id="password-id-icon">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-12">
+                                                            <label for="password-id-icon">Date Fixed</label>
+                                                            <div class="position-relative mb-2">
+                                                                <input type="datetime-local" class="form-control" placeholder="Choose a date" id="password-id-icon">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -257,47 +403,116 @@
                                                     <div class="row">
                                                         <div class="col-12">
                                                             <div class="form-group has-icon-left">
-                                                                <label for="first-name-icon">First Name</label>
+                                                                <label for="id-icon">ID</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" class="form-control" placeholder="Input with icon left" id="first-name-icon">
+                                                                    <input type="text" class="form-control" placeholder="ID" id="id-icon" disabled>
                                                                     <div class="form-control-icon">
-                                                                        <i class="bi bi-person"></i>
+                                                                        <i class="bi bi-key-fill"></i>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
+                                                            <div class="form-group has-icon-left">
+                                                                <label for="first-name-icon">Asset Name</label>
+                                                                <div class="position-relative">
+                                                                    <input type="text" class="form-control" placeholder="Asset Name" id="first-name-icon">
+                                                                    <div class="form-control-icon">
+                                                                        <i class="fa fa-box"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <label for="email-id-icon">Image</label>
+                                                            <div class="position-relative mb-2">
+                                                                <img src="" alt="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <label for="mobile-id-icon">Detail (Specification)</label>
+                                                            <div class="position-relative mb-2">
+                                                                <textarea class="form-control" name="" id="" rows="5">tes</textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <div class="form-group has-icon-left">
+                                                                <label for="password-id-icon">Quantity</label>
+                                                                <div class="position-relative">
+                                                                    <input type="password" class="form-control" placeholder="Quantity" id="password-id-icon">
+                                                                    <div class="form-control-icon">
+                                                                        <i class="fa fa-sort-numeric-up"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
+                                                        <div class="col-12">
                                                             <div class="form-group has-icon-left">
-                                                                <label for="email-id-icon">Email</label>
+                                                                <label for="password-id-icon">Complainant</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" class="form-control" placeholder="Email" id="email-id-icon">
+                                                                    <input type="password" class="form-control" placeholder="Complainant Name" id="password-id-icon">
                                                                     <div class="form-control-icon">
-                                                                        <i class="bi bi-envelope"></i>
+                                                                        <i class="fa fa-user"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-12">
+                                                            <div class="form-group has-icon-left">
+                                                                <label for="password-id-icon">Department</label>
+                                                                <div class="position-relative">
+                                                                    <input type="password" class="form-control" placeholder="Department of Complainant" id="password-id-icon">
+                                                                    <div class="form-control-icon">
+                                                                        <i class="fa fa-window-restore"></i>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
-                                                            <div class="form-group has-icon-left">
-                                                                <label for="mobile-id-icon">Mobile</label>
-                                                                <div class="position-relative">
-                                                                    <input type="text" class="form-control" placeholder="Mobile" id="mobile-id-icon">
-                                                                    <div class="form-control-icon">
-                                                                        <i class="bi bi-phone"></i>
-                                                                    </div>
-                                                                </div>
+                                                            <label for="password-id-icon">Status</label>
+                                                            <div class="position-relative mb-2">
+                                                                <span class="badge bg-success">Good</span>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="col-12">
+                                                            <label for="password-id-icon">Complain Desc</label>
+                                                            <div class="position-relative mb-2">
+                                                                <textarea class="form-control" name="" id="" rows="5">tes</textarea>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="col-12">
+                                                            <label for="password-id-icon">Diagnose</label>
+                                                            <div class="position-relative mb-2">
+                                                                <textarea class="form-control" name="" id="" rows="5">tes</textarea>
                                                             </div>
                                                         </div>
+
                                                         <div class="col-12">
-                                                            <div class="form-group has-icon-left">
-                                                                <label for="password-id-icon">Password</label>
-                                                                <div class="position-relative">
-                                                                    <input type="password" class="form-control" placeholder="Password" id="password-id-icon">
-                                                                    <div class="form-control-icon">
-                                                                        <i class="bi bi-lock"></i>
-                                                                    </div>
-                                                                </div>
+                                                            <label for="password-id-icon">Date of entry</label>
+                                                            <div class="position-relative mb-2">
+                                                                <input type="datetime-local" class="form-control" placeholder="Choose a date" id="password-id-icon">
+
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="col-12">
+                                                            <label for="password-id-icon">Estimated date completed</label>
+                                                            <div class="position-relative mb-2">
+                                                                <input type="datetime-local" class="form-control" placeholder="Choose a date" id="password-id-icon">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-12">
+                                                            <label for="password-id-icon">Date Fixed</label>
+                                                            <div class="position-relative mb-2">
+                                                                <input type="datetime-local" class="form-control" placeholder="Choose a date" id="password-id-icon">
                                                             </div>
                                                         </div>
                                                     </div>
