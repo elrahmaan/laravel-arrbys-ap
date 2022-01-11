@@ -76,8 +76,8 @@
                     </a>
                 </li>
                 <li class="sidebar-title">Report</li>
-                <li class="sidebar-item">
-                    <a href="" class="sidebar-link">
+                <li class="sidebar-item {{ Route::is('report-repairing.index') ? 'active' : '' }}">
+                    <a href="{{ route('report-repairing.index') }}" class="sidebar-link">
                         <i class="bi bi-file-earmark-text-fill"></i>
                         <span>Repairing report</span>
                     </a>
