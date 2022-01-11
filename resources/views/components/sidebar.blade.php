@@ -20,7 +20,19 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-                <li class="sidebar-title ">Unit</li>
+                <li class="sidebar-item {{Route::is('') ? 'active' : ''}}">
+                    <a href="{{route('home')}}" class="sidebar-link">
+                        <i class="fa fa-window-restore"></i>
+                        <span>Department</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{Route::is('') ? 'active' : ''}}">
+                    <a href="{{route('home')}}" class="sidebar-link">
+                        <i class="fa fa-user-friends"></i>
+                        <span>Users</span>
+                    </a>
+                </li>
+                <li class="sidebar-title ">Assets</li>
                 <li class="sidebar-item">
                     <a href="" class="sidebar-link">
                         <i class="bi bi-grid-1x2-fill"></i>
@@ -30,7 +42,7 @@
                 <li class="sidebar-item has-sub {{Route::is('monitor.index') || Route::is('printer.index') || Route::is('keyboard.index') || Route::is('mouse.index') || Route::is('cpu.index') ? 'active' : ''}}">
                     <a href="#" class="sidebar-link">
                         <i class="bi bi-stack"></i>
-                        <span>Unit Services</span>
+                        <span>Service of Assets</span>
                     </a>
                     <ul class="submenu">
                         <li class="submenu-item {{Route::is('monitor.index') ? 'active' : ''}}">
@@ -57,20 +69,20 @@
                 <li class="sidebar-title">Loan</li>
                 <li class="sidebar-item">
                     <a href="" class="sidebar-link">
-                        <i class="fa fa-boxes"></i>
+                        <i class="bi bi-arrow-up-right-square-fill"></i>
                         <span>Loan</span>
                     </a>
                 </li>
                 <li class="sidebar-title">Report</li>
                 <li class="sidebar-item">
                     <a href="" class="sidebar-link">
-                        <i class="fa-fw select-all fas"></i>
+                        <i class="bi bi-file-earmark-text-fill"></i>
                         <span>Repairing report</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a href="" class="sidebar-link">
-                        <i class="bi bi-printer-fill"></i>
+                        <i class="bi bi-file-earmark-text-fill"></i>
                         <span>Loan Report</span>
                     </a>
                 </li>
