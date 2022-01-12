@@ -15,6 +15,10 @@ class CreateUnitLogsTable extends Migration
     {
         Schema::create('unit_logs', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('asset_id');
+            $table->foreign('asset_id')->references('id')->on('service_assets')->onDelete('cascade');
+            $table->unsignedBigInteger('department_id');
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
             $table->timestamps();
         });
     }
