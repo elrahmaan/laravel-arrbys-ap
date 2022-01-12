@@ -21,6 +21,8 @@ class CreateLoansTable extends Migration
             $table->text('phone')->nullable();
             $table->enum('category_asset', ['AP','Sewa']);
             $table->string('purpose')->nullable();
+            $table->text('image');
+            $table->string('detail_loan')->nullable();
             $table->date('loan_date');
             $table->date('estimation_return_date');
             $table->date('real_return_date');

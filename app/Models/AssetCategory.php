@@ -9,4 +9,9 @@ class AssetCategory extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    
+    public function service_asset()
+    {
+        return $this->hasMany(ServiceAsset::class);
+    }
 }

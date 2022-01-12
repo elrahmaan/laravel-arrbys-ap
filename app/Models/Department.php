@@ -9,4 +9,18 @@ class Department extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+
+    public function service_asset()
+    {
+        return $this->hasMany(ServiceAsset::class);
+    }
+    public function unit_log()
+    {
+        return $this->hasMany(UnitLog::class);
+    }
+    public function loan()
+    {
+        return $this->hasMany(Loan::class);
+    }
+    
 }
