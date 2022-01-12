@@ -10,6 +10,8 @@ use App\Http\Controllers\LoanController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ReportLoanController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,4 +45,6 @@ Route::resources([
     'report-repairing' => ReportController::class,
     'report-loan' => ReportLoanController::class,
     'category' => CategoryController::class,
+    'department' => DepartmentController::class,
+    'user' => UserController::class,
 ]);

@@ -21,14 +21,14 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-                <li class="sidebar-item {{ Route::is('') ? 'active' : '' }}">
-                    <a href="{{ route('home') }}" class="sidebar-link">
+                <li class="sidebar-item {{ Route::is('department.index') ? 'active' : '' }}">
+                    <a href="{{ route('department.index') }}" class="sidebar-link">
                         <i class="fa fa-window-restore"></i>
                         <span>Department</span>
                     </a>
                 </li>
-                <li class="sidebar-item {{ Route::is('') ? 'active' : '' }}">
-                    <a href="{{ route('home') }}" class="sidebar-link">
+                <li class="sidebar-item {{ Route::is('user.index') ? 'active' : '' }}">
+                    <a href="{{ route('user.index') }}" class="sidebar-link">
                         <i class="fa fa-user-friends"></i>
                         <span>Users</span>
                     </a>
