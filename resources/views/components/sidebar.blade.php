@@ -34,8 +34,8 @@
                     </a>
                 </li>
                 <li class="sidebar-title ">Assets</li>
-                <li class="sidebar-item">
-                    <a href="" class="sidebar-link">
+                <li class="sidebar-item {{ Route::is('category.index') ? 'active' : '' }}">
+                    <a href="{{ route('category.index') }}" class="sidebar-link">
                         <i class="bi bi-grid-1x2-fill"></i>
                         <span>Categories</span>
                     </a>
@@ -82,8 +82,8 @@
                         <span>Repairing report</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a href="" class="sidebar-link">
+                <li class="sidebar-item {{ Route::is('report-loan.index') ? 'active' : '' }}">
+                    <a href="{{ route('report-loan.index') }}" class="sidebar-link">
                         <i class="bi bi-file-earmark-text-fill"></i>
                         <span>Loan Report</span>
                     </a>

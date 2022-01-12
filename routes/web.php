@@ -8,6 +8,8 @@ use App\Http\Controllers\PrinterController;
 use App\Http\Controllers\OthersController;
 use App\Http\Controllers\LoanController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ReportLoanController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,4 +41,6 @@ Route::resources([
     'others' => OthersController::class,
     'loan' => LoanController::class,
     'report-repairing' => ReportController::class,
+    'report-loan' => ReportLoanController::class,
+    'category' => CategoryController::class,
 ]);
