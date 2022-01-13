@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Department;
 
 class DepartmentController extends Controller
 {
@@ -13,7 +14,8 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        return view('layouts.department');
+        $data=Department::all();
+        return view('layouts.department.index',compact('data'));
     }
 
     /**
@@ -34,7 +36,14 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = $request->validate([
+            'name' => 'required',
+            'code' => 'required'
+        ]);
+        if($validate){
+            Department::insert($validate);
+        }
+        return redirect('/department')->with('Added', 'Data Added');
     }
 
     /**
@@ -68,7 +77,12 @@ class DepartmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $save = Department::find($id);
+        $save->name = $request->name;
+        $save->code = $request->code;
+        $save->save();
+        return back()
+            ->with('edited', 'Data Edited');
     }
 
     /**
@@ -79,6 +93,8 @@ class DepartmentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Department::find($id)->delete();
+
+        return back()->with('success', 'Data Deleted');
     }
 }

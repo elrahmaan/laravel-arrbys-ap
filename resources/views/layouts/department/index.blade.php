@@ -22,7 +22,6 @@
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
                 <h3>Data Department</h3>
-                <p class="text-subtitle text-muted">For user to check they list</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -57,14 +56,15 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form class="form form-vertical">
+                            <form action="{{ route('department.store') }}" class="form form-vertical" method="POST" enctype="multipart/form-data">
+                                @csrf
                                 <div class="form-body">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group has-icon-left">
-                                                <label for="first-name-icon">First Name</label>
+                                                <label for="first-name-icon">Department Name</label>
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control" placeholder="Input with icon left" id="first-name-icon">
+                                                    <input type="text" name= "name" class="form-control" placeholder="Department Name" id="first-name-icon" required>
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-person"></i>
                                                     </div>
@@ -74,33 +74,11 @@
                                         <div class="col-12">
 
                                             <div class="form-group has-icon-left">
-                                                <label for="email-id-icon">Email</label>
+                                                <label for="email-id-icon">Department Code</label>
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control" placeholder="Email" id="email-id-icon">
+                                                    <input type="text" name="code" class="form-control" placeholder="Department Code" required id="email-id-icon">
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-envelope"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group has-icon-left">
-                                                <label for="mobile-id-icon">Mobile</label>
-                                                <div class="position-relative">
-                                                    <input type="text" class="form-control" placeholder="Mobile" id="mobile-id-icon">
-                                                    <div class="form-control-icon">
-                                                        <i class="bi bi-phone"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group has-icon-left">
-                                                <label for="password-id-icon">Password</label>
-                                                <div class="position-relative">
-                                                    <input type="password" class="form-control" placeholder="Password" id="password-id-icon">
-                                                    <div class="form-control-icon">
-                                                        <i class="bi bi-lock"></i>
                                                     </div>
                                                 </div>
                                             </div>
@@ -113,7 +91,7 @@
                                 <i class="bx bx-x d-block d-sm-none"></i>
                                 <span class="d-none d-sm-block">Cancel</span>
                             </button>
-                            <button type="button" class="btn btn-primary ml-1" data-bs-dismiss="modal">
+                            <button type="submit" class="btn btn-primary ml-1" >
                                 <i class="bx bx-check d-block d-sm-none"></i>
                                 <span class="d-none d-sm-block">Add</span>
                             </button>
@@ -126,40 +104,37 @@
                 <table class="table" id="table1">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>City</th>
-                            <th>Status</th>
+                            <th>No</th>
+                            <th>Department Name</th>
+                            <th>Department Code</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($data as $d)
                         <tr>
-                            <td>Graiden</td>
-                            <td>vehicula.aliquet@semconsequat.co.uk</td>
-                            <td>076 4820 8838</td>
-                            <td>Offenburg</td>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $d->name }}</td>
+                            <td>{{ $d->code }}</td>
                             <td>
-                                <span class="badge bg-success">Active</span>
-                            </td>
-                            <td>
-                                <a href="#"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#showData">
+                                <a href="#"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#showData{{ $d->id }}">
                                         <i class="fa fa-eye"></i>
                                     </button>
                                 </a>
-                                <a href="#"><button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editData">
+                                <a href="#"><button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editData{{ $d->id }}">
                                     <i class="fa fa-edit"></i>
                                     </button>
                                 </a>
-                                <a href="#"><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteData">
+                                <form action="{{ route('department.destroy',$d->id) }}" method="POST" enctype="multipart/form-data"><button type="submit" onclick="return confirm('Are you sure?')" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteData">
+                                    @csrf
+                                    @method('DELETE')
                                     <i class="fa fa-trash-alt"></i>
                                     </button>
-                                </a>
+                                </form>
                             </td>
 
                             <!-- modal show data -->
-                            <div class="modal fade text-left" id="showData" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
+                            <div class="modal fade text-left" id="showData{{ $d->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header bg-primary">
@@ -175,11 +150,11 @@
                                                     <div class="row">
                                                         <div class="col-12">
                                                             <div class="form-group has-icon-left">
-                                                                <label for="first-name-icon">First Name</label>
+                                                                <label for="first-name-icon">Department Name</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" class="form-control" placeholder="Input with icon left" id="first-name-icon">
+                                                                    <input type="text" disabled class="form-control" id="first-name-icon">
                                                                     <div class="form-control-icon">
-                                                                        <i class="bi bi-person"></i>
+                                                                        <i class="bi bi-person">{{ $d->name }}</i>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -187,33 +162,11 @@
                                                         <div class="col-12">
 
                                                             <div class="form-group has-icon-left">
-                                                                <label for="email-id-icon">Email</label>
+                                                                <label for="email-id-icon">Department Code</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" class="form-control" placeholder="Email" id="email-id-icon">
+                                                                    <input type="text" disabled class="form-control" id="email-id-icon">
                                                                     <div class="form-control-icon">
-                                                                        <i class="bi bi-envelope"></i>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12">
-                                                            <div class="form-group has-icon-left">
-                                                                <label for="mobile-id-icon">Mobile</label>
-                                                                <div class="position-relative">
-                                                                    <input type="text" class="form-control" placeholder="Mobile" id="mobile-id-icon">
-                                                                    <div class="form-control-icon">
-                                                                        <i class="bi bi-phone"></i>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12">
-                                                            <div class="form-group has-icon-left">
-                                                                <label for="password-id-icon">Password</label>
-                                                                <div class="position-relative">
-                                                                    <input type="password" class="form-control" placeholder="Password" id="password-id-icon">
-                                                                    <div class="form-control-icon">
-                                                                        <i class="bi bi-lock"></i>
+                                                                        <i class="bi bi-envelope">{{ $d->code }}</i>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -224,11 +177,7 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-light-primary" data-bs-dismiss="modal">
                                                 <i class="bx bx-x d-block d-sm-none"></i>
-                                                <span class="d-none d-sm-block">Cancel</span>
-                                            </button>
-                                            <button type="button" class="btn btn-primary ml-1" data-bs-dismiss="modal">
-                                                <i class="bx bx-check d-block d-sm-none"></i>
-                                                <span class="d-none d-sm-block">Add</span>
+                                                <span class="d-none d-sm-block">Back</span>
                                             </button>
                                         </div>
                                         </form>
@@ -237,7 +186,7 @@
                             </div>
 
                             <!-- modal edit data -->
-                            <div class="modal fade text-left" id="editData" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
+                            <div class="modal fade text-left" id="editData{{ $d->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header bg-warning">
@@ -248,14 +197,16 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form class="form form-vertical">
+                                            <form action="{{ route('department.update',$d->id) }}" class="form form-vertical" method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                @method('PUT')
                                                 <div class="form-body">
                                                     <div class="row">
                                                         <div class="col-12">
                                                             <div class="form-group has-icon-left">
-                                                                <label for="first-name-icon">First Name</label>
+                                                                <label for="first-name-icon">Department Name</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" class="form-control" placeholder="Input with icon left" id="first-name-icon">
+                                                                    <input type="text" name="name" class="form-control" value="{{ $d->name }}" id="first-name-icon">
                                                                     <div class="form-control-icon">
                                                                         <i class="bi bi-person"></i>
                                                                     </div>
@@ -265,33 +216,11 @@
                                                         <div class="col-12">
 
                                                             <div class="form-group has-icon-left">
-                                                                <label for="email-id-icon">Email</label>
+                                                                <label for="email-id-icon">Department Code</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" class="form-control" placeholder="Email" id="email-id-icon">
+                                                                    <input type="text" name="code" class="form-control" value="{{ $d->code }}" id="email-id-icon">
                                                                     <div class="form-control-icon">
                                                                         <i class="bi bi-envelope"></i>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12">
-                                                            <div class="form-group has-icon-left">
-                                                                <label for="mobile-id-icon">Mobile</label>
-                                                                <div class="position-relative">
-                                                                    <input type="text" class="form-control" placeholder="Mobile" id="mobile-id-icon">
-                                                                    <div class="form-control-icon">
-                                                                        <i class="bi bi-phone"></i>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12">
-                                                            <div class="form-group has-icon-left">
-                                                                <label for="password-id-icon">Password</label>
-                                                                <div class="position-relative">
-                                                                    <input type="password" class="form-control" placeholder="Password" id="password-id-icon">
-                                                                    <div class="form-control-icon">
-                                                                        <i class="bi bi-lock"></i>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -304,7 +233,7 @@
                                                 <i class="bx bx-x d-block d-sm-none"></i>
                                                 <span class="d-none d-sm-block">Cancel</span>
                                             </button>
-                                            <button type="button" class="btn btn-warning ml-1" data-bs-dismiss="modal">
+                                            <button type="submit" class="btn btn-warning ml-1">
                                                 <i class="bx bx-check d-block d-sm-none"></i>
                                                 <span class="d-none d-sm-block">Update</span>
                                             </button>
@@ -390,7 +319,9 @@
                                     </div>
                                 </div>
                             </div>
-                        </tr>
+                        </tr> 
+                        @endforeach
+                       
 
                     </tbody>
                 </table>
