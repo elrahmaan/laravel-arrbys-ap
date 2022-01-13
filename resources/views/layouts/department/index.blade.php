@@ -116,12 +116,12 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $d->name }}</td>
                             <td>{{ $d->code }}</td>
-                            <td>
-                                <a href="#"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#showData{{ $d->id }}">
+                            <td class="d-flex">
+                                <a href="#"><button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#showData{{ $d->id }}">
                                         <i class="fa fa-eye"></i>
                                     </button>
                                 </a>
-                                <a href="#"><button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editData{{ $d->id }}">
+                                <a href="#"><button type="button" class="btn btn-warning me-2" data-bs-toggle="modal" data-bs-target="#editData{{ $d->id }}">
                                     <i class="fa fa-edit"></i>
                                     </button>
                                 </a>

@@ -123,6 +123,7 @@
                 <table class="table" id="table1">
                     <thead>
                         <tr>
+                            <th>No</th>
                             <th>Name</th>
                             <th>Email</th>
                             <th>Action</th>
@@ -131,6 +132,7 @@
                     <tbody>
                         <tr>
                             @foreach ($user as $i)
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $i->name }}</td>
                                 <td>{{ $i->email }}</td>
                                 <td class="d-flex">
