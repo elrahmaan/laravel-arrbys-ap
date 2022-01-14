@@ -13,12 +13,14 @@
     <link rel="stylesheet" href="assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/css/app.css">
+    <link rel="stylesheet" href="assets/vendors/sweetalert2/sweetalert2.min.css">
     <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="assets/vendors/fontawesome/all.min.css">
 </head>
 
 <body>
     @include('components.sidebar')
+    @include('sweetalert::alert')
     <div id="app">
         <div id="main">
             <header class="mb-3">
@@ -38,6 +40,5 @@
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/vendors/fontawesome/all.min.js"></script>
     <script src="assets/js/mazer.js"></script>
-</body>
-
+     </body>
 </html>

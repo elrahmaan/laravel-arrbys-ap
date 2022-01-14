@@ -14,8 +14,8 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $data=Department::all();
-        return view('layouts.department.index',compact('data'));
+        $data = Department::all();
+        return view('layouts.department.index', compact('data'));
     }
 
     /**
@@ -40,10 +40,10 @@ class DepartmentController extends Controller
             'name' => 'required',
             'code' => 'required'
         ]);
-        if($validate){
+        if ($validate) {
             Department::insert($validate);
         }
-        return redirect('/department')->with('Added', 'Data Added');
+        return redirect('/department')->with('success', 'Department Berhasil Di Tambah !');
     }
 
     /**
@@ -82,7 +82,7 @@ class DepartmentController extends Controller
         $save->code = $request->code;
         $save->save();
         return back()
-            ->with('edited', 'Data Edited');
+            ->with('success', 'Department Berhasil Di Update!');
     }
 
     /**
@@ -94,7 +94,12 @@ class DepartmentController extends Controller
     public function destroy($id)
     {
         Department::find($id)->delete();
-
-        return back()->with('success', 'Data Deleted');
+        return back()->with('success', 'User Berhasil Di Hapus!');
+    }
+    public function confirm($id){
+        alert()->question('Apakah yakin untuk hapus?','Anda tidak akan dapat mengembalikan ini!')
+               ->showConfirmButton( '<a href="/delete/department/'. $id .'" class="text-white" style="text-decoration:none"> Yes! Delete it</a>', '#3085d6')->toHtml()
+               ->showCancelButton('Cancel', '#aaa')->reverseButtons();
+               return redirect('/department');
     }
 }
