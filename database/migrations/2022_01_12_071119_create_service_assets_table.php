@@ -14,18 +14,18 @@ class CreateServiceAssetsTable extends Migration
     public function up()
     {
         Schema::create('service_assets', function (Blueprint $table) {
-            $table->id();
+            $table->id()->primary();
             $table->string('name');
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('asset_categories');
-            $table->unsignedBigInteger('department_id');
+            $table->unsignedBigInteger('department_id')->nullable();
             $table->foreign('department_id')->references('id')->on('departments');
             $table->text('image')->nullable();
             $table->integer('qty');
-            $table->string('complainant_name');
+            $table->string('complainant_name')->nullable();
             $table->string('status');
             $table->string('desc_complain')->nullable();
-            $table->string('diagnose');
+            $table->string('diagnose')->nullable();
             $table->date('date');
             $table->date('date_estimation_fixed')->nullable();
             $table->date('date_fixed')->nullable();

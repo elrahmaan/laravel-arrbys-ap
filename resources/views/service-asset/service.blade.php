@@ -67,9 +67,9 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group has-icon-left">
-                                                <label for="first-name-icon">Asset Name</label>
+                                                <label for="first-name-icon">Asset Name*</label>
                                                 <div class="position-relative">
-                                                    <input type="text" name="name" class="form-control" placeholder="Asset Name" id="first-name-icon">
+                                                    <input type="text" name="name" class="form-control" placeholder="Asset Name" id="first-name-icon" required>
                                                     <div class="form-control-icon">
                                                         <i class="fa fa-box"></i>
                                                     </div>
@@ -80,34 +80,32 @@
                                             <div class="form-group has-icon-left">
                                                 <label for="password-id-icon">Category</label>
                                                 <div class="position-relative">
-
-                                                    <input type="text" name="category_id" class="form-control" value="Monitor" id="password-id-icon" disabled>
-
-
-                                                    <div class="form-control-icon">
-                                                        <i class="fa fa-user"></i>
-                                                    </div>
+                                                    <select class="choices form-select" name="category_id">
+                                                        @foreach ($categories as $cat)
+                                                        <option value="{{$cat->id}}">{{$cat->name}}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <label for="email-id-icon">Image</label>
                                             <div class="position-relative mb-2">
-                                                <input class="form-control" name="image" type="file" id="formFile">
+                                                <input class="form-control" name="image" type="file" id="formFile" required>
                                                 <!-- <img src="" alt=""> -->
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <label for="mobile-id-icon">Detail (Specification)</label>
+                                            <label for="mobile-id-icon">Detail (Specification)*</label>
                                             <div class="position-relative mb-2">
-                                                <textarea class="form-control" name="detail_of_specification" id="" rows="5">tes</textarea>
+                                                <textarea class="form-control" name="detail_of_specification" id="" rows="5" required></textarea>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group has-icon-left">
-                                                <label for="password-id-icon">Quantity</label>
+                                                <label for="password-id-icon">Quantity*</label>
                                                 <div class="position-relative">
-                                                    <input type="number" name="qty" class="form-control" placeholder="Quantity" id="password-id-icon">
+                                                    <input type="number" name="qty" class="form-control" placeholder="Quantity" id="password-id-icon" required>
                                                     <div class="form-control-icon">
                                                         <i class="fa fa-sort-numeric-up"></i>
                                                     </div>
@@ -126,15 +124,11 @@
                                                 </div>
                                             </div>
                                         </div>
-
-
-
-
                                         <div class="col-12">
                                             <label for="password-id-icon">Department of Complainant</label>
                                             <div class="position-relative">
                                                 <select class="choices form-select" name="department_id">
-                                                    <option value="-" selected>-</option>
+                                                    <option value="" selected>-</option>
                                                     @foreach ($departments as $dep)
                                                     <option value="{{$dep->id}}">{{$dep->name}}</option>
                                                     @endforeach
@@ -142,7 +136,7 @@
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <label for="password-id-icon">Status</label>
+                                            <label for="password-id-icon">Status*</label>
                                             <div class="position-relative mb-2">
                                                 <div class="form-check form-check-success">
                                                     <input class="form-check-input" type="radio" name="status" id="Success" value="Good">
@@ -157,7 +151,7 @@
                                                     </label>
                                                 </div>
                                                 <div class="form-check form-check-danger">
-                                                    <input class="form-check-input" type="radio" name="status" id="Danger" value="Broken">
+                                                    <input class="form-check-input" type="radio" name="status" id="Danger" value="Broken" checked>
                                                     <label class="form-check-label" for="Danger">
                                                         Broken
                                                     </label>
@@ -176,20 +170,18 @@
                                         <div class="col-12">
                                             <label for="password-id-icon">Complain Desc</label>
                                             <div class="position-relative mb-2">
-                                                <textarea class="form-control" name="desc_complain" id="" rows="5">tes</textarea>
+                                                <textarea class="form-control" name="desc_complain" id="" rows="5"></textarea>
                                             </div>
 
                                         </div>
 
                                         <div class="col-12">
-                                            <label for="password-id-icon">Date of entry</label>
+                                            <label for="password-id-icon">Date of entry*</label>
                                             <div class="position-relative mb-2">
-                                                <input type="datetime-local" name="date" class="form-control" placeholder="Choose a date" id="password-id-icon">
+                                                <input type="datetime-local" name="date" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
 
                                             </div>
-
                                         </div>
-
                                         <div class="col-12">
                                             <label for="password-id-icon">Estimated date completed</label>
                                             <div class="position-relative mb-2">
@@ -231,7 +223,8 @@
                         <tr>
                             <td>{{$service->id}}</td>
                             <td>{{$service->name}}</td>
-                            <td>{{$service->department->name}}</td>
+                            <!-- {{--<td>{{$service->category->name}}</td>--}} -->
+                            <td>{{$service->category->name}}</td>
                             <td><img src="{{asset($service->image)}}" alt="" width="60"></td>
                             <td>{{$service->qty}}</td>
                             <td>
@@ -283,9 +276,20 @@
                                                             <div class="form-group has-icon-left">
                                                                 <label for="id-icon">ID</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" class="form-control" placeholder="ID" id="id-icon" disabled>
+                                                                    <input type="text" class="form-control" placeholder="{{$service->id}}" id="id-icon" disabled>
                                                                     <div class="form-control-icon">
                                                                         <i class="bi bi-key-fill"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <div class="form-group has-icon-left">
+                                                                <label for="id-icon">Category</label>
+                                                                <div class="position-relative">
+                                                                    <input type="text" class="form-control" placeholder="{{$service->category->name}}" id="id-icon" disabled>
+                                                                    <div class="form-control-icon">
+                                                                        <i class="bi bi-grid-1x2-fill"></i>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -341,15 +345,12 @@
                                                             <div class="form-group has-icon-left">
                                                                 <label for="password-id-icon">Department</label>
                                                                 <div class="position-relative">
-                                                                    {{--@foreach ($departments as $dep)
-
-                                                                    @endforeach
-                                                                    @if ($service->category_id != null)
-
+                                                                    @if ($service->department_id != null)
+                                                                    <input type="text" class="form-control" value="{{$service->department->name}}" id="password-id-icon" disabled>
                                                                     @else
+                                                                    <input type="text" class="form-control" value="" id="password-id-icon" disabled>
+                                                                    @endif
 
-                                                                    @endif--}}
-                                                                    {{--<input type="text" class="form-control" value="{{$service->department->name}}" id="password-id-icon" disabled>--}}
                                                                     <div class="form-control-icon">
                                                                         <i class="fa fa-window-restore"></i>
                                                                     </div>
@@ -424,7 +425,7 @@
                             </div>
 
                             <!-- modal edit data -->
-                            <div class="modal fade text-left" id="editData" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
+                            <div class="modal fade text-left" id="editData{{$service->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header bg-warning">
@@ -440,20 +441,9 @@
                                                     <div class="row">
                                                         <div class="col-12">
                                                             <div class="form-group has-icon-left">
-                                                                <label for="id-icon">ID</label>
+                                                                <label for="first-name-icon">Asset Name*</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" class="form-control" placeholder="ID" id="id-icon" disabled>
-                                                                    <div class="form-control-icon">
-                                                                        <i class="bi bi-key-fill"></i>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12">
-                                                            <div class="form-group has-icon-left">
-                                                                <label for="first-name-icon">Asset Name</label>
-                                                                <div class="position-relative">
-                                                                    <input type="text" class="form-control" placeholder="Asset Name" id="first-name-icon">
+                                                                    <input type="text" name="name" class="form-control" placeholder="Asset Name" value="{{$service->name}}" id="first-name-icon" required>
                                                                     <div class="form-control-icon">
                                                                         <i class="fa fa-box"></i>
                                                                     </div>
@@ -461,22 +451,35 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
-                                                            <label for="email-id-icon">Image</label>
-                                                            <div class="position-relative mb-2">
-                                                                <img src="" alt="">
+                                                            <div class="form-group has-icon-left">
+                                                                <label for="password-id-icon">Category</label>
+                                                                <div class="position-relative">
+                                                                    <select class="choices form-select" name="category_id">
+                                                                        @foreach ($categories as $cat)
+                                                                        <option value="{{$cat->id}}">{{$cat->name}}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
-                                                            <label for="mobile-id-icon">Detail (Specification)</label>
+                                                            <label for="email-id-icon">Image</label>
                                                             <div class="position-relative mb-2">
-                                                                <textarea class="form-control" name="" id="" rows="5">tes</textarea>
+                                                                <input class="form-control" name="image" type="file" id="formFile" required>
+                                                                <!-- <img src="" alt=""> -->
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <label for="mobile-id-icon">Detail (Specification)*</label>
+                                                            <div class="position-relative mb-2">
+                                                                <textarea class="form-control" name="detail_of_specification" id="" rows="5" required></textarea>
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
                                                             <div class="form-group has-icon-left">
-                                                                <label for="password-id-icon">Quantity</label>
+                                                                <label for="password-id-icon">Quantity*</label>
                                                                 <div class="position-relative">
-                                                                    <input type="password" class="form-control" placeholder="Quantity" id="password-id-icon">
+                                                                    <input type="number" name="qty" class="form-control" placeholder="Quantity" id="password-id-icon" required>
                                                                     <div class="form-control-icon">
                                                                         <i class="fa fa-sort-numeric-up"></i>
                                                                     </div>
@@ -488,29 +491,52 @@
                                                             <div class="form-group has-icon-left">
                                                                 <label for="password-id-icon">Complainant</label>
                                                                 <div class="position-relative">
-                                                                    <input type="password" class="form-control" placeholder="Complainant Name" id="password-id-icon">
+                                                                    <input type="text" name="complainant_name" class="form-control" placeholder="Complainant Name" id="password-id-icon">
                                                                     <div class="form-control-icon">
                                                                         <i class="fa fa-user"></i>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-
                                                         <div class="col-12">
-                                                            <div class="form-group has-icon-left">
-                                                                <label for="password-id-icon">Department</label>
-                                                                <div class="position-relative">
-                                                                    <input type="password" class="form-control" placeholder="Department of Complainant" id="password-id-icon">
-                                                                    <div class="form-control-icon">
-                                                                        <i class="fa fa-window-restore"></i>
-                                                                    </div>
-                                                                </div>
+                                                            <label for="password-id-icon">Department of Complainant</label>
+                                                            <div class="position-relative">
+                                                                <select class="choices form-select" name="department_id">
+                                                                    <option value="" selected>-</option>
+                                                                    @foreach ($departments as $dep)
+                                                                    <option value="{{$dep->id}}">{{$dep->name}}</option>
+                                                                    @endforeach
+                                                                </select>
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
-                                                            <label for="password-id-icon">Status</label>
+                                                            <label for="password-id-icon">Status*</label>
                                                             <div class="position-relative mb-2">
-                                                                <span class="badge bg-success">Good</span>
+                                                                <div class="form-check form-check-success">
+                                                                    <input class="form-check-input" type="radio" name="status" id="Success" value="Good">
+                                                                    <label class="form-check-label" for="Success">
+                                                                        Good
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check form-check-warning">
+                                                                    <input class="form-check-input" type="radio" name="status" id="Warning" value="In Repair">
+                                                                    <label class="form-check-label" for="Warning">
+                                                                        In Repair
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check form-check-danger">
+                                                                    <input class="form-check-input" type="radio" name="status" id="Danger" value="Broken" checked>
+                                                                    <label class="form-check-label" for="Danger">
+                                                                        Broken
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check form-check-info">
+                                                                    <input class="form-check-input" type="radio" name="status" id="Info" value="New">
+                                                                    <label class="form-check-label" for="Info">
+                                                                        New
+                                                                    </label>
+                                                                </div>
+                                                                <!-- <span class="badge bg-success">Good</span> -->
                                                             </div>
 
                                                         </div>
@@ -518,38 +544,22 @@
                                                         <div class="col-12">
                                                             <label for="password-id-icon">Complain Desc</label>
                                                             <div class="position-relative mb-2">
-                                                                <textarea class="form-control" name="" id="" rows="5">tes</textarea>
+                                                                <textarea class="form-control" name="desc_complain" id="" rows="5"></textarea>
                                                             </div>
 
                                                         </div>
 
                                                         <div class="col-12">
-                                                            <label for="password-id-icon">Diagnose</label>
+                                                            <label for="password-id-icon">Date of entry*</label>
                                                             <div class="position-relative mb-2">
-                                                                <textarea class="form-control" name="" id="" rows="5">tes</textarea>
+                                                                <input type="datetime-local" name="date" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
+
                                                             </div>
                                                         </div>
-
-                                                        <div class="col-12">
-                                                            <label for="password-id-icon">Date of entry</label>
-                                                            <div class="position-relative mb-2">
-                                                                <input type="datetime-local" class="form-control" placeholder="Choose a date" id="password-id-icon">
-
-                                                            </div>
-
-                                                        </div>
-
                                                         <div class="col-12">
                                                             <label for="password-id-icon">Estimated date completed</label>
                                                             <div class="position-relative mb-2">
-                                                                <input type="datetime-local" class="form-control" placeholder="Choose a date" id="password-id-icon">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-12">
-                                                            <label for="password-id-icon">Date Fixed</label>
-                                                            <div class="position-relative mb-2">
-                                                                <input type="datetime-local" class="form-control" placeholder="Choose a date" id="password-id-icon">
+                                                                <input type="datetime-local" name="date_estimation_fixed" class="form-control" placeholder="Choose a date" id="password-id-icon">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -605,7 +615,7 @@
                                                         <div class="col-12">
                                                             <label for="mobile-id-icon">Detail (Specification)</label>
                                                             <div class="position-relative mb-2">
-                                                                <textarea class="form-control" name="detail_of_specification" id="" rows="5">tes</textarea>
+                                                                <textarea class="form-control" name="detail_of_specification" id="" rows="5"></textarea>
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
@@ -640,26 +650,8 @@
                                                                     <option value="{{$dep->id}}">{{$dep->name}}</option>
                                                                     @endforeach
                                                                 </select>
-                                                                <!-- <input type="password" name="" class="form-control" placeholder="Department of Complainant" id="password-id-icon">
-                                                    <div class="form-control-icon">
-                                                        <i class="fa fa-window-restore"></i>
-                                                    </div> -->
                                                             </div>
-                                                            <!-- <div class="form-group has-icon-left">
-                                                <label for="password-id-icon">Department</label>
-                                                <div class="position-relative">
-                                                    <select class="choices form-select">
-                                                        <option value="square">Square</option>
-                                                        <option value="rectangle">Rectangle</option>
-                                                        <option value="rombo">Rombo</option>
-                                                        <option value="romboid">Romboid</option>
-                                                        <option value="trapeze">Trapeze</option>
-                                                        <option value="traible">Triangle</option>
-                                                        <option value="polygon">Polygon</option>
-                                                    </select>
-                                                    
-                                                </div>
-                                            </div> -->
+
                                                         </div>
                                                         <div class="col-12">
                                                             <label for="password-id-icon">Status</label>
@@ -696,7 +688,7 @@
                                                         <div class="col-12">
                                                             <label for="password-id-icon">Complain Desc</label>
                                                             <div class="position-relative mb-2">
-                                                                <textarea class="form-control" name="desc_complain" id="" rows="5">tes</textarea>
+                                                                <textarea class="form-control" name="desc_complain" id="" rows="5"></textarea>
                                                             </div>
 
                                                         </div>
@@ -704,7 +696,7 @@
                                                         <div class="col-12">
                                                             <label for="password-id-icon">Diagnose</label>
                                                             <div class="position-relative mb-2">
-                                                                <textarea class="form-control" name="diagnose" id="" rows="5">tes</textarea>
+                                                                <textarea class="form-control" name="diagnose" id="" rows="5"></textarea>
                                                             </div>
                                                         </div>
 

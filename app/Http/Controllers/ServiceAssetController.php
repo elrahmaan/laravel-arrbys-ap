@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AssetCategory;
 use App\Models\Department;
 use App\Models\ServiceAsset;
 use Illuminate\Http\Request;
@@ -18,9 +19,9 @@ class ServiceAssetController extends Controller
     {
         $departments = Department::all();
 
-        // $monitor = ServiceAsset::where('category_id', '1');
+        $categories = AssetCategory::all();
         $services = ServiceAsset::all();
-        return view('service-asset.service', compact('departments', 'services'));
+        return view('service-asset.service', compact('departments', 'services', 'categories'));
     }
 
     /**
@@ -44,7 +45,7 @@ class ServiceAssetController extends Controller
         $asset = new ServiceAsset();
         $asset->id = time();
         $asset->name = $request->name;
-        $asset->category_id = 1;
+        $asset->category_id = $request->category_id;
         if ($request->file('image')) {
             $image = $request->image;
             $file_name =  time() . "." . $image->getClientOriginalExtension();
