@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AssetCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -13,7 +15,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('layouts.category');
+        $countCategory = DB::table('asset_categories')->count();
+        $id = $countCategory + 1;
+
+        $categories = AssetCategory::all();
+        return view('categories.category', compact('id', 'categories'));
     }
 
     /**
@@ -34,7 +40,14 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $countCategory = DB::table('asset_categories')->count();
+        $id = $countCategory + 1;
+        $category = new AssetCategory();
+        $category->id = $id;
+        $category->name = $request->name;
+        $category->save();
+
+        return redirect()->route('category.index');
     }
 
     /**
@@ -68,7 +81,11 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $category = AssetCategory::find($id);
+        $category->name = $request->name;
+        $category->save();
+
+        return redirect()->route('category.index');
     }
 
     /**
@@ -79,6 +96,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        AssetCategory::find($id)->delete();
+
+        return redirect()->route('category.index');
     }
 }
