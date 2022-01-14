@@ -1,16 +1,11 @@
 <?php
 
-use App\Http\Controllers\CpuController;
-use App\Http\Controllers\KeyboardController;
-use App\Http\Controllers\MonitorController;
-use App\Http\Controllers\MouseController;
-use App\Http\Controllers\PrinterController;
-use App\Http\Controllers\OthersController;
 use App\Http\Controllers\LoanController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ReportLoanController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\ServiceAssetController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,12 +33,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 
 Route::resources([
-    'monitor' => MonitorController::class,
-    'printer' => PrinterController::class,
-    'keyboard' => KeyboardController::class,
-    'mouse' => MouseController::class,
-    'cpu' => CpuController::class,
-    'others' => OthersController::class,
+    'service' => ServiceAssetController::class,
     'loan' => LoanController::class,
     'report-repairing' => ReportController::class,
     'report-loan' => ReportLoanController::class,

@@ -3,8 +3,7 @@
         <div class="sidebar-header">
             <div class="d-flex justify-content-between">
                 <div class="logo ">
-                    <a href="/"><img src="assets/images/logo/logoap1.png" alt="Logo" srcset=""
-                            style="width: 190px; height: 100px;" /></a>
+                    <a href="/"><img src="assets/images/logo/logoap1.png" alt="Logo" srcset="" style="width: 190px; height: 100px;" /></a>
                 </div>
                 <div class="toggler">
                     <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -40,32 +39,11 @@
                         <span>Categories</span>
                     </a>
                 </li>
-                <li
-                    class="sidebar-item has-sub {{ Route::is('monitor.index') || Route::is('printer.index') || Route::is('keyboard.index') || Route::is('mouse.index') || Route::is('cpu.index') ? 'active' : '' }}">
-                    <a href="#" class="sidebar-link">
-                        <i class="bi bi-stack"></i>
+                <li class="sidebar-item {{ Route::is('service.index') ? 'active' : '' }}">
+                    <a href="{{route('service.index')}}" class="sidebar-link">
+                        <i class="fa fa-wrench"></i>
                         <span>Service of Assets</span>
                     </a>
-                    <ul class="submenu">
-                        <li class="submenu-item {{ Route::is('monitor.index') ? 'active' : '' }}">
-                            <a href="{{ route('monitor.index') }}">Monitor</a>
-                        </li>
-                        <li class="submenu-item {{ Route::is('printer.index') ? 'active' : '' }}">
-                            <a href="{{ route('printer.index') }}">Printer</a>
-                        </li>
-                        <li class="submenu-item {{ Route::is('keyboard.index') ? 'active' : '' }}">
-                            <a href="{{ route('keyboard.index') }}">Keyboard</a>
-                        </li>
-                        <li class="submenu-item {{ Route::is('mouse.index') ? 'active' : '' }}">
-                            <a href="{{ route('mouse.index') }}">Mouse</a>
-                        </li>
-                        <li class="submenu-item {{ Route::is('cpu.index') ? 'active' : '' }}">
-                            <a href="{{ route('cpu.index') }}">CPU</a>
-                        </li>
-                        <li class="submenu-item {{ Route::is('others.index') ? 'active' : '' }}">
-                            <a href="{{ route('cpu.index') }}">Others</a>
-                        </li>
-                    </ul>
                 </li>
 
                 <li class="sidebar-title">Loan</li>
