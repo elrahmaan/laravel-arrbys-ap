@@ -36,6 +36,11 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
+// Delete
+Route::get('/delete/department/{id}', [DepartmentController::class, 'destroy']);
+Route::get('/department/delete/{id}', [DepartmentController::class, 'confirm']);
+Route::get('/delete/{id}', [UserController::class, 'destroy']);
+Route::get('/user/delete/{id}', [UserController::class, 'confirm']);
 
 Route::resources([
     'monitor' => MonitorController::class,

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -41,7 +42,7 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-        return redirect('/user')->with('Added', 'Data Added');
+        return redirect('/user')->with('success', 'Data Berhasil Di Tambah!');
     }
 
     /**
@@ -79,7 +80,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user -> save();
-        return redirect('/user');
+        return redirect('/user')->with('success', 'User Berhasil Di Update!');
     }
 
     /**
@@ -92,6 +93,12 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $user -> delete();
+        return redirect('/user')->with('success', 'User Berhasil Di Hapus!');
+    }
+    public function confirm($id){
+        alert()->question('Apakah yakin untuk hapus?','Anda tidak akan dapat mengembalikan ini!')
+               ->showConfirmButton( '<a href="/delete/'. $id .'" class="text-white" style="text-decoration:none"> Yes! Delete it</a>', '#3085d6')->toHtml()
+               ->showCancelButton('Cancel', '#aaa')->reverseButtons();
         return redirect('/user');
     }
 }

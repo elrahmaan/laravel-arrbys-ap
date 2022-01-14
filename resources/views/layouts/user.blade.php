@@ -16,7 +16,11 @@
         // Jquery Datatable
         let jquery_datatable = $("#table1").DataTable()
     </script>
+
+
 @endsection
+
+
 <div class="page-heading">
     <div class="page-title">
         <div class="row">
@@ -131,7 +135,8 @@
                     </thead>
                     <tbody>
                         <tr>
-                            @foreach ($user as $i)
+                            @forelse ($user as $i)
+                            
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $i->name }}</td>
                                 <td>{{ $i->email }}</td>
@@ -146,14 +151,12 @@
                                             <i class="fa fa-edit"></i>
                                         </button>
                                     </a>
-                                    <form action="{{ route('user.destroy',$i->id) }}" method="POST" enctype="multipart/form-data">
-                                        @csrf
-                                        @method('DELETE')
-                                    <a href="#"><button type="submit" class="btn btn-danger" data-bs-toggle="modal">
+                                    <a href="/user/delete/{{$i->id}}"><button type="submit" class="btn btn-danger"  data-bs-toggle="modal">
                                             <i class="fa fa-trash-alt"></i>
                                         </button>
                                     </a> 
                                 </td>
+                                
 
                                 <!-- modal show data -->
                                 <div class="modal fade text-left" id="showData{{ $i->id }}" tabindex="-1" role="dialog"
@@ -282,7 +285,14 @@
                                 </div>
                                 {{-- Modal repair --}}
                         </tr>
-                        @endforeach
+                        @empty
+                        <tr>
+                            <td colspan="4" class="px-4 py-2 text-center">
+                                Data Kosong
+                            </td>
+                        </tr>
+                        
+                        @endforelse
 
                     </tbody>
                 </table>
@@ -292,4 +302,5 @@
     </section>
     <!-- Basic Tables end -->
 </div>
+
 @endsection
