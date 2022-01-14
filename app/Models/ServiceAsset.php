@@ -10,7 +10,7 @@ class ServiceAsset extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
-    public function asset_category()
+    public function category()
     {
         return $this->belongsTo(AssetCategory::class);
     }
