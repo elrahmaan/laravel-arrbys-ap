@@ -4,7 +4,7 @@
             <div class="d-flex justify-content-between">
                 <div class="logo ">
                     <a href="/"><img src="assets/images/logo/logoap1.png" alt="Logo" srcset=""
-                            style="width: 140px; height: 60px;" /></a>
+                            style="width: 190px; height: 100px;" /></a>
                 </div>
                 <div class="toggler">
                     <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
