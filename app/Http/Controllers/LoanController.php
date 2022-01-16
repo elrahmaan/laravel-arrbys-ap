@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use Illuminate\Http\Request;
+use App\Models\Loan;
 
 class LoanController extends Controller
 {
@@ -13,7 +15,9 @@ class LoanController extends Controller
      */
     public function index()
     {
-        return view('layouts.loan');
+        $data= Loan::all();
+        $department = Department::all();
+        return view('layouts.loan.index',compact('data','department'));
     }
 
     /**
@@ -34,7 +38,9 @@ class LoanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd(request()->all());
+        Loan::insert($request->all());
+        return redirect('/loan')->with('Added', 'Data Added');
     }
 
     /**

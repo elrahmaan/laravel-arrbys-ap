@@ -57,16 +57,17 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form class="form form-vertical">
+                            <form action="{{ route('loan.store') }}" class="form form-vertical" method="POST" enctype="multipart/form-data">
+                                @csrf
                                 <div class="form-body">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group has-icon-left">
-                                                <label for="first-name-icon">First Name</label>
+                                                <label for="first-name-icon">Name</label>
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control" placeholder="Input with icon left" id="first-name-icon">
+                                                    <input type="text" name="name" class="form-control" required>
                                                     <div class="form-control-icon">
-                                                        <i class="bi bi-person"></i>
+                                                        <i class="fa fa-user"></i>
                                                     </div>
                                                 </div>
                                             </div>
@@ -74,20 +75,33 @@
                                         <div class="col-12">
 
                                             <div class="form-group has-icon-left">
-                                                <label for="email-id-icon">Email</label>
+                                                <label for="email-id-icon">Unit</label>
+                                                <select class="form-select form-select-lg w-100" name="department_id" required>
+                                                    @foreach ($department as $department)
+                                                        <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                                        <div class="form-control-icon">
+                                                            <i class="fa fa-window-restore"></i>
+                                                        </div>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group has-icon-left">
+                                                <label for="mobile-id-icon">Approved By</label>
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control" placeholder="Email" id="email-id-icon">
+                                                    <input type="text" name="approved_by" class="form-control" id="mobile-id-icon" required>
                                                     <div class="form-control-icon">
-                                                        <i class="bi bi-envelope"></i>
+                                                        <i class="bi bi-pen"></i>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group has-icon-left">
-                                                <label for="mobile-id-icon">Mobile</label>
+                                                <label for="password-id-icon">Phone</label>
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control" placeholder="Mobile" id="mobile-id-icon">
+                                                    <input type="number" name="phone" class="form-control" required>
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-phone"></i>
                                                     </div>
@@ -96,14 +110,79 @@
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group has-icon-left">
-                                                <label for="password-id-icon">Password</label>
+                                                <label for="mobile-id-icon">Asset Name</label>
                                                 <div class="position-relative">
-                                                    <input type="password" class="form-control" placeholder="Password" id="password-id-icon">
+                                                    <input type="text" name="equipment" class="form-control" id="mobile-id-icon" required>
                                                     <div class="form-control-icon">
-                                                        <i class="bi bi-lock"></i>
+                                                        <i class="fa fa-box"></i>
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="form-group has-icon-left">
+                                            <label for="email-id-icon">Category</label>
+                                            <select class="form-select form-select-lg w-100" name="category_asset" required>
+                                                    <option value="1">AP</option>
+                                                    <option value="2">Sewa</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group has-icon-left">
+                                                <label for="mobile-id-icon">Purpose</label>
+                                                <div class="position-relative">
+                                                    <input type="text" name="purpose" class="form-control" id="mobile-id-icon" required>
+                                                
+                                                    <div class="form-control-icon">
+                                                        <i class="bi bi-receipt"></i>
+                                                    </div></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group has-icon-left">
+                                                <label for="mobile-id-icon">Detail Loan</label>
+                                                <div class="position-relative">
+                                                    <input type="text" name="detail_loan" class="form-control" id="mobile-id-icon" required>
+                                                
+                                                    <div class="form-control-icon">
+                                                        <i class="bi bi-receipt"></i>
+                                                    </div></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="password-id-icon">Loan Date*</label>
+                                            <div class="position-relative mb-2">
+                                                <input type="datetime-local" required name="loan_date" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="password-id-icon">Estimation Return Date*</label>
+                                            <div class="position-relative mb-2">
+                                                <input required type="datetime-local" name="estimation_return_date" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
+                                               
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="password-id-icon">Real Return Date*</label>
+                                            <div class="position-relative mb-2">
+                                                <input required type="datetime-local" name="real_return_date" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
+                                               
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="password-id-icon">Reason</label>
+                                            <div class="position-relative mb-2">
+                                                <textarea class="form-control" name="reason" id="" rows="5" required></textarea>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group has-icon-left">
+                                            <label for="email-id-icon">Status</label>
+                                            <select class="form-select form-select-lg w-100" name="status" required>
+                                                    <option value="1">Pinjam</option>
+                                                    <option value="2">Kembali</option>
+                                                    <option value="3">Terlambat</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -113,7 +192,7 @@
                                 <i class="bx bx-x d-block d-sm-none"></i>
                                 <span class="d-none d-sm-block">Cancel</span>
                             </button>
-                            <button type="button" class="btn btn-primary ml-1" data-bs-dismiss="modal">
+                            <button type="submit" class="btn btn-primary ml-1">
                                 <i class="bx bx-check d-block d-sm-none"></i>
                                 <span class="d-none d-sm-block">Add</span>
                             </button>
@@ -126,23 +205,39 @@
                 <table class="table" id="table1">
                     <thead>
                         <tr>
+                            <th>No</th>
                             <th>Name</th>
-                            <th>Email</th>
+                            <th>Unit</th>
+                            <th>Approved By</th>
                             <th>Phone</th>
-                            <th>City</th>
+                            <th>Asset Name</th>
+                            <th>Category Asset</th>
+                            <th>Purpose</th>
+                            <th>Detail Loan</th>
+                            <th>Loan Date</th>
+                            <th>Estimation Return Date</th>
+                            <th>Real Return Date</th>
+                            <th>Reason</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($data as $data)
                         <tr>
-                            <td>Graiden</td>
-                            <td>vehicula.aliquet@semconsequat.co.uk</td>
-                            <td>076 4820 8838</td>
-                            <td>Offenburg</td>
-                            <td>
-                                <span class="badge bg-success">Active</span>
-                            </td>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $data->name }}</td>
+                            <td>{{ $data->department_id }}</td>
+                            <td>{{ $data->approved_by }}</td>
+                            <td>{{ $data->phone }}</td>
+                            <td>{{ $data->equipment }}</td>
+                            <td>{{ $data->category_asset }}</td>
+                            <td>{{ $data->purpose }}</td>
+                            <td>{{ $data->loan_date }}</td>
+                            <td>{{ $data->estimation_return_date }}</td>
+                            <td>{{ $data->real_return_date }}</td>
+                            <td>{{ $data->reason }}</td>
+                            <td>{{ $data->status }}</td>
                             <td>
                                 <a href="#"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#showData">
                                         <i class="fa fa-eye"></i>
@@ -177,7 +272,7 @@
                                                             <div class="form-group has-icon-left">
                                                                 <label for="first-name-icon">First Name</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" class="form-control" placeholder="Input with icon left" id="first-name-icon">
+                                                                    <input type="text" class="form-control" id="first-name-icon">
                                                                     <div class="form-control-icon">
                                                                         <i class="bi bi-person"></i>
                                                                     </div>
@@ -390,7 +485,9 @@
                                     </div>
                                 </div>
                             </div>
-                        </tr>
+                        </tr> 
+                        @endforeach
+                        
 
                     </tbody>
                 </table>
