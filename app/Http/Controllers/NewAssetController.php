@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\AssetCategory;
 use App\Models\ServiceAsset;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class NewAssetController extends Controller
 {
@@ -16,7 +18,8 @@ class NewAssetController extends Controller
     public function index()
     {
         $categories = AssetCategory::all();
-        $services = ServiceAsset::where('status', 'New');
+        $services = DB::table('service_assets')
+            ->where('status', 'New')->get();
         return view('service-asset.new', compact('services', 'categories'));
     }
 
@@ -38,7 +41,27 @@ class NewAssetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $asset = new ServiceAsset();
+        $asset->id = time();
+        $asset->name = $request->name;
+        $asset->category_id = $request->category_id;
+        if ($request->file('image')) {
+            $image = $request->image;
+            $file_name =  time() . "." . $image->getClientOriginalExtension();
+            $path = public_path('/uploads/service-assets/new/');
+            $image->move($path, $file_name);
+            $image_data = '/uploads/service-assets/new/' . $file_name;
+            $asset->image = $image_data;
+        }
+
+
+        $asset->detail_of_specification = $request->detail_of_specification;
+        $asset->qty = $request->qty;
+        $asset->status = 'New';
+        $asset->date = $request->date;
+        $asset->save();
+
+        return redirect()->route('new.index');
     }
 
     /**
@@ -83,6 +106,13 @@ class NewAssetController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $service = ServiceAsset::find($id);
+        if ($service->image != null) {
+            $file_path =  $service->eform;
+            File::delete(public_path($file_path));
+            // unlink($file_path);
+        }
+        $service->delete();
+        return redirect()->route('new.index');
     }
 }

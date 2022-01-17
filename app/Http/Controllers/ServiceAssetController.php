@@ -144,6 +144,13 @@ class ServiceAssetController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $service = ServiceAsset::find($id);
+        if ($service->image != null) {
+            $file_path =  $service->eform;
+            File::delete(public_path($file_path));
+            // unlink($file_path);
+        }
+        $service->delete();
+        return redirect()->route('new.index');
     }
 }

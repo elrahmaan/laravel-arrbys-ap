@@ -112,49 +112,10 @@
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div class="col-12">
-                                            <div class="form-group has-icon-left">
-                                                <label for="password-id-icon">Complainant</label>
-                                                <div class="position-relative">
-                                                    <input type="text" name="complainant_name" class="form-control" placeholder="Complainant Name" id="password-id-icon">
-                                                    <div class="form-control-icon">
-                                                        <i class="fa fa-user"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <label for="password-id-icon">Department of Complainant</label>
-                                            <div class="position-relative">
-                                                <select class="choices form-select" name="department_id">
-                                                    <option value="" selected>-</option>
-                                                    @foreach ($departments as $dep)
-                                                    <option value="{{$dep->id}}">{{$dep->name}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12">
-                                            <label for="password-id-icon">Complain Desc</label>
-                                            <div class="position-relative mb-2">
-                                                <textarea class="form-control" name="desc_complain" id="" rows="5"></textarea>
-                                            </div>
-
-                                        </div>
-
                                         <div class="col-12">
                                             <label for="password-id-icon">Date of entry*</label>
                                             <div class="position-relative mb-2">
                                                 <input type="datetime-local" name="date" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
-
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <label for="password-id-icon">Estimated date completed</label>
-                                            <div class="position-relative mb-2">
-                                                <input type="datetime-local" name="date_estimation_fixed" class="form-control" placeholder="Choose a date" id="password-id-icon">
                                             </div>
                                         </div>
                                     </div>
@@ -183,7 +144,6 @@
                             <th>Category</th>
                             <th>Image</th>
                             <th>Qty</th>
-                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -192,26 +152,32 @@
                         <tr>
                             <td>{{$service->id}}</td>
                             <td>{{$service->name}}</td>
-                            <td>{{$service->category->name}}</td>
+                            @foreach ($categories as $cat)
+                            @if ($cat->id == $service->category_id)
+                            <td>{{$cat->name}}</td>
+                            @endif
+                            @endforeach
+
                             <td><img src="{{asset($service->image)}}" alt="" width="60"></td>
                             <td>{{$service->qty}}</td>
-                            <td>
-                                <a href="#"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#showData{{$service->id}}">
+                            <td class="d-flex">
+                                <a href="#"><button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#showData{{$service->id}}">
                                         <i class="fa fa-eye"></i>
                                     </button>
                                 </a>
-                                <a href="#"><button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editData{{$service->id}}">
+                                <a href="#"><button type="button" class="btn btn-warning me-2" data-bs-toggle="modal" data-bs-target="#editData{{$service->id}}">
                                         <i class="fa fa-edit"></i>
                                     </button>
                                 </a>
-                                <a href="#"><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteData">
-                                        <i class="fa fa-trash-alt"></i>
-                                    </button>
-                                </a>
-                                <a href="#"><button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#repairData{{$service->id}}">
-                                        <i class="fa fa-wrench"></i>
-                                    </button>
-                                </a>
+                                <form action="{{ route('new.destroy',$service->id) }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('DELETE')
+                                    <a href="#">
+                                        <button type="submit" class="btn btn-danger" data-bs-toggle="modal">
+                                            <i class="fa fa-trash-alt"></i>
+                                        </button>
+                                    </a>
+                                </form>
                             </td>
 
                             <!-- modal show data -->
@@ -244,7 +210,11 @@
                                                             <div class="form-group has-icon-left">
                                                                 <label for="id-icon">Category</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" class="form-control" placeholder="{{$service->category->name}}" id="id-icon" disabled>
+                                                                    @foreach ($categories as $cat)
+                                                                    @if ($cat->id == $service->category_id)
+                                                                    <input type="text" class="form-control" placeholder="{{$cat->name}}" id="id-icon" disabled>
+                                                                    @endif
+                                                                    @endforeach
                                                                     <div class="form-control-icon">
                                                                         <i class="bi bi-grid-1x2-fill"></i>
                                                                     </div>
@@ -287,85 +257,12 @@
                                                         </div>
 
                                                         <div class="col-12">
-                                                            <div class="form-group has-icon-left">
-                                                                <label for="password-id-icon">Complainant</label>
-                                                                <div class="position-relative">
-                                                                    <input type="text" class="form-control" id="password-id-icon" value="{{$service->complainant_name}}" disabled>
-                                                                    <div class="form-control-icon">
-                                                                        <i class="fa fa-user"></i>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-12">
-                                                            <div class="form-group has-icon-left">
-                                                                <label for="password-id-icon">Department</label>
-                                                                <div class="position-relative">
-                                                                    @if ($service->department_id != null)
-                                                                    <input type="text" class="form-control" value="{{$service->department->name}}" id="password-id-icon" disabled>
-                                                                    @else
-                                                                    <input type="text" class="form-control" value="" id="password-id-icon" disabled>
-                                                                    @endif
-
-                                                                    <div class="form-control-icon">
-                                                                        <i class="fa fa-window-restore"></i>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12">
-                                                            <label for="password-id-icon">Status</label>
-                                                            <div class="position-relative mb-2">
-                                                                @if ($service->status == 'Good')
-                                                                <span class="badge bg-success">Good</span>
-                                                                @elseif ($service->status == 'In Repair')
-                                                                <span class="badge bg-warning">In Repair</span>
-                                                                @elseif ($service->status == 'Broken')
-                                                                <span class="badge bg-danger">Broken</span>
-                                                                @elseif ($service->status == 'New')
-                                                                <span class="badge bg-info">New</span>
-                                                                @endif
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div class="col-12">
-                                                            <label for="password-id-icon">Complain Desc</label>
-                                                            <div class="position-relative mb-2">
-                                                                <textarea class="form-control" name="" id="" rows="5" disabled>{{$service->desc_complain}}</textarea>
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div class="col-12">
-                                                            <label for="password-id-icon">Diagnose</label>
-                                                            <div class="position-relative mb-2">
-                                                                <textarea class="form-control" name="" id="" rows="5" disabled>{{$service->diagnose}}</textarea>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-12">
                                                             <label for="password-id-icon">Date of entry</label>
                                                             <div class="position-relative mb-2">
                                                                 <input type="text" class="form-control" id="password-id-icon" value="{{$service->date}}" disabled>
 
                                                             </div>
 
-                                                        </div>
-
-                                                        <div class="col-12">
-                                                            <label for="password-id-icon">Estimated date completed</label>
-                                                            <div class="position-relative mb-2">
-                                                                <input type="text" class="form-control" value="{{$service->date_estimation_fixed}}" id="password-id-icon" disabled>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-12">
-                                                            <label for="password-id-icon">Date Fixed</label>
-                                                            <div class="position-relative mb-2">
-                                                                <input type="text" class="form-control" value="{{$service->date_fixed}}" id="password-id-icon" disabled>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -448,85 +345,11 @@
                                                         </div>
 
                                                         <div class="col-12">
-                                                            <div class="form-group has-icon-left">
-                                                                <label for="password-id-icon">Complainant</label>
-                                                                <div class="position-relative">
-                                                                    <input type="text" name="complainant_name" class="form-control" value="{{$service->complainant_name}}" placeholder="Complainant Name" id="password-id-icon">
-                                                                    <div class="form-control-icon">
-                                                                        <i class="fa fa-user"></i>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12">
-                                                            <label for="password-id-icon">Department of Complainant</label>
-                                                            <div class="position-relative">
-                                                                <select class="choices form-select" name="department_id">
-
-                                                                    @if ($service->department_id != null)
-                                                                    @foreach ($departments as $dep)
-                                                                    <option value="{{$dep->id}}" {{$service->department_id==$dep->id ? ' selected' : ' '}}>{{$dep->name}}</option>
-
-                                                                    @endforeach
-                                                                    @else
-                                                                    <option value="" selected>-</option>
-                                                                    @endif
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12">
-                                                            <label for="password-id-icon">Status*</label>
-                                                            <div class="position-relative mb-2">
-                                                                <div class="form-check form-check-success">
-                                                                    <input class="form-check-input" type="radio" name="status" id="Success" value="Good" {{$service->status == 'Good' ? 'checked' : ' '}}>
-                                                                    <label class="form-check-label" for="Success">
-                                                                        Good
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check form-check-warning">
-                                                                    <input class="form-check-input" type="radio" name="status" id="Warning" value="In Repair" {{$service->status == 'In Repair' ? 'checked' : ' '}}>
-                                                                    <label class="form-check-label" for="Warning">
-                                                                        In Repair
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check form-check-danger">
-                                                                    <input class="form-check-input" type="radio" name="status" id="Danger" value="Broken" {{$service->status == 'Broken' ? 'checked' : ' '}}>
-                                                                    <label class="form-check-label" for="Danger">
-                                                                        Broken
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check form-check-info">
-                                                                    <input class="form-check-input" type="radio" name="status" id="Info" value="New" {{$service->status == 'New' ? 'checked' : ' '}}>
-                                                                    <label class="form-check-label" for="Info">
-                                                                        New
-                                                                    </label>
-                                                                </div>
-                                                                <!-- <span class="badge bg-success">Good</span> -->
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div class="col-12">
-                                                            <label for="password-id-icon">Complain Desc</label>
-                                                            <div class="position-relative mb-2">
-                                                                <textarea class="form-control" name="desc_complain" id="" rows="5">{{$service->desc_complain}}</textarea>
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div class="col-12">
                                                             <label for="password-id-icon">Date of entry*</label>
                                                             <div class="position-relative mb-2">
                                                                 <input type="text" name="date" class="form-control" id="password-id-icon" value="{{$service->date}}" disabled>
                                                                 <!-- <input type="datetime-local" name="date" class="form-control" placeholder="Choose a date" id="password-id-icon" value="{{$service->created_at}}" required> -->
 
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12">
-                                                            <label for="password-id-icon">Estimated date completed</label>
-                                                            <div class="position-relative mb-2">
-                                                                <input type="text" name="date_estimation_fixed" class="form-control" value="{{$service->date_estimation_fixed}}" id="password-id-icon" disabled>
-                                                                <!-- <input type="datetime-local" name="date_estimation_fixed" class="form-control" placeholder="Choose a date" id="password-id-icon"> -->
                                                             </div>
                                                         </div>
                                                     </div>
@@ -598,76 +421,6 @@
                                                         </div>
 
                                                         <div class="col-12">
-                                                            <div class="form-group has-icon-left">
-                                                                <label for="password-id-icon">Complainant</label>
-                                                                <div class="position-relative">
-                                                                    <input type="password" name="complainant_name" class="form-control" placeholder="Complainant Name" id="password-id-icon">
-                                                                    <div class="form-control-icon">
-                                                                        <i class="fa fa-user"></i>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-12">
-                                                            <label for="password-id-icon">Department</label>
-                                                            <div class="position-relative">
-                                                                <select class="choices form-select" name="department_id">
-                                                                    @foreach ($departments as $dep)
-                                                                    <option value="{{$dep->id}}">{{$dep->name}}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-
-                                                        </div>
-                                                        <div class="col-12">
-                                                            <label for="password-id-icon">Status</label>
-                                                            <div class="position-relative mb-2">
-                                                                <div class="form-check form-check-success">
-                                                                    <input class="form-check-input" type="radio" name="status" id="Success">
-                                                                    <label class="form-check-label" for="Success">
-                                                                        Good
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check form-check-warning">
-                                                                    <input class="form-check-input" type="radio" name="status" id="Warning">
-                                                                    <label class="form-check-label" for="Warning">
-                                                                        In Repair
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check form-check-danger">
-                                                                    <input class="form-check-input" type="radio" name="status" id="Danger">
-                                                                    <label class="form-check-label" for="Danger">
-                                                                        Broken
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check form-check-info">
-                                                                    <input class="form-check-input" type="radio" name="status" id="Info">
-                                                                    <label class="form-check-label" for="Info">
-                                                                        New
-                                                                    </label>
-                                                                </div>
-                                                                <!-- <span class="badge bg-success">Good</span> -->
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div class="col-12">
-                                                            <label for="password-id-icon">Complain Desc</label>
-                                                            <div class="position-relative mb-2">
-                                                                <textarea class="form-control" name="desc_complain" id="" rows="5"></textarea>
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div class="col-12">
-                                                            <label for="password-id-icon">Diagnose</label>
-                                                            <div class="position-relative mb-2">
-                                                                <textarea class="form-control" name="diagnose" id="" rows="5"></textarea>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-12">
                                                             <label for="password-id-icon">Date of entry</label>
                                                             <div class="position-relative mb-2">
                                                                 <input type="datetime-local" class="form-control" placeholder="Choose a date" id="password-id-icon">
@@ -676,12 +429,6 @@
 
                                                         </div>
 
-                                                        <div class="col-12">
-                                                            <label for="password-id-icon">Estimated date completed</label>
-                                                            <div class="position-relative mb-2">
-                                                                <input type="datetime-local" class="form-control" placeholder="Choose a date" id="password-id-icon">
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                 </div>
                                         </div>

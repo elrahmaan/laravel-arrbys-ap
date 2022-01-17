@@ -237,19 +237,24 @@
                                 <span class="badge bg-info">New</span>
                                 @endif
                             </td>
-                            <td>
-                                <a href="#"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#showData{{$service->id}}">
+                            <td class="d-flex">
+                                <a href="#"><button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#showData{{$service->id}}">
                                         <i class="fa fa-eye"></i>
                                     </button>
                                 </a>
-                                <a href="#"><button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editData{{$service->id}}">
+                                <a href="#"><button type="button" class="btn btn-warning me-2" data-bs-toggle="modal" data-bs-target="#editData{{$service->id}}">
                                         <i class="fa fa-edit"></i>
                                     </button>
                                 </a>
-                                <a href="#"><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteData">
-                                        <i class="fa fa-trash-alt"></i>
-                                    </button>
-                                </a>
+                                <form action="{{ route('service.destroy',$service->id) }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('DELETE')
+                                    <a href="#">
+                                        <button type="submit" class="btn btn-danger me-2" data-bs-toggle="modal">
+                                            <i class="fa fa-trash-alt"></i>
+                                        </button>
+                                    </a>
+                                </form>
                                 <a href="#"><button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#repairData{{$service->id}}">
                                         <i class="fa fa-wrench"></i>
                                     </button>

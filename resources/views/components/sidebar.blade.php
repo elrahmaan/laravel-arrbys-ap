@@ -48,8 +48,8 @@
                         <li class="submenu-item {{ Route::is('service.index') ? 'active' : '' }}">
                             <a href="{{route('service.index')}}">In Trouble</a>
                         </li>
-                        <li class="submenu-item ">
-                            <a href="extra-component-sweetalert.html">New Asset</a>
+                        <li class="submenu-item {{ Route::is('new.index') ? 'active' : '' }}">
+                            <a href="{{route('new.index')}}">New Asset</a>
                         </li>
                     </ul>
                 </li>
