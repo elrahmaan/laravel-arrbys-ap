@@ -39,12 +39,26 @@
                         <span>Categories</span>
                     </a>
                 </li>
-                <li class="sidebar-item {{ Route::is('service.index') ? 'active' : '' }}">
+                <li class="sidebar-item has-sub">
+                    <a href="#" class='sidebar-link'>
+                        <i class="fa fa-wrench"></i>
+                        <span>Service of Assets</span>
+                    </a>
+                    <ul class="submenu ">
+                        <li class="submenu-item {{ Route::is('service.index') ? 'active' : '' }}">
+                            <a href="{{route('service.index')}}">In Trouble</a>
+                        </li>
+                        <li class="submenu-item ">
+                            <a href="extra-component-sweetalert.html">New Asset</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- <li class="sidebar-item {{ Route::is('service.index') ? 'active' : '' }}">
                     <a href="{{route('service.index')}}" class="sidebar-link">
                         <i class="fa fa-wrench"></i>
                         <span>Service of Assets</span>
                     </a>
-                </li>
+                </li> -->
 
                 <li class="sidebar-title">Loan</li>
                 <li class="sidebar-item {{ Route::is('loan.index') ? 'active' : '' }}">

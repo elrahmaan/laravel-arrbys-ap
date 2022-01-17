@@ -5,6 +5,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ReportLoanController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\NewAssetController;
 use App\Http\Controllers\ServiceAssetController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +40,7 @@ Route::get('/user/delete/{id}', [UserController::class, 'confirm']);
 
 Route::resources([
     'service' => ServiceAssetController::class,
+    'new' => NewAssetController::class,
     'loan' => LoanController::class,
     'report-repairing' => ReportController::class,
     'report-loan' => ReportLoanController::class,

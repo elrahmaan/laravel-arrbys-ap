@@ -14,7 +14,7 @@ class CreateServiceAssetsTable extends Migration
     public function up()
     {
         Schema::create('service_assets', function (Blueprint $table) {
-            $table->id()->primary();
+            $table->id();
             $table->string('name');
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('asset_categories');

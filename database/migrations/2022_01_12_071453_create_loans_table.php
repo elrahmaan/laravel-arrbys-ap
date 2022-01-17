@@ -15,19 +15,19 @@ class CreateLoansTable extends Migration
     {
         Schema::create('loans', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->unsignedBigInteger('department_id');
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
             $table->string('approved_by');
             $table->text('phone')->nullable();
-            $table->enum('category_asset', ['AP','Sewa']);
+            $table->string('category_asset');
             $table->string('purpose')->nullable();
-            $table->text('image');
             $table->string('detail_loan')->nullable();
             $table->date('loan_date');
             $table->date('estimation_return_date');
             $table->date('real_return_date');
             $table->string('reason');
-            $table->enum('status',['Pinjam','Kembali','Terlambat']);   
+            $table->string('status');
             $table->string('equipment');
             $table->timestamps();
         });

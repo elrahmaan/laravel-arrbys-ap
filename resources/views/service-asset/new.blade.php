@@ -61,7 +61,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form class="form form-vertical" method="POST" action="{{route('service.store')}}" enctype="multipart/form-data">
+                            <form class="form form-vertical" method="POST" action="{{route('new.store')}}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -135,37 +135,6 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-12">
-                                            <label for="password-id-icon">Status*</label>
-                                            <div class="position-relative mb-2">
-                                                <div class="form-check form-check-success">
-                                                    <input class="form-check-input" type="radio" name="status" id="Success" value="Good">
-                                                    <label class="form-check-label" for="Success">
-                                                        Good
-                                                    </label>
-                                                </div>
-                                                <div class="form-check form-check-warning">
-                                                    <input class="form-check-input" type="radio" name="status" id="Warning" value="In Repair">
-                                                    <label class="form-check-label" for="Warning">
-                                                        In Repair
-                                                    </label>
-                                                </div>
-                                                <div class="form-check form-check-danger">
-                                                    <input class="form-check-input" type="radio" name="status" id="Danger" value="Broken" checked>
-                                                    <label class="form-check-label" for="Danger">
-                                                        Broken
-                                                    </label>
-                                                </div>
-                                                <div class="form-check form-check-info">
-                                                    <input class="form-check-input" type="radio" name="status" id="Info" value="New">
-                                                    <label class="form-check-label" for="Info">
-                                                        New
-                                                    </label>
-                                                </div>
-                                                <!-- <span class="badge bg-success">Good</span> -->
-                                            </div>
-
-                                        </div>
 
                                         <div class="col-12">
                                             <label for="password-id-icon">Complain Desc</label>
@@ -226,17 +195,6 @@
                             <td>{{$service->category->name}}</td>
                             <td><img src="{{asset($service->image)}}" alt="" width="60"></td>
                             <td>{{$service->qty}}</td>
-                            <td>
-                                @if ($service->status == 'Good')
-                                <span class="badge bg-success">Good</span>
-                                @elseif ($service->status == 'In Repair')
-                                <span class="badge bg-warning">In Repair</span>
-                                @elseif ($service->status == 'Broken')
-                                <span class="badge bg-danger">Broken</span>
-                                @elseif ($service->status == 'New')
-                                <span class="badge bg-info">New</span>
-                                @endif
-                            </td>
                             <td>
                                 <a href="#"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#showData{{$service->id}}">
                                         <i class="fa fa-eye"></i>
