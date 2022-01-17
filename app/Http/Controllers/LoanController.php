@@ -16,8 +16,9 @@ class LoanController extends Controller
     public function index()
     {
         $data= Loan::all();
-        $department = Department::all();
-        return view('layouts.loan.index',compact('data','department'));
+        $departments = Department::all();
+        // $cok = Department::all();
+        return view('layouts.loan.index',compact('data','departments'));
     }
 
     /**
@@ -38,8 +39,21 @@ class LoanController extends Controller
      */
     public function store(Request $request)
     {
-        dd(request()->all());
-        Loan::insert($request->all());
+        $loan = new Loan();
+        $loan->name = $request->name;
+        $loan->category_asset = $request->category_asset;
+        $loan->status = $request->status;
+        $loan->department_id = $request->department_id;
+        $loan->approved_by = $request->approved_by;
+        $loan->phone = $request->phone;
+        $loan->purpose = $request->purpose;
+        $loan->detail_loan = $request->detail_loan;
+        $loan->loan_date = $request->loan_date;
+        $loan->estimation_return_date = $request->estimation_return_date;
+        $loan->real_return_date = $request->real_return_date;
+        $loan->reason = $request->reason;
+        $loan->equipment = $request->equipment;
+        $loan->save(); 
         return redirect('/loan')->with('Added', 'Data Added');
     }
 
@@ -74,7 +88,23 @@ class LoanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $loan = Loan::find($id);
+        $loan->name = $request->name;
+        $loan->category_asset = $request->category_asset;
+        $loan->status = $request->status;
+        $loan->department_id = $request->department_id;
+        $loan->approved_by = $request->approved_by;
+        $loan->phone = $request->phone;
+        $loan->purpose = $request->purpose;
+        $loan->detail_loan = $request->detail_loan;
+        $loan->loan_date = $request->loan_date;
+        $loan->estimation_return_date = $request->estimation_return_date;
+        $loan->real_return_date = $request->real_return_date;
+        $loan->reason = $request->reason;
+        $loan->equipment = $request->equipment;
+        $loan->save(); 
+        return redirect('/loan')->with('Edited', 'Data Edited');
+        
     }
 
     /**
@@ -85,6 +115,7 @@ class LoanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Loan::find($id)->delete();
+        return redirect('/loan')->with('Deleted', 'Data Deleted');
     }
 }
