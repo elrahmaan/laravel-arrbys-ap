@@ -17,6 +17,42 @@
         let jquery_datatable = $("#table1").DataTable()
 
     </script>
+          <!-- Sweet Alert Delete -->
+    <script>
+        $('.deleted').click(function() {
+            var id = $(this).attr('data-id');
+            var name = $(this).attr('data-name');
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Want to delete this data (" + id + ")",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#AAAAAA',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 10000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+                    Toast.fire({
+                        icon: 'info',
+                        title: 'Hold on, delete in progress'
+                    })
+                    window.location = "/loan/delete/" + id 
+                }
+            })
+        })
+    </script>
+    <!-- End Sweet Alert Delete -->
 @endsection
 <div class="page-heading">
     <div class="page-title">
@@ -225,7 +261,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>
                                     {{ $data->name }}
-                                    @if ($carbon > $data->estimation_return_date)
+                                    @if ($carbon > $data->estimation_return_date )
                                         <span class="badge bg-danger">Late</span>
                                     @endif
                                 </td>
@@ -257,15 +293,15 @@
                                             <i class="fa fa-edit"></i>
                                         </button>
                                     </a>
-                                    <form action="{{ route('loan.destroy', $data->id) }}" method="POST"
+                                    {{-- <form action="{{ route('loan.destroy', $data->id) }}" method="POST"
                                         enctype="multipart/form-data">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger" data-bs-toggle="modal"
-                                            data-bs-target="#deleteData">
+                                        <button type="submit" class="btn btn-danger deleted"  data-id="{{$data->id}}" data-name="{{$data->name}}">
                                             <i class="fa fa-trash-alt"></i>
                                         </button>
-                                    </form>
+                                    </form> --}}
+                                    <a href="#"><button type="button" class="btn btn-danger deleted" data-id="{{$data->id}}" data-name="{{$data->name}}"> <i class="fa fa-trash-alt"></i></button></a>
                                 </td>
 
                                 <!-- modal show data -->
@@ -676,7 +712,7 @@
                                                     <i class="bx bx-x d-block d-sm-none"></i>
                                                     <span class="d-none d-sm-block">Cancel</span>
                                                 </button>
-                                                <button type="submit" class="btn btn-primary ml-1">
+                                                <button type="submit" class="btn btn-warning ml-1">
                                                     <i class="bx bx-check d-block d-sm-none"></i>
                                                     <span class="d-none d-sm-block">Update</span>
                                                 </button>
@@ -694,7 +730,6 @@
                 </table>
             </div>
         </div>
-
     </section>
     <!-- Basic Tables end -->
 </div>

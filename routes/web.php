@@ -33,10 +33,12 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 // Delete
-Route::get('/delete/department/{id}', [DepartmentController::class, 'destroy']);
-Route::get('/department/delete/{id}', [DepartmentController::class, 'confirm']);
-Route::get('/delete/{id}', [UserController::class, 'destroy']);
-Route::get('/user/delete/{id}', [UserController::class, 'confirm']);
+Route::get('/department/delete/{id}', [DepartmentController::class, 'destroy']);
+Route::get('/category/delete/{id}', [CategoryController::class, 'destroy']);
+Route::get('/service/delete/{id}', [ServiceAssetController::class, 'destroy']);
+Route::get('/new/delete/{id}', [NewAssetController::class, 'destroy']);
+Route::get('/user/delete/{id}', [UserController::class, 'destroy']);
+Route::get('/loan/delete/{id}', [LoanController::class, 'destroy']);
 
 Route::resources([
     'service' => ServiceAssetController::class,

@@ -43,7 +43,7 @@ class DepartmentController extends Controller
         if ($validate) {
             Department::insert($validate);
         }
-        return redirect('/department')->with('success', 'Department Berhasil Di Tambah !');
+        return redirect('/department')->with('success', 'Data Added');
     }
 
     /**
@@ -82,7 +82,7 @@ class DepartmentController extends Controller
         $save->code = $request->code;
         $save->save();
         return back()
-            ->with('success', 'Department Berhasil Di Update!');
+            ->with('success', 'Data Updated!');
     }
 
     /**
@@ -94,7 +94,7 @@ class DepartmentController extends Controller
     public function destroy($id)
     {
         Department::find($id)->delete();
-        return back()->with('success', 'User Berhasil Di Hapus!');
+        return back()->with('success', 'Data Deleted!');
     }
     public function confirm($id){
         alert()->question('Apakah yakin untuk hapus?','Anda tidak akan dapat mengembalikan ini!')

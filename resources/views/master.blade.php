@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="assets/vendors/sweetalert2/sweetalert2.min.css">
     <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="assets/vendors/fontawesome/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -36,6 +37,7 @@
         </div>
     </div>
     @yield('script')
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/vendors/fontawesome/all.min.js"></script>

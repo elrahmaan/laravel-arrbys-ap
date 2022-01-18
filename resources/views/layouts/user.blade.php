@@ -17,7 +17,42 @@
         let jquery_datatable = $("#table1").DataTable()
     </script>
 
-
+<!-- Sweet Alert Delete -->
+<script>
+    $('.deleted').click(function() {
+        var id = $(this).attr('data-id');
+        var name = $(this).attr('data-name');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Want to delete this data (" + name + ")",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#AAAAAA',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 10000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+                Toast.fire({
+                    icon: 'info',
+                    title: 'Hold on, delete in progress'
+                })
+                window.location = "/user/delete/" + id 
+            }
+        })
+    })
+    </script>
+    <!-- End Sweet Alert Delete -->
 @endsection
 
 
@@ -151,10 +186,7 @@
                                             <i class="fa fa-edit"></i>
                                         </button>
                                     </a>
-                                    <a href="/user/delete/{{$i->id}}"><button type="submit" class="btn btn-danger"  data-bs-toggle="modal">
-                                            <i class="fa fa-trash-alt"></i>
-                                        </button>
-                                    </a> 
+                                    <a href="#"><button type="button" class="btn btn-danger deleted" data-id="{{$i->id}}" data-name="{{$i->name}}"> <i class="fa fa-trash-alt"></i></button></a> 
                                 </td>
                                 
 

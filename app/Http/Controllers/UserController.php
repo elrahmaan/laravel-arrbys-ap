@@ -42,7 +42,7 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-        return redirect('/user')->with('success', 'Data Berhasil Di Tambah!');
+        return redirect('/user')->with('success', 'Data Added!');
     }
 
     /**
@@ -80,7 +80,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user -> save();
-        return redirect('/user')->with('success', 'User Berhasil Di Update!');
+        return redirect('/user')->with('success', 'Data Updated!');
     }
 
     /**
@@ -93,7 +93,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $user -> delete();
-        return redirect('/user')->with('success', 'User Berhasil Di Hapus!');
+        return redirect('/user')->with('success', 'Data Deleted!');
     }
     public function confirm($id){
         alert()->question('Apakah yakin untuk hapus?','Anda tidak akan dapat mengembalikan ini!')
