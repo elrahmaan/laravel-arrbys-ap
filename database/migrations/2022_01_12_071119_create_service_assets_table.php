@@ -24,8 +24,8 @@ class CreateServiceAssetsTable extends Migration
             $table->integer('qty');
             $table->string('complainant_name')->nullable();
             $table->string('status');
-            $table->string('desc_complain')->nullable();
-            $table->string('diagnose')->nullable();
+            $table->text('desc_complain')->nullable();
+            $table->text('diagnose')->nullable();
             $table->date('date');
             $table->date('date_estimation_fixed')->nullable();
             $table->date('date_fixed')->nullable();

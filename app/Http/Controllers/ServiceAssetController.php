@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AssetCategory;
 use App\Models\Department;
 use App\Models\ServiceAsset;
+use App\Models\UnitLog;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +22,8 @@ class ServiceAssetController extends Controller
         $departments = Department::all();
         $categories = AssetCategory::all();
         $services = ServiceAsset::all();
-        return view('service-asset.service', compact('departments', 'services', 'categories'));
+        $logs = UnitLog::all();
+        return view('service-asset.service', compact('departments', 'services', 'categories', 'logs'));
     }
 
     /**
@@ -65,7 +67,6 @@ class ServiceAssetController extends Controller
         $asset->diagnose = $request->diagnose;
         $asset->date = $request->date;
         $asset->date_estimation_fixed = $request->date_estimation_fixed;
-        dd($asset);
 
         $asset->save();
 
@@ -104,8 +105,6 @@ class ServiceAssetController extends Controller
     public function update(Request $request, $id)
     {
         $asset = ServiceAsset::find($id);
-        $asset->name = $request->name;
-        $asset->category_id = $request->category_id;
         $image = $request->file('image');
         if ($image != null) {
             if ($asset->image != "") {
@@ -120,18 +119,37 @@ class ServiceAssetController extends Controller
             $image_data = '/uploads/service-assets/' . $file_name;
             $asset->image = $image_data;
         }
-
         $asset->detail_of_specification = $request->detail_of_specification;
         $asset->qty = $request->qty;
         $asset->complainant_name = $request->complainant_name;
         $asset->department_id = $request->department_id;
+        dd($asset->department_id);
         $asset->status = $request->status;
         $asset->desc_complain = $request->desc_complain;
-        $asset->diagnose = $request->diagnose;
         $asset->date = $request->date;
         $asset->date_estimation_fixed = $request->date_estimation_fixed;
-        // dd($asset);
         $asset->save();
+
+        return redirect()->route('service.index');
+    }
+
+    public function repair(Request $request, $id)
+    {
+        $asset = ServiceAsset::find($id);
+        $asset->status = 'Fixed';
+        $asset->diagnose = $request->diagnose;
+        $asset->date_fixed = $request->date_fixed;
+        $asset->save();
+
+
+        $log = new UnitLog();
+        $log->asset_id = $request->asset_id;
+        $log->complainant_name = $request->complainant_name;
+        $log->department_id = $request->department_id;
+        $log->desc_complain = $request->desc_complain;
+        $log->diagnose = $request->diagnose;
+        $log->date_fixed = $request->date_fixed;
+        $log->save();
 
         return redirect()->route('service.index');
     }

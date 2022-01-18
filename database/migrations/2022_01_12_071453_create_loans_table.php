@@ -25,7 +25,7 @@ class CreateLoansTable extends Migration
             $table->string('detail_loan')->nullable();
             $table->date('loan_date');
             $table->date('estimation_return_date');
-            $table->date('real_return_date');
+            $table->date('real_return_date')->nullable();
             $table->string('reason');
             $table->string('status');
             $table->string('equipment');

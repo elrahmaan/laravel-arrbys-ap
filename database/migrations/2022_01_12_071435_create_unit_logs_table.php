@@ -17,8 +17,12 @@ class CreateUnitLogsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('asset_id');
             $table->foreign('asset_id')->references('id')->on('service_assets')->onDelete('cascade');
-            $table->unsignedBigInteger('department_id');
+            $table->string('complainant_name')->nullable();
+            $table->unsignedBigInteger('department_id')->nullable();
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
+            $table->text('desc_complain')->nullable();
+            $table->text('diagnose')->nullable();
+            $table->date('date_fixed')->nullable();
             $table->timestamps();
         });
     }
