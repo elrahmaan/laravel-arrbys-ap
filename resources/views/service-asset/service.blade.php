@@ -532,8 +532,8 @@
                                                             <label for="password-id-icon">Department of Complainant</label>
                                                             <div class="position-relative">
                                                                 <select class="choices form-select" name="department_id">
-                                                                    @foreach ($departments as $deps)
-                                                                    <option value="{{$deps->id}}">{{$deps->name}}</option>
+                                                                    @foreach ($departments as $dep)
+                                                                    <option value="{{$dep->id}}">{{$dep->name}}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>

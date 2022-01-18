@@ -123,7 +123,6 @@ class ServiceAssetController extends Controller
         $asset->qty = $request->qty;
         $asset->complainant_name = $request->complainant_name;
         $asset->department_id = $request->department_id;
-        dd($asset->department_id);
         $asset->status = $request->status;
         $asset->desc_complain = $request->desc_complain;
         $asset->date = $request->date;
