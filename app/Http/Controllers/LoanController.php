@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use Illuminate\Http\Request;
+use App\Models\Loan;
+use Carbon\Carbon;
 
 class LoanController extends Controller
 {
@@ -13,7 +16,11 @@ class LoanController extends Controller
      */
     public function index()
     {
-        return view('layouts.loan');
+        $data= Loan::all();
+        $carbon=Carbon::now()->toDateString();
+        $departments = Department::all();
+        // $cok = Department::all();
+        return view('layouts.loan.index',compact('data','departments','carbon'));
     }
 
     /**
@@ -34,7 +41,22 @@ class LoanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $loan = new Loan();
+        $loan->name = $request->name;
+        $loan->category_asset = $request->category_asset;
+        $loan->status = $request->status;
+        $loan->department_id = $request->department_id;
+        $loan->approved_by = $request->approved_by;
+        $loan->phone = $request->phone;
+        $loan->purpose = $request->purpose;
+        $loan->detail_loan = $request->detail_loan;
+        $loan->loan_date = $request->loan_date;
+        $loan->estimation_return_date = $request->estimation_return_date;
+        $loan->real_return_date = $request->real_return_date;
+        $loan->reason = $request->reason;
+        $loan->equipment = $request->equipment;
+        $loan->save(); 
+        return redirect('/loan')->with('Added', 'Data Added');
     }
 
     /**
@@ -68,7 +90,31 @@ class LoanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $loan = Loan::find($id);
+        if($request->real_return_date === null)
+        {
+            $update_status = 'In Loan';
+        }
+        else
+        {
+         $update_status = 'Return';       
+        }
+        $loan->name = $request->name;
+        $loan->category_asset = $request->category_asset;
+        $loan->status = $update_status;
+        $loan->department_id = $request->department_id;
+        $loan->approved_by = $request->approved_by;
+        $loan->phone = $request->phone;
+        $loan->purpose = $request->purpose;
+        $loan->detail_loan = $request->detail_loan;
+        $loan->loan_date = $request->loan_date;
+        $loan->estimation_return_date = $request->estimation_return_date;
+        $loan->real_return_date = $request->real_return_date;
+        $loan->reason = $request->reason;
+        $loan->equipment = $request->equipment;
+        $loan->save(); 
+        return redirect('/loan')->with('Edited', 'Data Edited');
+        
     }
 
     /**
@@ -79,6 +125,7 @@ class LoanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Loan::find($id)->delete();
+        return redirect('/loan')->with('Deleted', 'Data Deleted');
     }
 }

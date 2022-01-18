@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Department extends Model
 {
     use HasFactory;
+
+    protected $table = 'departments';
     protected $guarded = ['id'];
 
     public function service_asset()
