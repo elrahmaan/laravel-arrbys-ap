@@ -40,6 +40,8 @@ Route::get('/new/delete/{id}', [NewAssetController::class, 'destroy']);
 Route::get('/user/delete/{id}', [UserController::class, 'destroy']);
 Route::get('/loan/delete/{id}', [LoanController::class, 'destroy']);
 
+Route::post('/service/{id}/repair', [ServiceAssetController::class, 'repair']);
+
 Route::resources([
     'service' => ServiceAssetController::class,
     'new' => NewAssetController::class,
