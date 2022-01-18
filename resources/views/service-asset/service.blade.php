@@ -18,6 +18,16 @@
     // Jquery Datatable
     let jquery_datatable = $("#table1").DataTable()
 </script>
+
+<script>
+    $(document).ready(function() {
+        $('.logs .btn').click(function() {
+            var span = $(this).find('span')
+            span.toggleClass('bi-caret-right-fill')
+            span.toggleClass('bi-caret-down-fill')
+        })
+    })
+</script>
 @endsection
 <div class="page-heading">
     <div class="page-title">
@@ -117,7 +127,7 @@
                                             <div class="form-group has-icon-left">
                                                 <label for="password-id-icon">Complainant</label>
                                                 <div class="position-relative">
-                                                    <input type="text" name="complainant_name" class="form-control" placeholder="Complainant Name" id="password-id-icon">
+                                                    <input type="text" name="complainant_name" class="form-control" placeholder="Complainant Name" id="password-id-icon" required>
                                                     <div class="form-control-icon">
                                                         <i class="fa fa-user"></i>
                                                     </div>
@@ -128,7 +138,6 @@
                                             <label for="password-id-icon">Department of Complainant</label>
                                             <div class="position-relative">
                                                 <select class="choices form-select" name="department_id">
-                                                    <option value="" selected>-</option>
                                                     @foreach ($departments as $dep)
                                                     <option value="{{$dep->id}}">{{$dep->name}}</option>
                                                     @endforeach
@@ -136,12 +145,12 @@
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <label for="password-id-icon">Status*</label>
+                                            <label for="password-id-icon">Status</label>
                                             <div class="position-relative mb-2">
-                                                <div class="form-check form-check-success">
-                                                    <input class="form-check-input" type="radio" name="status" id="Success" value="Good">
-                                                    <label class="form-check-label" for="Success">
-                                                        Good
+                                                <!-- <div class="form-check form-check-danger">
+                                                    <input class="form-check-input" type="radio" name="status" id="Danger" value="Broken" checked>
+                                                    <label class="form-check-label" for="Danger">
+                                                        Broken
                                                     </label>
                                                 </div>
                                                 <div class="form-check form-check-warning">
@@ -150,19 +159,14 @@
                                                         In Repair
                                                     </label>
                                                 </div>
-                                                <div class="form-check form-check-danger">
-                                                    <input class="form-check-input" type="radio" name="status" id="Danger" value="Broken" checked>
-                                                    <label class="form-check-label" for="Danger">
-                                                        Broken
+                                                <div class="form-check form-check-success">
+                                                    <input class="form-check-input" type="radio" name="status" id="Success" value="Good">
+                                                    <label class="form-check-label" for="Success">
+                                                        Good
                                                     </label>
-                                                </div>
-                                                <div class="form-check form-check-info">
-                                                    <input class="form-check-input" type="radio" name="status" id="Info" value="New">
-                                                    <label class="form-check-label" for="Info">
-                                                        New
-                                                    </label>
-                                                </div>
-                                                <!-- <span class="badge bg-success">Good</span> -->
+                                                </div> -->
+                                                <span class="badge bg-warning">In Repair</span>
+                                                <input type="hidden" name="status" value="In Repair">
                                             </div>
 
                                         </div>
@@ -227,38 +231,48 @@
                             <td><img src="{{asset($service->image)}}" alt="" width="60"></td>
                             <td>{{$service->qty}}</td>
                             <td>
-                                @if ($service->status == 'Good')
-                                <span class="badge bg-success">Good</span>
+                                @if ($service->status == 'Fixed')
+                                <span class="badge bg-success">Fixed</span>
                                 @elseif ($service->status == 'In Repair')
                                 <span class="badge bg-warning">In Repair</span>
-                                @elseif ($service->status == 'Broken')
-                                <span class="badge bg-danger">Broken</span>
-                                @elseif ($service->status == 'New')
-                                <span class="badge bg-info">New</span>
                                 @endif
                             </td>
                             <td class="d-flex">
+                                @if ($service->status == 'Fixed')
+                                <a href="#"><button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#logData{{$service->id}}">
+                                        <i class="fa fa-clipboard-list"></i>
+                                    </button>
+                                </a>
+                                @else
                                 <a href="#"><button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#showData{{$service->id}}">
                                         <i class="fa fa-eye"></i>
                                     </button>
                                 </a>
-                                <a href="#"><button type="button" class="btn btn-warning me-2" data-bs-toggle="modal" data-bs-target="#editData{{$service->id}}">
+                                @endif
+                                <!-- <a href="#"><button type="button" class="btn btn-warning me-2" data-bs-toggle="modal" data-bs-target="#editData{{$service->id}}">
                                         <i class="fa fa-edit"></i>
                                     </button>
+                                </a> -->
+                                @if ($service->status == 'Fixed')
+                                <a href="#"><button type="button" class="btn btn-secondary me-2" data-bs-toggle="modal" data-bs-target="#newData{{$service->id}}">
+                                        <i class="fa fa-plus-circle"></i>
+                                    </button>
                                 </a>
+                                @else
+                                <a href="#"><button type="button" class="btn btn-dark me-2" data-bs-toggle="modal" data-bs-target="#repairData{{$service->id}}">
+                                        <i class="fa fa-wrench"></i>
+                                    </button>
+                                </a>
+                                @endif
                                 <form action="{{ route('service.destroy',$service->id) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @method('DELETE')
                                     <a href="#">
-                                        <button type="submit" class="btn btn-danger me-2" data-bs-toggle="modal">
+                                        <button type="submit" class="btn btn-danger" data-bs-toggle="modal">
                                             <i class="fa fa-trash-alt"></i>
                                         </button>
                                     </a>
                                 </form>
-                                <a href="#"><button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#repairData{{$service->id}}">
-                                        <i class="fa fa-wrench"></i>
-                                    </button>
-                                </a>
                             </td>
 
                             <!-- modal show data -->
@@ -364,14 +378,10 @@
                                                         <div class="col-12">
                                                             <label for="password-id-icon">Status</label>
                                                             <div class="position-relative mb-2">
-                                                                @if ($service->status == 'Good')
-                                                                <span class="badge bg-success">Good</span>
+                                                                @if ($service->status == 'Fixed')
+                                                                <span class="badge bg-success">Fixed</span>
                                                                 @elseif ($service->status == 'In Repair')
                                                                 <span class="badge bg-warning">In Repair</span>
-                                                                @elseif ($service->status == 'Broken')
-                                                                <span class="badge bg-danger">Broken</span>
-                                                                @elseif ($service->status == 'New')
-                                                                <span class="badge bg-info">New</span>
                                                                 @endif
                                                             </div>
 
@@ -428,12 +438,12 @@
                                 </div>
                             </div>
 
-                            <!-- modal edit data -->
-                            <div class="modal fade text-left" id="editData{{$service->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
+                            <!-- modal new service data -->
+                            <div class="modal fade text-left" id="newData{{$service->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                                     <div class="modal-content">
-                                        <div class="modal-header bg-warning">
-                                            <h5 class="modal-title white" id="myModalLabel160">Edit Data
+                                        <div class="modal-header bg-secondary">
+                                            <h5 class="modal-title white" id="myModalLabel160">New Service Data
                                             </h5>
                                             <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                                 <i data-feather="x"></i>
@@ -447,9 +457,20 @@
                                                     <div class="row">
                                                         <div class="col-12">
                                                             <div class="form-group has-icon-left">
-                                                                <label for="first-name-icon">Asset Name*</label>
+                                                                <label for="first-name-icon">ID</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" name="name" class="form-control" placeholder="Asset Name" value="{{$service->name}}" id="first-name-icon" required>
+                                                                    <input type="text" name="id" value="{{$service->id}}" class="form-control" id="first-name-icon" readonly>
+                                                                    <div class="form-control-icon">
+                                                                        <i class="fa fa-box"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <div class="form-group has-icon-left">
+                                                                <label for="first-name-icon">Asset Name</label>
+                                                                <div class="position-relative">
+                                                                    <input type="text" name="name" value="{{$service->name}}" class="form-control" placeholder="Asset Name" id="first-name-icon" readonly>
                                                                     <div class="form-control-icon">
                                                                         <i class="fa fa-box"></i>
                                                                     </div>
@@ -460,33 +481,35 @@
                                                             <div class="form-group has-icon-left">
                                                                 <label for="password-id-icon">Category</label>
                                                                 <div class="position-relative">
-                                                                    <select class="choices form-select" name="category_id">
-                                                                        @foreach ($categories as $cat)
-                                                                        <option value="{{$cat->id}}" {{$service->category_id == $cat->id ? ' selected' : ' '}}>{{$cat->name}}</option>
-                                                                        @endforeach
-                                                                    </select>
+                                                                    <input type="hidden" name="category_id" value="{{$service->name}}" class="form-control" id="first-name-icon" readonly>
+                                                                    @foreach ($categories as $cat)
+                                                                    @if ($service->category_id == $cat->id)
+                                                                    <input type="text" value="{{$cat->name}}" class="form-control" id="first-name-icon" readonly>
+                                                                    @endif
+                                                                    @endforeach
+                                                                    <div class="form-control-icon">
+                                                                        <i class="bi bi-grid-1x2-fill"></i>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
                                                             <label for="email-id-icon">Image</label>
-                                                            <div class="position-relative mb-2">
+                                                            <div class="position-relative">
                                                                 <img class="mb-2" src="{{asset($service->image)}}" alt="" width="100">
-                                                                <input class="form-control" name="image" type="file" id="formFile">
-                                                                <!-- <img src="" alt=""> -->
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
                                                             <label for="mobile-id-icon">Detail (Specification)*</label>
                                                             <div class="position-relative mb-2">
-                                                                <textarea class="form-control" name="detail_of_specification" id="" rows="5" required> {{$service->detail_of_specification}}</textarea>
+                                                                <textarea class="form-control" name="detail_of_specification" id="" rows="5" required></textarea>
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
                                                             <div class="form-group has-icon-left">
                                                                 <label for="password-id-icon">Quantity*</label>
                                                                 <div class="position-relative">
-                                                                    <input type="number" name="qty" class="form-control" placeholder="Quantity" value="{{$service->qty}}" id="password-id-icon" required>
+                                                                    <input type="number" name="qty" class="form-control" placeholder="Quantity" id="password-id-icon" required>
                                                                     <div class="form-control-icon">
                                                                         <i class="fa fa-sort-numeric-up"></i>
                                                                     </div>
@@ -498,7 +521,7 @@
                                                             <div class="form-group has-icon-left">
                                                                 <label for="password-id-icon">Complainant</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" name="complainant_name" class="form-control" value="{{$service->complainant_name}}" placeholder="Complainant Name" id="password-id-icon">
+                                                                    <input type="text" name="complainant_name" class="form-control" placeholder="Complainant Name" id="password-id-icon" required>
                                                                     <div class="form-control-icon">
                                                                         <i class="fa fa-user"></i>
                                                                     </div>
@@ -509,192 +532,17 @@
                                                             <label for="password-id-icon">Department of Complainant</label>
                                                             <div class="position-relative">
                                                                 <select class="choices form-select" name="department_id">
-
-                                                                    @if ($service->department_id != null)
-                                                                    @foreach ($departments as $dep)
-                                                                    <option value="{{$dep->id}}" {{$service->department_id==$dep->id ? ' selected' : ' '}}>{{$dep->name}}</option>
-
-                                                                    @endforeach
-                                                                    @else
-                                                                    <option value="" selected>-</option>
-                                                                    @endif
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12">
-                                                            <label for="password-id-icon">Status*</label>
-                                                            <div class="position-relative mb-2">
-                                                                <div class="form-check form-check-success">
-                                                                    <input class="form-check-input" type="radio" name="status" id="Success" value="Good" {{$service->status == 'Good' ? 'checked' : ' '}}>
-                                                                    <label class="form-check-label" for="Success">
-                                                                        Good
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check form-check-warning">
-                                                                    <input class="form-check-input" type="radio" name="status" id="Warning" value="In Repair" {{$service->status == 'In Repair' ? 'checked' : ' '}}>
-                                                                    <label class="form-check-label" for="Warning">
-                                                                        In Repair
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check form-check-danger">
-                                                                    <input class="form-check-input" type="radio" name="status" id="Danger" value="Broken" {{$service->status == 'Broken' ? 'checked' : ' '}}>
-                                                                    <label class="form-check-label" for="Danger">
-                                                                        Broken
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check form-check-info">
-                                                                    <input class="form-check-input" type="radio" name="status" id="Info" value="New" {{$service->status == 'New' ? 'checked' : ' '}}>
-                                                                    <label class="form-check-label" for="Info">
-                                                                        New
-                                                                    </label>
-                                                                </div>
-                                                                <!-- <span class="badge bg-success">Good</span> -->
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div class="col-12">
-                                                            <label for="password-id-icon">Complain Desc</label>
-                                                            <div class="position-relative mb-2">
-                                                                <textarea class="form-control" name="desc_complain" id="" rows="5">{{$service->desc_complain}}</textarea>
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div class="col-12">
-                                                            <label for="password-id-icon">Date of entry*</label>
-                                                            <div class="position-relative mb-2">
-                                                                <input type="text" name="date" class="form-control" id="password-id-icon" value="{{$service->date}}" disabled>
-                                                                <!-- <input type="datetime-local" name="date" class="form-control" placeholder="Choose a date" id="password-id-icon" value="{{$service->created_at}}" required> -->
-
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12">
-                                                            <label for="password-id-icon">Estimated date completed</label>
-                                                            <div class="position-relative mb-2">
-                                                                <input type="text" name="date_estimation_fixed" class="form-control" value="{{$service->date_estimation_fixed}}" id="password-id-icon" disabled>
-                                                                <!-- <input type="datetime-local" name="date_estimation_fixed" class="form-control" placeholder="Choose a date" id="password-id-icon"> -->
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
-                                                <i class="bx bx-x d-block d-sm-none"></i>
-                                                <span class="d-none d-sm-block">Cancel</span>
-                                            </button>
-                                            <button type="submit" class="btn btn-warning ml-1">
-                                                <i class="bx bx-check d-block d-sm-none"></i>
-                                                <span class="d-none d-sm-block">Update</span>
-                                            </button>
-                                        </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            {{-- Modal repair --}}
-                            <div class="modal fade text-left" id="repairData" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header bg-dark">
-                                            <h5 class="modal-title white" id="myModalLabel160">Repair Unit
-                                            </h5>
-                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                                <i data-feather="x"></i>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form class="form form-vertical">
-                                                <div class="form-body">
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            <div class="form-group has-icon-left">
-                                                                <label for="first-name-icon">Asset Name</label>
-                                                                <div class="position-relative">
-                                                                    <input type="text" name="name" class="form-control" placeholder="Asset Name" id="first-name-icon">
-                                                                    <div class="form-control-icon">
-                                                                        <i class="fa fa-box"></i>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12">
-                                                            <label for="email-id-icon">Image</label>
-                                                            <div class="position-relative mb-2">
-                                                                <input class="form-control" name="image" type="file" id="formFile">
-                                                                <!-- <img src="" alt=""> -->
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12">
-                                                            <label for="mobile-id-icon">Detail (Specification)</label>
-                                                            <div class="position-relative mb-2">
-                                                                <textarea class="form-control" name="detail_of_specification" id="" rows="5"></textarea>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12">
-                                                            <div class="form-group has-icon-left">
-                                                                <label for="password-id-icon">Quantity</label>
-                                                                <div class="position-relative">
-                                                                    <input type="password" name="qty" class="form-control" placeholder="Quantity" id="password-id-icon">
-                                                                    <div class="form-control-icon">
-                                                                        <i class="fa fa-sort-numeric-up"></i>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-12">
-                                                            <div class="form-group has-icon-left">
-                                                                <label for="password-id-icon">Complainant</label>
-                                                                <div class="position-relative">
-                                                                    <input type="password" name="complainant_name" class="form-control" placeholder="Complainant Name" id="password-id-icon">
-                                                                    <div class="form-control-icon">
-                                                                        <i class="fa fa-user"></i>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-12">
-                                                            <label for="password-id-icon">Department</label>
-                                                            <div class="position-relative">
-                                                                <select class="choices form-select" name="department_id">
-                                                                    @foreach ($departments as $dep)
-                                                                    <option value="{{$dep->id}}">{{$dep->name}}</option>
+                                                                    @foreach ($departments as $deps)
+                                                                    <option value="{{$deps->id}}">{{$deps->name}}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>
-
                                                         </div>
                                                         <div class="col-12">
                                                             <label for="password-id-icon">Status</label>
                                                             <div class="position-relative mb-2">
-                                                                <div class="form-check form-check-success">
-                                                                    <input class="form-check-input" type="radio" name="status" id="Success">
-                                                                    <label class="form-check-label" for="Success">
-                                                                        Good
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check form-check-warning">
-                                                                    <input class="form-check-input" type="radio" name="status" id="Warning">
-                                                                    <label class="form-check-label" for="Warning">
-                                                                        In Repair
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check form-check-danger">
-                                                                    <input class="form-check-input" type="radio" name="status" id="Danger">
-                                                                    <label class="form-check-label" for="Danger">
-                                                                        Broken
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check form-check-info">
-                                                                    <input class="form-check-input" type="radio" name="status" id="Info">
-                                                                    <label class="form-check-label" for="Info">
-                                                                        New
-                                                                    </label>
-                                                                </div>
-                                                                <!-- <span class="badge bg-success">Good</span> -->
+                                                                <span class="badge bg-warning">In Repair</span>
+                                                                <input type="hidden" name="status" value="In Repair">
                                                             </div>
 
                                                         </div>
@@ -708,6 +556,79 @@
                                                         </div>
 
                                                         <div class="col-12">
+                                                            <label for="password-id-icon">Date of entry*</label>
+                                                            <div class="position-relative mb-2">
+                                                                <input type="datetime-local" name="date" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <label for="password-id-icon">Estimated date completed</label>
+                                                            <div class="position-relative mb-2">
+                                                                <input type="datetime-local" name="date_estimation_fixed" class="form-control" placeholder="Choose a date" id="password-id-icon">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                                                <i class="bx bx-x d-block d-sm-none"></i>
+                                                <span class="d-none d-sm-block">Cancel</span>
+                                            </button>
+                                            <button type="submit" class="btn btn-secondary ml-1">
+                                                <i class="bx bx-check d-block d-sm-none"></i>
+                                                <span class="d-none d-sm-block">Add</span>
+                                            </button>
+                                        </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- Modal repair --}}
+                            <div class="modal fade text-left" id="repairData{{$service->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-dark">
+                                            <h5 class="modal-title white" id="myModalLabel160">Repair Unit
+                                            </h5>
+                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                <i data-feather="x"></i>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form class="form form-vertical" action="/service/{{$service->id}}/repair" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="asset_id" value="{{$service->id}}">
+                                                <input type="hidden" name="department_id" value="{{$service->department_id}}">
+                                                <input type="hidden" name="complainant_name" value="{{$service->complainant_name}}">
+                                                <div class="form-body">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div class="form-group has-icon-left">
+                                                                <label for="first-name-icon">Asset Name</label>
+                                                                <div class="position-relative">
+                                                                    <input type="text" name="name" class="form-control" value="{{$service->name}}" id="first-name-icon" readonly>
+                                                                    <div class="form-control-icon">
+                                                                        <i class="fa fa-box"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <label for="email-id-icon">Image</label>
+                                                            <div class="position-relative">
+                                                                <img class="mb-2" src="{{asset($service->image)}}" alt="" width="100">
+                                                                <!-- <input class="form-control" name="image" type="file" id="formFile"> -->
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <label for="password-id-icon">Complain Desc</label>
+                                                            <div class="position-relative mb-2">
+                                                                <textarea class="form-control" name="desc_complain" id="" rows="5" readonly>{{$service->desc_complain}}</textarea>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-12">
                                                             <label for="password-id-icon">Diagnose</label>
                                                             <div class="position-relative mb-2">
                                                                 <textarea class="form-control" name="diagnose" id="" rows="5"></textarea>
@@ -715,18 +636,9 @@
                                                         </div>
 
                                                         <div class="col-12">
-                                                            <label for="password-id-icon">Date of entry</label>
+                                                            <label for="password-id-icon">Date Repaired</label>
                                                             <div class="position-relative mb-2">
-                                                                <input type="datetime-local" class="form-control" placeholder="Choose a date" id="password-id-icon">
-
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div class="col-12">
-                                                            <label for="password-id-icon">Estimated date completed</label>
-                                                            <div class="position-relative mb-2">
-                                                                <input type="datetime-local" class="form-control" placeholder="Choose a date" id="password-id-icon">
+                                                                <input type="datetime-local" class="form-control" name="date_fixed" placeholder="Choose a date" id="password-id-icon">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -737,23 +649,106 @@
                                                 <i class="bx bx-x d-block d-sm-none"></i>
                                                 <span class="d-none d-sm-block">Cancel</span>
                                             </button>
-                                            <button type="button" class="btn btn-dark ml-1" data-bs-dismiss="modal">
+                                            <button type="submit" class="btn btn-dark ml-1">
                                                 <i class="bx bx-check d-block d-sm-none"></i>
-                                                <span class="d-none d-sm-block">Add</span>
+                                                <span class="d-none d-sm-block">Fix</span>
                                             </button>
                                         </div>
                                         </form>
                                     </div>
                                 </div>
                             </div>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
 
-    </section>
-    <!-- Basic Tables end -->
+                            <div class="modal fade text-left" id="logData{{$service->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-dark">
+                                            <h5 class="modal-title white" id="myModalLabel160">Log Repairing Unit
+                                            </h5>
+                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                <i data-feather="x"></i>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form class="form form-vertical" action="">
+
+                                                <input type="hidden" name="id" value="{{$service->id}}">
+                                                <input type="hidden" name="asset_id" value="{{$service->id}}">
+                                                <input type="hidden" name="department_id" value="{{$service->department_id}}">
+                                                <div class="form-body">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div class="form-group has-icon-left">
+                                                                <label for="first-name-icon">ID</label>
+                                                                <div class="position-relative">
+                                                                    <input type="text" name="name" class="form-control" placeholder="Asset Name" value="{{$service->id}}" id="first-name-icon" readonly>
+                                                                    <div class="form-control-icon">
+                                                                        <i class="bi bi-key-fill"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <div class="form-group has-icon-left">
+                                                                <label for="first-name-icon">Asset Name</label>
+                                                                <div class="position-relative">
+                                                                    <input type="text" name="name" class="form-control" placeholder="Asset Name" value="{{$service->name}}" id="first-name-icon" readonly>
+                                                                    <div class="form-control-icon">
+                                                                        <i class="fa fa-box"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <label for="first-name-icon">Log Repairing</label>
+                                                            <ul class="list-group">
+                                                                @foreach ($logs as $log)
+                                                                @if ($log->asset_id == $service->id)
+                                                                <li class="list-group-item">
+                                                                    <div class="row">
+                                                                        <div class="col-12 logs">
+                                                                            <div class="btn col-12 text-start ms-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLog{{$log->id}}" aria-expanded="false" aria-controls="collapseLog">
+                                                                                <span class="bi bi-caret-right-fill"></span> {{$log->date_fixed}}
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-12">
+                                                                            <div class="collapse" id="collapseLog{{$log->id}}">
+                                                                                <div class="card card-body">
+                                                                                    <a><b>Complainant:</b><br>{{$log->complainant_name}}<br>
+                                                                                        <b>Complainant Department:</b><br>{{$log->department->name}}<br>
+                                                                                        <b>Complaint Desc:</b><br>{{$log->desc_complain}}<br>
+                                                                                        <b>Diagnose:</b><br>{{$log->diagnose}}</a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                                @endif
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-dark ml-1" data-bs-dismiss="modal">
+                                                <i class="bx bx-check d-block d-sm-none"></i>
+                                                <span class="d-none d-sm-block">OK</span>
+                                            </button>
+                                        </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+            </div>
+            </tr>
+            @endforeach
+            </tbody>
+            </table>
+        </div>
+</div>
+
+</section>
+<!-- Basic Tables end -->
 </div>
 @endsection

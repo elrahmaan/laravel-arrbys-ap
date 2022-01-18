@@ -38,6 +38,8 @@ Route::get('/department/delete/{id}', [DepartmentController::class, 'confirm']);
 Route::get('/delete/{id}', [UserController::class, 'destroy']);
 Route::get('/user/delete/{id}', [UserController::class, 'confirm']);
 
+Route::post('/service/{id}/repair', [ServiceAssetController::class, 'repair']);
+
 Route::resources([
     'service' => ServiceAssetController::class,
     'new' => NewAssetController::class,
