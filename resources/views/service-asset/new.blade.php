@@ -337,7 +337,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <!-- modal edit data -->
                                 <div class="modal fade text-left" id="editData{{ $service->id }}" tabindex="-1"
                                     role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
