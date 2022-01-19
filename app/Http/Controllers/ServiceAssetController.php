@@ -70,7 +70,7 @@ class ServiceAssetController extends Controller
 
         $asset->save();
 
-        return redirect()->route('service.index');
+        return redirect()->route('service.index')->with('success', 'Data Added!');;
     }
 
     /**
@@ -129,7 +129,7 @@ class ServiceAssetController extends Controller
         $asset->date_estimation_fixed = $request->date_estimation_fixed;
         $asset->save();
 
-        return redirect()->route('service.index');
+        return redirect()->route('service.index')->with('success', 'Data Edited!');;
     }
 
     public function repair(Request $request, $id)
@@ -150,7 +150,7 @@ class ServiceAssetController extends Controller
         $log->date_fixed = $request->date_fixed;
         $log->save();
 
-        return redirect()->route('service.index');
+        return redirect()->route('service.index')->with('success', 'Asset Fixed!');;
     }
 
     /**
@@ -168,6 +168,6 @@ class ServiceAssetController extends Controller
             // unlink($file_path);
         }
         $service->delete();
-        return redirect()->route('new.index');
+        return redirect()->route('service.index')->with('success', 'Data Deleted!');;
     }
 }

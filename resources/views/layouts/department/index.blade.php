@@ -16,6 +16,43 @@
     // Jquery Datatable
     let jquery_datatable = $("#table1").DataTable()
 </script>
+
+<!-- Sweet Alert Delete -->
+<script>
+$('.deleted').click(function() {
+    var id = $(this).attr('data-id');
+    var name = $(this).attr('data-name');
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "Want to delete this data (" + name + ")",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#AAAAAA',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 10000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+            Toast.fire({
+                icon: 'info',
+                title: 'Hold on, delete in progress'
+            })
+            window.location = "/department/delete/" + id 
+        }
+    })
+})
+</script>
+<!-- End Sweet Alert Delete -->
 @endsection
 <div class="page-heading">
     <div class="page-title">
@@ -82,7 +119,7 @@
                                                     <input type="text" name="code" class="form-control"
                                                         placeholder="Department Code" required id="email-id-icon">
                                                     <div class="form-control-icon">
-                                                        <i class="bi bi-envelope"></i>
+                                                        <i class="bi bi-upc"></i>
                                                     </div>
                                                 </div>
                                             </div>
@@ -131,11 +168,7 @@
                                         <i class="fa fa-edit"></i>
                                     </button>
                                 </a>
-                                <a href="/department/delete/{{$d->id}}">
-                                    <button type="submit" class="btn btn-danger" data-bs-toggle="modal">
-                                        <i class="fa fa-trash-alt"></i>
-                                    </button>
-                                </a>
+                                <a href="#"><button type="button" class="btn btn-danger deleted" data-id="{{$d->id}}" data-name="{{$d->name}}"> <i class="fa fa-trash-alt"></i></button></a>
                             </td>
 
                             <!-- modal show data -->
@@ -176,7 +209,7 @@
                                                                     <input type="text" disabled class="form-control"
                                                                         id="email-id-icon" placeholder="{{ $d->code }}">
                                                                     <div class="form-control-icon">
-                                                                        <i class="bi bi-envelope"></i>
+                                                                        <i class="bi bi-upc"></i>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -185,9 +218,9 @@
                                                 </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-light-primary" data-bs-dismiss="modal">
+                                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
                                                 <i class="bx bx-x d-block d-sm-none"></i>
-                                                <span class="d-none d-sm-block">Back</span>
+                                                <span class="d-none d-sm-block">OK</span>
                                             </button>
                                         </div>
                                         </form>
@@ -235,7 +268,7 @@
                                                                     <input type="text" name="code" class="form-control"
                                                                         value="{{ $d->code }}" id="email-id-icon">
                                                                     <div class="form-control-icon">
-                                                                        <i class="bi bi-envelope"></i>
+                                                                        <i class="bi bi-upc"></i>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -258,94 +291,8 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- Modal repair --}}
-                            <div class="modal fade text-left" id="repairData" tabindex="-1" role="dialog"
-                                aria-labelledby="myModalLabel160" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header bg-dark">
-                                            <h5 class="modal-title white" id="myModalLabel160">Repair Unit
-                                            </h5>
-                                            <button type="button" class="close" data-bs-dismiss="modal"
-                                                aria-label="Close">
-                                                <i data-feather="x"></i>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form class="form form-vertical">
-                                                <div class="form-body">
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            <div class="form-group has-icon-left">
-                                                                <label for="first-name-icon">First Name</label>
-                                                                <div class="position-relative">
-                                                                    <input type="text" class="form-control"
-                                                                        placeholder="Input with icon left"
-                                                                        id="first-name-icon">
-                                                                    <div class="form-control-icon">
-                                                                        <i class="bi bi-person"></i>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12">
-
-                                                            <div class="form-group has-icon-left">
-                                                                <label for="email-id-icon">Email</label>
-                                                                <div class="position-relative">
-                                                                    <input type="text" class="form-control"
-                                                                        placeholder="Email" id="email-id-icon">
-                                                                    <div class="form-control-icon">
-                                                                        <i class="bi bi-envelope"></i>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12">
-                                                            <div class="form-group has-icon-left">
-                                                                <label for="mobile-id-icon">Mobile</label>
-                                                                <div class="position-relative">
-                                                                    <input type="text" class="form-control"
-                                                                        placeholder="Mobile" id="mobile-id-icon">
-                                                                    <div class="form-control-icon">
-                                                                        <i class="bi bi-phone"></i>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12">
-                                                            <div class="form-group has-icon-left">
-                                                                <label for="password-id-icon">Password</label>
-                                                                <div class="position-relative">
-                                                                    <input type="password" class="form-control"
-                                                                        placeholder="Password" id="password-id-icon">
-                                                                    <div class="form-control-icon">
-                                                                        <i class="bi bi-lock"></i>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-light-dark" data-bs-dismiss="modal">
-                                                <i class="bx bx-x d-block d-sm-none"></i>
-                                                <span class="d-none d-sm-block">Cancel</span>
-                                            </button>
-                                            <button type="button" class="btn btn-dark ml-1" data-bs-dismiss="modal">
-                                                <i class="bx bx-check d-block d-sm-none"></i>
-                                                <span class="d-none d-sm-block">Add</span>
-                                            </button>
-                                        </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
                         </tr>
                         @endforeach
-
-
                     </tbody>
                 </table>
             </div>

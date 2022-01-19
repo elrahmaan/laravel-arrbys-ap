@@ -56,7 +56,7 @@ class LoanController extends Controller
         $loan->reason = $request->reason;
         $loan->equipment = $request->equipment;
         $loan->save(); 
-        return redirect('/loan')->with('Added', 'Data Added');
+        return redirect('/loan')->with('success', 'Data Added !');
     }
 
     /**
@@ -113,7 +113,7 @@ class LoanController extends Controller
         $loan->reason = $request->reason;
         $loan->equipment = $request->equipment;
         $loan->save(); 
-        return redirect('/loan')->with('Edited', 'Data Edited');
+        return redirect('/loan')->with('success', 'Data Updated!');
         
     }
 
@@ -126,6 +126,6 @@ class LoanController extends Controller
     public function destroy($id)
     {
         Loan::find($id)->delete();
-        return redirect('/loan')->with('Deleted', 'Data Deleted');
+        return redirect('/loan')->with('success', 'Data Deleted!');;
     }
 }
