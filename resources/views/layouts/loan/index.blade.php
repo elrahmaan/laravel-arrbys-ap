@@ -114,7 +114,7 @@
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group has-icon-left">
-                                                <label for="email-id-icon">Department</label>
+                                                <label for="email-id-icon">Department*</label>
                                                 <select class="form-select choices" name="department_id"
                                                     required>
                                                     @foreach ($departments as $department)
@@ -130,9 +130,9 @@
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group has-icon-left">
-                                                <label for="mobile-id-icon">Approved By</label>
+                                                <label for="mobile-id-icon">Approved By*</label>
                                                 <div class="position-relative">
-                                                    <input type="text" name="approved_by" class="form-control"
+                                                    <input type="text" placeholder="Approve name" name="approved_by" class="form-control"
                                                         id="mobile-id-icon" required>
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-check-circle-fill"></i>
@@ -144,7 +144,7 @@
                                             <div class="form-group has-icon-left">
                                                 <label for="password-id-icon">Phone</label>
                                                 <div class="position-relative">
-                                                    <input type="number" name="phone" class="form-control" required>
+                                                    <input type="number" placeholder="Number Phone" name="phone" class="form-control" required>
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-telephone-fill"></i>
                                                     </div>
@@ -153,9 +153,9 @@
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group has-icon-left">
-                                                <label for="mobile-id-icon">Asset Name</label>
+                                                <label for="mobile-id-icon">Asset Name*</label>
                                                 <div class="position-relative">
-                                                    <input type="text" name="equipment" class="form-control"
+                                                    <input type="text" placeholder="Asset name" name="equipment" class="form-control"
                                                         id="mobile-id-icon" required>
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-archive-fill"></i>
@@ -164,7 +164,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group has-icon-left">
-                                            <label for="email-id-icon">Category</label>
+                                            <label for="email-id-icon">Category*</label>
                                             <select class="choices form-select" name="category_asset"
                                                 required>
                                                 <option value="AP">AP</option>
@@ -173,9 +173,9 @@
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group has-icon-left">
-                                                <label for="mobile-id-icon">Purpose</label>
+                                                <label for="mobile-id-icon">Purpose*</label>
                                                 <div class="position-relative">
-                                                    <input type="text" name="purpose" class="form-control"
+                                                    <input type="text" placeholder="Purpose" name="purpose" class="form-control"
                                                         id="mobile-id-icon" required>
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-stickies-fill"></i>
@@ -211,7 +211,7 @@
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group has-icon-left">
-                                                <label for="mobile-id-icon">Status</label>
+                                                <label for="mobile-id-icon">Status*</label>
                                                 <div class="position-relative">
                                                     <input type="text" name="status" class="form-control"
                                                         id="mobile-id-icon" value="In Loan" readonly>
@@ -291,15 +291,6 @@
                                         <i class="fa fa-edit"></i>
                                     </button>
                                 </a>
-                                {{-- <form action="{{ route('loan.destroy', $data->id) }}" method="POST"
-                                enctype="multipart/form-data">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger deleted" data-id="{{$data->id}}"
-                                    data-name="{{$data->name}}">
-                                    <i class="fa fa-trash-alt"></i>
-                                </button>
-                                </form> --}}
                                 <a href="#"><button type="button" class="btn btn-danger deleted" data-id="{{$data->id}}"
                                         data-name="{{$data->name}}"> <i class="fa fa-trash-alt"></i></button></a>
                             </td>
