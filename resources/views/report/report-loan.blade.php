@@ -28,45 +28,41 @@
                     <h4 class="card-title">Filter Report <i class="fa fa-file-pdf"></i></h4>
                 </div>
                 <div class="card-content">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-4 mb-1">
-                                <label for="date">From</label>
-                                <div class="input-group input-group-sm mb-3">
-                                    <span class="input-group-text" id="inputGroup-sizing-sm">Small</span>
-                                    <input type="text" class="form-control" aria-label="Sizing example input"
-                                        aria-describedby="inputGroup-sizing-sm">
+                    <form action="{{ route('report-loan.index') }}" method="GET">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-4 mb-1">
+                                    <label for="date">From</label>
+                                    <div class="input-group input-group-sm mb-3">
+                                        <input required type="datetime-local" name="from_date"
+                                                    class="form-control" placeholder="Choose a date"
+                                                    id="password-id-icon">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-4 mb-1">
-                                <label for="date">To</label>
-                                <div class="input-group input-group-sm mb-3">
-                                    <span class="input-group-text" id="inputGroup-sizing-sm">Small</span>
-                                    <input type="text" class="form-control" aria-label="Sizing example input"
-                                        aria-describedby="inputGroup-sizing-sm">
+                                <div class="col-sm-4 mb-1">
+                                    <label for="date">To</label>
+                                    <div class="input-group input-group-sm mb-3">
+                                        <input required type="datetime-local" name="to_date"
+                                                    class="form-control" placeholder="Choose a date"
+                                                    id="password-id-icon" >
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-4 mb-1">
-                                <div class="dropdown  mt-4">
-                                    <button class="btn btn-primary dropdown-toggle me-1" type="button"
-                                        id="dropdownMenuButton" loan-bs-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                        Category
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">AP1</a>
-                                        <a class="dropdown-item" href="#">Sewa</a>
+                                <div class="col-sm-4 mb-1">
+                                    <div class="dropdown  mt-4">
+                                        <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
+                   
                 </div>
             </div>
         </div>
         <div class="col-md-12  buttons">
             <a href="{{ route('export') }}" class="btn btn-dark rounded-pill pl-3 pr-3">Print Report <i class="fa fa-print ml-2" ></i></a>
         </div>
+      
         <div class="card-body">
             <table class="table" id="table1">
                 <thead>
