@@ -49,12 +49,12 @@
                     icon: 'info',
                     title: 'Hold on, delete in progress'
                 })
-                window.location = "/service/delete/" + id 
+                window.location = "/service/delete/" + id
             }
         })
     })
-    </script>
-    <!-- End Sweet Alert Delete -->
+</script>
+<!-- End Sweet Alert Delete -->
 <script>
     $(document).ready(function() {
         $('.logs .btn').click(function() {
@@ -260,6 +260,7 @@
                     </thead>
                     <tbody>
                         @foreach ($services as $service)
+                        @if ($service->status != 'New')
                         <tr>
                             <td>{{$service->id}}</td>
                             <td>{{$service->name}}</td>
@@ -770,6 +771,7 @@
                             </div>
             </div>
             </tr>
+            @endif
             @endforeach
             </tbody>
             </table>
