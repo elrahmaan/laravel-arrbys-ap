@@ -61,7 +61,7 @@ class NewAssetController extends Controller
         $asset->date = $request->date;
         $asset->save();
 
-        return redirect()->route('new.index');
+        return redirect()->route('new.index')->with('success', 'Data Added!');;
     }
 
     /**
@@ -113,6 +113,6 @@ class NewAssetController extends Controller
             // unlink($file_path);
         }
         $service->delete();
-        return redirect()->route('new.index');
+        return redirect()->route('new.index')->with('success', 'Data Deleted!');;
     }
 }

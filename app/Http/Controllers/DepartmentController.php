@@ -96,10 +96,4 @@ class DepartmentController extends Controller
         Department::find($id)->delete();
         return back()->with('success', 'Data Deleted!');
     }
-    public function confirm($id){
-        alert()->question('Apakah yakin untuk hapus?','Anda tidak akan dapat mengembalikan ini!')
-               ->showConfirmButton( '<a href="/delete/department/'. $id .'" class="text-white" style="text-decoration:none"> Yes! Delete it</a>', '#3085d6')->toHtml()
-               ->showCancelButton('Cancel', '#aaa')->reverseButtons();
-               return redirect('/department');
-    }
 }

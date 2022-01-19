@@ -319,9 +319,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="4" class="px-4 py-2 text-center">
-                                Data Kosong
-                            </td>
+                            <td valign="top" colspan="4" class="dataTables_empty">No data available in table</td>
                         </tr>
                         
                         @endforelse
