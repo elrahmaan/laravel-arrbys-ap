@@ -39,6 +39,7 @@ Route::get('/delete/{id}', [UserController::class, 'destroy']);
 Route::get('/user/delete/{id}', [UserController::class, 'confirm']);
 
 Route::post('/service/{id}/repair', [ServiceAssetController::class, 'repair']);
+Route::get('/report-loan/export_excel', [ReportLoanController::class,'export_excel'])->name('export');
 
 Route::resources([
     'service' => ServiceAssetController::class,

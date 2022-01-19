@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Loan;
+use App\Exports\LoanExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Carbon\Carbon;
+use App\Models\Department;
 
 class ReportLoanController extends Controller
 {
@@ -13,7 +18,10 @@ class ReportLoanController extends Controller
      */
     public function index()
     {
-        return view('report.report-loan');
+        $loan = Loan::all();
+        $carbon=Carbon::now()->toDateString();
+        $departments = Department::all();
+        return view('report.report-loan',compact('loan','carbon','departments'));
     }
 
     /**
@@ -81,4 +89,8 @@ class ReportLoanController extends Controller
     {
         //
     }
+    public function export_excel()
+	{
+		return Excel::download(new LoanExport, 'loan.xlsx');
+	}
 }

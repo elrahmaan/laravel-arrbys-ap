@@ -49,7 +49,7 @@
                             <div class="col-sm-4 mb-1">
                                 <div class="dropdown  mt-4">
                                     <button class="btn btn-primary dropdown-toggle me-1" type="button"
-                                        id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true"
+                                        id="dropdownMenuButton" loan-bs-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false">
                                         Category
                                     </button>
@@ -65,7 +65,51 @@
             </div>
         </div>
         <div class="col-md-12  buttons">
-            <a href="#" class="btn btn-dark rounded-pill pl-3 pr-3">Print Report <i class="fa fa-print ml-2" ></i></a>
+            <a href="{{ route('export') }}" class="btn btn-dark rounded-pill pl-3 pr-3">Print Report <i class="fa fa-print ml-2" ></i></a>
+        </div>
+        <div class="card-body">
+            <table class="table" id="table1">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Name</th>
+                        <th>Unit</th>
+                        <th>Approved By</th>
+                        <th>Asset Name</th>
+                        <th>Category Asset</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($loan as $loan)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>
+                            {{ $loan->name }}
+                            @if ($carbon > $loan->estimation_return_date || $loan->real_return_date > $loan->estimation_return_date)
+                            <span class="badge bg-danger">Late</span>
+                            @endif
+                        </td>
+                        <td>{{ $loan->department->name }}</td>
+                        <td>{{ $loan->approved_by }}</td>
+                        <td>{{ $loan->equipment }}</td>
+                        <td>{{ $loan->category_asset }}</td>
+                        <td>
+                            @if ($carbon <= $loan->estimation_return_date && $loan->real_return_date !== null)
+                                <span class="badge bg-success">Return</span>
+                                <input type="hidden" name="update_status" id="" value="Return">
+                                @elseif($loan->real_return_date !== null && $carbon >
+                                $loan->estimation_return_date)
+                                <span class="badge bg-success">Return</span>
+                                <input type="hidden" name="update_status" id="" value="Return">
+                                @else
+                                <span class="badge bg-warning">In Loan</span>
+                                <input type="hidden" name="update_status" id="" value="In Loan">
+                                @endif
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 </section>

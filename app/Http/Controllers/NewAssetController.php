@@ -95,7 +95,32 @@ class NewAssetController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd(request('category_id'));
+        $service = ServiceAsset::find($id);
+        $service->name = $request->name;
+        $service->category_id = request();
+        $service->detail_of_specification = $request->detail_of_specification;
+        $service->qty = $request->qty;
+        $service->date = $request->date;
+        $image = $request->file('image');
+        if ($image != null) {
+            if ($service->image != "") {
+                $file_path = $service->image;
+                File::delete(public_path($file_path));
+                // unlink($file_path);
+            }
+            $file_name =  time() . "." . $image->getClientOriginalExtension();
+            $path = public_path('/uploads/service-assets/');
+            File::makeDirectory($path, $mode = 0777, true, true);
+            $image->move($path, $file_name);
+            $image_data = '/uploads/service-assets/' . $file_name;
+            $service->image = $image_data;
+        }
+        dd($service);
+        $service->save();
+
+        return redirect()->route('service.index');
+        
     }
 
     /**

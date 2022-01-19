@@ -289,8 +289,9 @@
                                                 <i data-feather="x"></i>
                                             </button>
                                         </div>
+                                        
                                         <div class="modal-body">
-                                            <form class="form form-vertical" method="POST" action="{{route('service.update', $service->id)}}" enctype="multipart/form-data">
+                                            <form class="form form-vertical" method="POST" action="{{route('new.update', $service->id)}}" enctype="multipart/form-data">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="form-body">
@@ -311,8 +312,8 @@
                                                                 <label for="password-id-icon">Category</label>
                                                                 <div class="position-relative">
                                                                     <select class="choices form-select" name="category_id">
-                                                                        @foreach ($categories as $cat)
-                                                                        <option value="{{$cat->id}}" {{$service->category_id == $cat->id ? ' selected' : ' '}}>{{$cat->name}}</option>
+                                                                        @foreach ($categories as $cats)
+                                                                        <option value="{{$cats->id}}"{{$service->category_id == $cats->id ? 'selected' : ''}}>{{$cats->name}}</option>
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
