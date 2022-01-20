@@ -265,7 +265,7 @@
                             <td>{{$service->id}}</td>
                             <td>{{$service->name}}</td>
                             <td>{{$service->category->name}}</td>
-                            <td><img src="{{asset($service->image)}}" alt="" width="60"></td>
+                            <td><img src="{{asset($service->image)}}" alt="" style="max-height: 40px"></td>
                             <td>{{$service->qty}}</td>
                             <td>
                                 @if ($service->status == 'Fixed')
@@ -355,7 +355,7 @@
                                                         <div class="col-12">
                                                             <label for="email-id-icon">Image</label>
                                                             <div class="position-relative mb-2">
-                                                                <img src="{{asset($service->image)}}" alt="" width="100">
+                                                                <img src="{{asset($service->image)}}" alt="" style="max-width: 450px">
                                                             </div>
                                                         </div>
                                                         <div class="col-12">

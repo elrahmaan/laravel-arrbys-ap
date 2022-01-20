@@ -5,54 +5,55 @@
 
 <!-- <link rel="stylesheet" href="assets/vendors/jquery-datatables/jquery.dataTables.min.css"> -->
 <link rel="stylesheet" href="assets/vendors/jquery-datatables/jquery.dataTables.bootstrap5.min.css">
-
+<link rel="stylesheet" href="assets/vendors/choices.js/choices.min.css" />
 @endsection
 @section('script')
 <script src="assets/vendors/jquery/jquery.min.js"></script>
+<script src="assets/vendors/choices.js/choices.min.js"></script>
+<script src="assets/js/pages/form-element-select.js"></script>
 <script src="assets/vendors/jquery-datatables/jquery.dataTables.min.js"></script>
 <script src="assets/vendors/jquery-datatables/custom.jquery.dataTables.bootstrap5.min.js"></script>
 
-    <script>
-        // Jquery Datatable
-        let jquery_datatable = $("#table1").DataTable()
-
-    </script>
-          <!-- Sweet Alert Delete -->
-    <script>
-        $('.deleted').click(function() {
-            var id = $(this).attr('data-id');
-            var name = $(this).attr('data-name');
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "Want to delete this data (" + id + ")",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#AAAAAA',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 10000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                            toast.addEventListener('mouseenter', Swal.stopTimer)
-                            toast.addEventListener('mouseleave', Swal.resumeTimer)
-                        }
-                    })
-                    Toast.fire({
-                        icon: 'info',
-                        title: 'Hold on, delete in progress'
-                    })
-                    window.location = "/loan/delete/" + id 
-                }
-            })
+<script>
+    // Jquery Datatable
+    let jquery_datatable = $("#table1").DataTable()
+</script>
+<!-- Sweet Alert Delete -->
+<script>
+    $('.deleted').click(function () {
+        var id = $(this).attr('data-id');
+        var name = $(this).attr('data-name');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Want to delete this data (" + id + ")",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#AAAAAA',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 10000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+                Toast.fire({
+                    icon: 'info',
+                    title: 'Hold on, delete in progress'
+                })
+                window.location = "/loan/delete/" + id
+            }
         })
-    </script>
-    <!-- End Sweet Alert Delete -->
+    })
+</script>
+<!-- End Sweet Alert Delete -->
 @endsection
 <div class="page-heading">
     <div class="page-title">
@@ -83,7 +84,8 @@
                 </a>
                 <!-- Assets Datatable -->
             </div>
-            <div class="modal fade text-left" id="addData" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
+            <div class="modal fade text-left" id="addData" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160"
+                aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                     <div class="modal-content">
                         <div class="modal-header bg-primary">
@@ -94,7 +96,8 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="{{ route('loan.store') }}" class="form form-vertical" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('loan.store') }}" class="form form-vertical" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -110,10 +113,10 @@
                                             </div>
                                         </div>
                                         <div class="col-12">
-
                                             <div class="form-group has-icon-left">
-                                                <label for="email-id-icon">Unit</label>
-                                                <select class="form-select form-select-lg w-100" name="department_id" required>
+                                                <label for="email-id-icon">Department*</label>
+                                                <select class="form-select choices" name="department_id"
+                                                    required>
                                                     @foreach ($departments as $department)
                                                     <option value="{{ $department->id }}">
                                                         {{ $department->name }}
@@ -127,11 +130,12 @@
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group has-icon-left">
-                                                <label for="mobile-id-icon">Approved By</label>
+                                                <label for="mobile-id-icon">Approved By*</label>
                                                 <div class="position-relative">
-                                                    <input type="text" name="approved_by" class="form-control" id="mobile-id-icon" required>
+                                                    <input type="text" placeholder="Approve name" name="approved_by" class="form-control"
+                                                        id="mobile-id-icon" required>
                                                     <div class="form-control-icon">
-                                                        <i class="bi bi-pen"></i>
+                                                        <i class="bi bi-check-circle-fill"></i>
                                                     </div>
                                                 </div>
                                             </div>
@@ -140,73 +144,77 @@
                                             <div class="form-group has-icon-left">
                                                 <label for="password-id-icon">Phone</label>
                                                 <div class="position-relative">
-                                                    <input type="number" name="phone" class="form-control" required>
+                                                    <input type="number" placeholder="Number Phone" name="phone" class="form-control" required>
                                                     <div class="form-control-icon">
-                                                        <i class="bi bi-phone"></i>
+                                                        <i class="bi bi-telephone-fill"></i>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group has-icon-left">
-                                                <label for="mobile-id-icon">Asset Name</label>
+                                                <label for="mobile-id-icon">Asset Name*</label>
                                                 <div class="position-relative">
-                                                    <input type="text" name="equipment" class="form-control" id="mobile-id-icon" required>
+                                                    <input type="text" placeholder="Asset name" name="equipment" class="form-control"
+                                                        id="mobile-id-icon" required>
                                                     <div class="form-control-icon">
-                                                        <i class="fa fa-box"></i>
+                                                        <i class="bi bi-archive-fill"></i>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group has-icon-left">
-                                            <label for="email-id-icon">Category</label>
-                                            <select class="form-select form-select-lg w-100" name="category_asset" required>
+                                            <label for="email-id-icon">Category*</label>
+                                            <select class="choices form-select" name="category_asset"
+                                                required>
                                                 <option value="AP">AP</option>
                                                 <option value="Sewa">Sewa</option>
                                             </select>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group has-icon-left">
-                                                <label for="mobile-id-icon">Purpose</label>
+                                                <label for="mobile-id-icon">Purpose*</label>
                                                 <div class="position-relative">
-                                                    <input type="text" name="purpose" class="form-control" id="mobile-id-icon" required>
-
+                                                    <input type="text" placeholder="Purpose" name="purpose" class="form-control"
+                                                        id="mobile-id-icon" required>
                                                     <div class="form-control-icon">
-                                                        <i class="bi bi-receipt"></i>
+                                                        <i class="bi bi-stickies-fill"></i>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <div class="form-group has-icon-left">
-                                                <label for="first-name-icon">Detail Loan</label>
-                                                <div class="position-relative">
-                                                    <input type="text" name="detail_loan" class="form-control" required>
-                                                    <div class="form-control-icon">
-                                                        <i class="fa fa-user"></i>
-                                                    </div>
-                                                </div>
+                                            <label for="mobile-id-icon">Detail Loan*</label>
+                                            <div class="position-relative">
+                                                <textarea class="form-control"
+                                                    name="detail_of_specification" id="" rows="5"
+                                                    required> </textarea>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <label for="password-id-icon">Loan Date*</label>
                                             <div class="position-relative mb-2">
-                                                <input type="datetime-local" required name="loan_date" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
+                                                <input type="datetime-local" required name="loan_date"
+                                                    class="form-control" placeholder="Choose a date"
+                                                    id="password-id-icon" required>
 
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <label for="password-id-icon">Estimation Return Date*</label>
                                             <div class="position-relative mb-2">
-                                                <input required type="datetime-local" name="estimation_return_date" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
+                                                <input required type="datetime-local" name="estimation_return_date"
+                                                    class="form-control" placeholder="Choose a date"
+                                                    id="password-id-icon" required>
 
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group has-icon-left">
-                                                <label for="mobile-id-icon">Status</label>
+                                                <label for="mobile-id-icon">Status*</label>
                                                 <div class="position-relative">
-                                                    <input type="text" name="status" class="form-control" id="mobile-id-icon" value="In Loan" readonly>
+                                                    <input type="text" name="status" class="form-control"
+                                                        id="mobile-id-icon" value="In Loan" readonly>
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-receipt"></i>
                                                     </div>
@@ -236,7 +244,7 @@
                         <tr>
                             <th>No</th>
                             <th>Name</th>
-                            <th>Unit</th>
+                            <th>Department</th>
                             <th>Approved By</th>
                             <th>Asset Name</th>
                             <th>Category Asset</th>
@@ -250,7 +258,8 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>
                                 {{ $data->name }}
-                                @if ($carbon > $data->estimation_return_date || $data->real_return_date > $data->estimation_return_date)
+                                @if ($carbon > $data->estimation_return_date || $data->real_return_date >
+                                $data->estimation_return_date)
                                 <span class="badge bg-danger">Late</span>
                                 @endif
                             </td>
@@ -271,36 +280,31 @@
                                     <span class="badge bg-warning">In Loan</span>
                                     <input type="hidden" name="update_status" id="" value="In Loan">
                                     @endif
-                                <td class="d-flex">
-                                    <a href="#"><button type="button" class="btn btn-primary me-2"
-                                            data-bs-toggle="modal" data-bs-target="#showData{{ $data->id }}">
-                                            <i class="fa fa-eye"></i>
-                                        </button>
-                                    </a>
-                                    <a href="#"><button type="button" class="btn btn-warning me-2"
-                                            data-bs-toggle="modal" data-bs-target="#editData{{ $data->id }}">
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                    </a>
-                                    {{-- <form action="{{ route('loan.destroy', $data->id) }}" method="POST"
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger deleted"  data-id="{{$data->id}}" data-name="{{$data->name}}">
-                                            <i class="fa fa-trash-alt"></i>
-                                        </button>
-                                    </form> --}}
-                                    <a href="#"><button type="button" class="btn btn-danger deleted" data-id="{{$data->id}}" data-name="{{$data->name}}"> <i class="fa fa-trash-alt"></i></button></a>
-                                </td>
+                            <td class="d-flex">
+                                <a href="#"><button type="button" class="btn btn-primary me-2" data-bs-toggle="modal"
+                                        data-bs-target="#showData{{ $data->id }}">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                </a>
+                                <a href="#"><button type="button" class="btn btn-warning me-2" data-bs-toggle="modal"
+                                        data-bs-target="#editData{{ $data->id }}">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                </a>
+                                <a href="#"><button type="button" class="btn btn-danger deleted" data-id="{{$data->id}}"
+                                        data-name="{{$data->name}}"> <i class="fa fa-trash-alt"></i></button></a>
+                            </td>
 
                             <!-- modal show data -->
-                            <div class="modal fade text-left" id="showData{{ $data->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
+                            <div class="modal fade text-left" id="showData{{ $data->id }}" tabindex="-1" role="dialog"
+                                aria-labelledby="myModalLabel160" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header bg-primary">
                                             <h5 class="modal-title white" id="myModalLabel160">Detail Data
                                             </h5>
-                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                            <button type="button" class="close" data-bs-dismiss="modal"
+                                                aria-label="Close">
                                                 <i data-feather="x"></i>
                                             </button>
                                         </div>
@@ -313,7 +317,9 @@
                                                             <div class="form-group has-icon-left">
                                                                 <label for="first-name-icon">Name</label>
                                                                 <div class="position-relative">
-                                                                    <input disabled type="text" value="{{ $data->name }}" class="form-control" required>
+                                                                    <input disabled type="text"
+                                                                        value="{{ $data->name }}" class="form-control"
+                                                                        required>
                                                                     <div class="form-control-icon">
                                                                         <i class="fa fa-user"></i>
                                                                     </div>
@@ -322,22 +328,27 @@
                                                         </div>
                                                         <div class="col-12">
                                                             <div class="form-group has-icon-left">
-                                                                <label for="mobile-id-icon">Unit</label>
-                                                                <div class="position-relative">
-                                                                    <input type="text" value="{{ $data->department->name }}" class="form-control" id="mobile-id-icon" disabled>
-                                                                    <div class="form-control-icon">
-                                                                        <i class="bi bi-pen"></i>
-                                                                    </div>
-                                                                </div>
+                                                                <label for="email-id-icon">Department</label>
+                                                                <select disabled class="choices form-select "
+                                                                    name="department_id" required>
+                                                                    @foreach ($departments as $department)
+                                                                    <option value="{{ $department->id }}"
+                                                                        {{ $department->id === $data->department_id ? ' selected' : ' ' }}>
+                                                                        {{ $department->name }}
+                                                                    </option>
+                                                                    @endforeach
+                                                                </select>
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
                                                             <div class="form-group has-icon-left">
                                                                 <label for="mobile-id-icon">Approved By</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" value="{{ $data->approved_by }}" class="form-control" id="mobile-id-icon" disabled>
+                                                                    <input type="text" value="{{ $data->approved_by }}"
+                                                                        class="form-control" id="mobile-id-icon"
+                                                                        disabled>
                                                                     <div class="form-control-icon">
-                                                                        <i class="bi bi-pen"></i>
+                                                                        <i class="bi bi-check-circle-fill"></i>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -346,9 +357,10 @@
                                                             <div class="form-group has-icon-left">
                                                                 <label for="password-id-icon">Phone</label>
                                                                 <div class="position-relative">
-                                                                    <input type="number" value="{{ $data->phone }}" class="form-control" disabled>
+                                                                    <input type="number" value="{{ $data->phone }}"
+                                                                        class="form-control" disabled>
                                                                     <div class="form-control-icon">
-                                                                        <i class="bi bi-phone"></i>
+                                                                        <i class="bi bi-telephone-fill"></i>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -357,28 +369,38 @@
                                                             <div class="form-group has-icon-left">
                                                                 <label for="mobile-id-icon">Asset Name</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" value="{{ $data->equipment }}" class="form-control" id="mobile-id-icon" disabled>
+                                                                    <input type="text" value="{{ $data->equipment }}"
+                                                                        class="form-control" id="mobile-id-icon"
+                                                                        disabled>
                                                                     <div class="form-control-icon">
-                                                                        <i class="fa fa-box"></i>
+                                                                        <i class="bi bi-archive-fill"></i>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="form-group has-icon-left">
-                                                            <label for="email-id-icon">Category</label>
-                                                            <select class="form-select form-select-lg w-100" value="{{ $data->category_asset }}" disabled>
-                                                                <option value="AP" {{ $data->category_asset == 'AP' ? ' selected' : '' }} disabled>AP</option>
-                                                                <option value="Sewa" {{ $data->category_asset == 'Sewa' ? ' selected' : '' }} disabled>Sewa</option>
-                                                            </select>
+                                                        <div class="col-12">
+                                                            <div class="form-group has-icon-left">
+                                                                <label for="email-id-icon">Category</label>
+                                                                <select disabled class="choices form-select"
+                                                                    name="category_asset" required>
+                                                                    <option value="AP"
+                                                                        {{ $data->category_asset == 'AP' ? ' selected' : '' }}
+                                                                        disabled>AP</option>
+                                                                    <option value="Sewa"
+                                                                        {{ $data->category_asset == 'Sewa' ? ' selected' : '' }}
+                                                                        disabled>Sewa</option>
+                                                                </select>
+                                                            </div>
                                                         </div>
                                                         <div class="col-12">
                                                             <div class="form-group has-icon-left">
                                                                 <label for="mobile-id-icon">Purpose</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" value="{{ $data->purpose }}" class="form-control" id="mobile-id-icon" disabled>
-
+                                                                    <input type="text" value="{{ $data->purpose }}"
+                                                                        class="form-control" id="mobile-id-icon"
+                                                                        disabled>
                                                                     <div class="form-control-icon">
-                                                                        <i class="bi bi-receipt"></i>
+                                                                        <i class="bi bi-stickies-fill"></i>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -387,7 +409,8 @@
                                                             <div class="form-group has-icon-left">
                                                                 <label for="first-name-icon">Detail Loan</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" value="{{ $data->detail_loan }}" class="form-control" disabled>
+                                                                    <input type="text" value="{{ $data->detail_loan }}"
+                                                                        class="form-control" disabled>
                                                                     <div class="form-control-icon">
                                                                         <i class="fa fa-user"></i>
                                                                     </div>
@@ -397,7 +420,10 @@
                                                         <div class="col-12">
                                                             <label for="password-id-icon">Loan Date*</label>
                                                             <div class="position-relative mb-2">
-                                                                <input disabled type="text" disabled value="{{ $data->loan_date }}" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
+                                                                <input disabled type="text" disabled
+                                                                    value="{{ $data->loan_date }}" class="form-control"
+                                                                    placeholder="Choose a date" id="password-id-icon"
+                                                                    required>
 
                                                             </div>
                                                         </div>
@@ -405,7 +431,10 @@
                                                             <label for="password-id-icon">Estimation Return
                                                                 Date*</label>
                                                             <div class="position-relative mb-2">
-                                                                <input disabled type="text" value="{{ $data->estimation_return_date }}" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
+                                                                <input disabled type="text"
+                                                                    value="{{ $data->estimation_return_date }}"
+                                                                    class="form-control" placeholder="Choose a date"
+                                                                    id="password-id-icon" required>
 
                                                             </div>
                                                         </div>
@@ -414,33 +443,45 @@
                                                             <label for="password-id-icon">Real Return
                                                                 Date*</label>
                                                             <div class="position-relative mb-2">
-                                                                <input readonly required type="text" value="{{ $data->real_return_date }}" name="real_return_date" class="form-control" placeholder="Choose a date" id="password-id-icon">
+                                                                <input readonly required type="text"
+                                                                    value="{{ $data->real_return_date }}"
+                                                                    name="real_return_date" class="form-control"
+                                                                    placeholder="Choose a date" id="password-id-icon">
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
                                                             <label for="password-id-icon">Reason</label>
                                                             <div class="position-relative mb-2">
-                                                                <textarea disabled class="form-control" name="reason" id="" rows="5" required>{{ $data->reason }}</textarea>
+                                                                <textarea disabled class="form-control" name="reason"
+                                                                    id="" rows="5"
+                                                                    required>{{ $data->reason }}</textarea>
                                                             </div>
 
                                                         </div>
                                                         @endif
-
-                                                        <div class="form-group has-icon-left">
-                                                            <label for="email-id-icon">Status</label>
-                                                            <select disabled class="form-select form-select-lg w-100" name="status" required>
-                                                                <option value="In Loan" {{ $data->status == 'In Loan' ? ' selected' : '' }} disabled>In Loan</option>
-                                                                <option value="Return" {{ $data->status == 'Return' ? ' selected' : '' }}>
-                                                                    Return</option>
-                                                                <option value="Late" {{ $data->status == 'Late' ? ' selected' : '' }}>
-                                                                    Late</option>
-                                                            </select>
+                                                        <div class="col-12">
+                                                              <div class="form-group has-icon-left">
+                                                                  <label for="email-id-icon">Status</label>
+                                                                  <select disabled class="choices form-select"
+                                                                      name="status" required>
+                                                                      <option value="In Loan"
+                                                                          {{ $data->status == 'In Loan' ? ' selected' : '' }}
+                                                                          disabled>In Loan</option>
+                                                                      <option value="Return"
+                                                                          {{ $data->status == 'Return' ? ' selected' : '' }}>
+                                                                          Return</option>
+                                                                      <option value="Late"
+                                                                          {{ $data->status == 'Late' ? ' selected' : '' }}>
+                                                                          Late</option>
+                                                                  </select>
+                                                              </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                                            <button type="button" class="btn btn-light-secondary"
+                                                data-bs-dismiss="modal">
                                                 <i class="bx bx-x d-block d-sm-none"></i>
                                                 <span class="d-none d-sm-block">Back</span>
                                             </button>
@@ -451,18 +492,21 @@
                             </div>
 
                             <!-- modal edit data -->
-                            <div class="modal fade text-left" id="editData{{ $data->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
+                            <div class="modal fade text-left" id="editData{{ $data->id }}" tabindex="-1" role="dialog"
+                                aria-labelledby="myModalLabel160" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header bg-warning">
                                             <h5 class="modal-title white" id="myModalLabel160">Edit Data
                                             </h5>
-                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                            <button type="button" class="close" data-bs-dismiss="modal"
+                                                aria-label="Close">
                                                 <i data-feather="x"></i>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="{{ route('loan.update', $data->id) }}" class="form form-vertical" method="POST" enctype="multipart/form-data">
+                                            <form action="{{ route('loan.update', $data->id) }}"
+                                                class="form form-vertical" method="POST" enctype="multipart/form-data">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="form-body">
@@ -471,7 +515,8 @@
                                                             <div class="form-group has-icon-left">
                                                                 <label for="first-name-icon">Name</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" name="name" class="form-control" required value="{{ $data->name }}">
+                                                                    <input type="text" name="name" class="form-control"
+                                                                        required value="{{ $data->name }}">
                                                                     <div class="form-control-icon">
                                                                         <i class="fa fa-user"></i>
                                                                     </div>
@@ -480,13 +525,16 @@
                                                         </div>
                                                         <div class="col-12">
                                                             <div class="form-group has-icon-left">
-                                                                <label for="email-id-icon">Unit</label>
-                                                                <select class="form-select form-select-lg w-100" name="department_id" required>
+                                                                <label for="email-id-icon">Department</label>
+                                                                <select class="choices form-select "
+                                                                    name="department_id" required>
                                                                     @foreach ($departments as $department)
-                                                                    <option value="{{ $department->id }}" {{ $department->id === $data->department_id ? ' selected' : ' ' }}>
+                                                                    <option value="{{ $department->id }}"
+                                                                        {{ $department->id === $data->department_id ? ' selected' : ' ' }}>
                                                                         {{ $department->name }}
                                                                     </option>
-                                                                    {{-- <option value="{{ $department->name }}">{{ $department->name }}</option> --}}
+                                                                    {{-- <option value="{{ $department->name }}">{{ $department->name }}
+                                                                    </option> --}}
                                                                     @endforeach
                                                                 </select>
                                                             </div>
@@ -495,9 +543,11 @@
                                                             <div class="form-group has-icon-left">
                                                                 <label for="mobile-id-icon">Approved By</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" name="approved_by" class="form-control" id="mobile-id-icon" required value="{{ $data->approved_by }}">
+                                                                    <input type="text" name="approved_by"
+                                                                        class="form-control" id="mobile-id-icon"
+                                                                        required value="{{ $data->approved_by }}">
                                                                     <div class="form-control-icon">
-                                                                        <i class="bi bi-pen"></i>
+                                                                        <i class="bi bi-check-circle-fill"></i>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -506,29 +556,38 @@
                                                             <div class="form-group has-icon-left">
                                                                 <label for="password-id-icon">Phone</label>
                                                                 <div class="position-relative">
-                                                                    <input type="number" name="phone" class="form-control" required value="{{ $data->phone }}">
+                                                                    <input type="number" name="phone"
+                                                                        class="form-control" required
+                                                                        value="{{ $data->phone }}">
                                                                     <div class="form-control-icon">
-                                                                        <i class="bi bi-phone"></i>
+                                                                        <i class="bi bi-telephone-fill"></i>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="form-group has-icon-left">
-                                                            <label for="email-id-icon">Category</label>
-                                                            <select class="form-select form-select-lg w-100" name="category_asset" required>
-                                                                <option value="AP" {{ $data->category_asset == 'AP' ? ' selected' : '' }}>
-                                                                    AP</option>
-                                                                <option value="Sewa" {{ $data->category_asset == 'Sewa' ? ' selected' : '' }}>
-                                                                    Sewa</option>
-                                                            </select>
+                                                        <div class="col-12">
+                                                            <div class="form-group has-icon-left">
+                                                                <label for="email-id-icon">Category</label>
+                                                                <select class="choices form-select"
+                                                                    name="category_asset" required>
+                                                                    <option value="AP"
+                                                                        {{ $data->category_asset == 'AP' ? ' selected' : '' }}>
+                                                                        AP</option>
+                                                                    <option value="Sewa"
+                                                                        {{ $data->category_asset == 'Sewa' ? ' selected' : '' }}>
+                                                                        Sewa</option>
+                                                                </select>
+                                                            </div>
                                                         </div>
                                                         <div class="col-12">
                                                             <div class="form-group has-icon-left">
                                                                 <label for="mobile-id-icon">Asset Name</label>
                                                                 <div class="position-relative">
-                                                                    <input readonly type="text" value="{{ $data->equipment }}" name="equipment" class="form-control" id="mobile-id-icon">
+                                                                    <input readonly type="text"
+                                                                        value="{{ $data->equipment }}" name="equipment"
+                                                                        class="form-control" id="mobile-id-icon">
                                                                     <div class="form-control-icon">
-                                                                        <i class="bi bi-pen"></i>
+                                                                        <i class="bi bi-archive-fill"></i>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -537,36 +596,41 @@
                                                             <div class="form-group has-icon-left">
                                                                 <label for="mobile-id-icon">Purpose</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" value="{{ $data->purpose }}" name="purpose" class="form-control" id="mobile-id-icon" required>
-
+                                                                    <input type="text" value="{{ $data->purpose }}"
+                                                                        name="purpose" class="form-control"
+                                                                        id="mobile-id-icon" required>
                                                                     <div class="form-control-icon">
-                                                                        <i class="bi bi-receipt"></i>
+                                                                        <i class="bi bi-stickies-fill"></i>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
-                                                            <div class="form-group has-icon-left">
-                                                                <label for="first-name-icon">Detail Loan</label>
-                                                                <div class="position-relative">
-                                                                    <input type="text" name="detail_loan" class="form-control" required value="{{ $data->detail_loan }}">
-                                                                    <div class="form-control-icon">
-                                                                        <i class="fa fa-user"></i>
-                                                                    </div>
-                                                                </div>
+                                                            <label for="mobile-id-icon">Detail Loan*</label>
+                                                            <div class="position-relative">
+                                                                <textarea class="form-control"
+                                                                    name="detail_of_specification" id="" rows="5"
+                                                                    required> {{ $data->detail_loan }}</textarea>
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
                                                             <label for="password-id-icon">Loan Date*</label>
                                                             <div class="position-relative mb-2">
-                                                                <input readonly type="text" value="{{ $data->loan_date }}" name="loan_date" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
+                                                                <input readonly type="text"
+                                                                    value="{{ $data->loan_date }}" name="loan_date"
+                                                                    class="form-control" placeholder="Choose a date"
+                                                                    id="password-id-icon" required>
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
                                                             <label for="password-id-icon">Estimation Return
                                                                 Date*</label>
                                                             <div class="position-relative mb-2">
-                                                                <input readonly type="text" value="{{ $data->estimation_return_date }}" name="estimation_return_date" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
+                                                                <input readonly type="text"
+                                                                    value="{{ $data->estimation_return_date }}"
+                                                                    name="estimation_return_date" class="form-control"
+                                                                    placeholder="Choose a date" id="password-id-icon"
+                                                                    required>
 
                                                             </div>
                                                         </div>
@@ -574,11 +638,17 @@
                                                             <label for="password-id-icon">Real Return Date*</label>
                                                             @if ($data->real_return_date !== null)
                                                             <div class="position-relative mb-2">
-                                                                <input readonly required type="text" value="{{ $data->real_return_date }}" name="real_return_date" class="form-control" placeholder="Choose a date" id="password-id-icon">
+                                                                <input readonly required type="text"
+                                                                    value="{{ $data->real_return_date }}"
+                                                                    name="real_return_date" class="form-control"
+                                                                    placeholder="Choose a date" id="password-id-icon">
                                                             </div>
                                                             @else
                                                             <div class="position-relative mb-2">
-                                                                <input required type="datetime-local" value="{{ $data->real_return_date }}" name="real_return_date" class="form-control" placeholder="Choose a date" id="password-id-icon">
+                                                                <input required type="datetime-local"
+                                                                    value="{{ $data->real_return_date }}"
+                                                                    name="real_return_date" class="form-control"
+                                                                    placeholder="Choose a date" id="password-id-icon">
                                                             </div>
                                                             @endif
 
@@ -587,16 +657,18 @@
                                                         <div class="col-12">
                                                             <label for="password-id-icon">Reason</label>
                                                             <div class="position-relative mb-2">
-                                                                <textarea class="form-control" name="reason" id="" rows="5">{{ $data->reason }}</textarea>
+                                                                <textarea class="form-control" name="reason" id=""
+                                                                    rows="5">{{ $data->reason }}</textarea>
                                                             </div>
                                                         </div>
                                                         @endif
-
                                                         <div class="col-12">
                                                             <div class="form-group has-icon-left">
                                                                 <label for="mobile-id-icon">Status</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" class="form-control" id="mobile-id-icon" value="{{ $data->status }}" readonly>
+                                                                    <input type="text" class="form-control"
+                                                                        id="mobile-id-icon" value="{{ $data->status }}"
+                                                                        readonly>
                                                                     <div class="form-control-icon">
                                                                         <i class="bi bi-receipt"></i>
                                                                     </div>
@@ -607,7 +679,8 @@
                                                 </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                                            <button type="button" class="btn btn-light-secondary"
+                                                data-bs-dismiss="modal">
                                                 <i class="bx bx-x d-block d-sm-none"></i>
                                                 <span class="d-none d-sm-block">Cancel</span>
                                             </button>
@@ -623,8 +696,6 @@
                             {{-- Modal repair --}}
                         </tr>
                         @endforeach
-
-
                     </tbody>
                 </table>
             </div>
