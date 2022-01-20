@@ -14,4 +14,8 @@ class UnitLog extends Model
     {
         return $this->belongsTo(Department::class);
     }
+    public function service()
+    {
+        return $this->belongsTo(ServiceAsset::class);
+    }
 }

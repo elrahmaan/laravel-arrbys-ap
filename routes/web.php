@@ -4,6 +4,7 @@ use App\Http\Controllers\LoanController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ReportLoanController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\NewAssetController;
 use App\Http\Controllers\ServiceAssetController;
@@ -21,9 +22,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('layouts.dashboard');
-})->name('home');
+Route::get('/', [DashboardController::class, 'index'])->name('home');
+// Route::get('/', function () {
+//     return view('layouts.dashboard');
+// });
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');

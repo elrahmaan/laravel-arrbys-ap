@@ -18,4 +18,8 @@ class ServiceAsset extends Model
     {
         return $this->belongsTo(Department::class);
     }
+    public function log()
+    {
+        return $this->hasMany(UnitLog::class);
+    }
 }
