@@ -24,7 +24,8 @@ class LoanExport implements FromCollection, WithHeadings, ShouldAutoSize, WithEv
             'Nama Barang',
             'Kategori Barang Peminjaman',
             'Tanggal Peminjaman',
-            'Tanggal Pengembalian'
+            'Tanggal Pengembalian',
+            'Status'
         ];
     }
     /**
@@ -35,6 +36,7 @@ class LoanExport implements FromCollection, WithHeadings, ShouldAutoSize, WithEv
         $styleArray = [
             'font' => [
                 'bold' => true,
+                'size' => 13
             ],
         ];
         $styleTitle = [
@@ -46,11 +48,20 @@ class LoanExport implements FromCollection, WithHeadings, ShouldAutoSize, WithEv
                 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
             ],
         ];
+        $styleContent = [
+            'font' => [
+                'bold' => false,
+                'size' => 12
+            ],
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
+            ],
+        ];
         return [
-            AfterSheet::class    => function (AfterSheet $event) use ($styleArray, $styleTitle) {
+            AfterSheet::class    => function (AfterSheet $event) use ($styleArray, $styleTitle,$styleContent) {
                 // $cellRange = 'A1:G1'; // All headers
-                $event->sheet->setCellValue('A1', 'Laporan Peminjaman Barang')->mergeCells("A1:G1")->getStyle('A1:G1')->applyFromArray($styleTitle);
-                $event->sheet->getStyle('A2:G2')->applyFromArray($styleArray);
+                $event->sheet->setCellValue('A1', 'Laporan Peminjaman Barang')->mergeCells("A1:H1")->getStyle('A1:H1')->applyFromArray($styleTitle);
+                $event->sheet->getStyle('A2:H2')->applyFromArray($styleArray);
                 $event->sheet->setCellValue('A2', 'Nama');
                 $event->sheet->setCellValue('B2', 'Unit');
                 $event->sheet->setCellValue('C2', 'Disetujui Oleh');
@@ -58,13 +69,14 @@ class LoanExport implements FromCollection, WithHeadings, ShouldAutoSize, WithEv
                 $event->sheet->setCellValue('E2', 'Kategori Barang Peminjaman');
                 $event->sheet->setCellValue('F2', 'Tanggal Peminjaman');
                 $event->sheet->setCellValue('G2', 'Tanggal Pengembalian');
+                $event->sheet->setCellValue('H2', 'Status');
                 foreach (range('A', 'I') as $col) {
                     $event->sheet->getColumnDimension($col)->setAutoSize(true);
                 }
                 $cell=3;
                 $laporan = Loan::getLoan();
                 foreach ($laporan as $row) {
-                    $event->sheet->getStyle('A'.$cell.':'.'G'.$cell)->applyFromArray($styleArray);
+                    $event->sheet->getStyle('A'.$cell.':'.'H'.$cell)->applyFromArray($styleContent);
                     $event->sheet->setCellValue('A' . $cell, $row->name);
                     $event->sheet->setCellValue('B' . $cell, $row->department_name);
                     $event->sheet->setCellValue('C' . $cell, $row->approved_by);
@@ -72,6 +84,7 @@ class LoanExport implements FromCollection, WithHeadings, ShouldAutoSize, WithEv
                     $event->sheet->setCellValue('E' . $cell, $row->category_asset);
                     $event->sheet->setCellValue('F' . $cell, $row->loan_date);
                     $event->sheet->setCellValue('G' . $cell, $row->estimation_return_date);
+                    $event->sheet->setCellValue('H' . $cell, $row->status);
                     $cell++;
                 }
                 // $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(14);

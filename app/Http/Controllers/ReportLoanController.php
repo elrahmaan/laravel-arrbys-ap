@@ -19,9 +19,16 @@ class ReportLoanController extends Controller
     public function index()
     {
         $loan = Loan::all();
-        $carbon=Carbon::now()->toDateString();
-        $departments = Department::all();
-        return view('report.report-loan',compact('loan','carbon','departments'));
+        $carbon = Carbon::now()->toDateString();
+        $fromDates = Carbon::parse(date(request('from_date')))->format('Y-m-d');
+        $toDates = Carbon::parse(date(request('to_date')))->format('Y-m-d');
+        
+        if ($fromDates && $toDates) {
+            $loan = Loan::where('loan_date', '>=', $fromDates)
+                ->where('loan_date', '<=', $toDates)->get();
+                
+        }
+        return view('report.report-loan',compact('loan','carbon'));
     }
 
     /**
