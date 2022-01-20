@@ -10,10 +10,19 @@ use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-// use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-
-class LoanExport implements FromCollection, WithHeadings, ShouldAutoSize, WithEvents, WithHeadingRow
+class LoanParameterExport implements FromCollection, WithHeadings, ShouldAutoSize, WithEvents, WithHeadingRow
 {
+    protected $fromDates,$toDates;
+
+    function __construct($fromDates,$toDates)
+    {
+        $this->fromDates = $fromDates;
+        $this->toDates = $toDates;
+    }
+    public function collection()
+    {
+        return collect(Loan::getLoanParameter($this->fromDates,$this->toDates));
+    }
     public function headings(): array
     {
         return [
@@ -57,7 +66,7 @@ class LoanExport implements FromCollection, WithHeadings, ShouldAutoSize, WithEv
             ],
         ];
         return [
-            AfterSheet::class    => function (AfterSheet $event) use ($styleArray, $styleTitle,$styleContent) {
+            AfterSheet::class    => function (AfterSheet $event) use ($styleArray, $styleTitle, $styleContent) {
                 // $cellRange = 'A1:G1'; // All headers
                 $event->sheet->setCellValue('A1', 'Laporan Peminjaman Barang')->mergeCells("A1:H1")->getStyle('A1:H1')->applyFromArray($styleTitle);
                 $event->sheet->getStyle('A2:H2')->applyFromArray($styleArray);
@@ -72,10 +81,10 @@ class LoanExport implements FromCollection, WithHeadings, ShouldAutoSize, WithEv
                 foreach (range('A', 'I') as $col) {
                     $event->sheet->getColumnDimension($col)->setAutoSize(true);
                 }
-                $cell=3;
-                $laporan = Loan::getLoan();
+                $cell = 3;
+                $laporan = Loan::getLoanParameter($this->fromDates,$this->toDates);
                 foreach ($laporan as $row) {
-                    $event->sheet->getStyle('A'.$cell.':'.'H'.$cell)->applyFromArray($styleContent);
+                    $event->sheet->getStyle('A' . $cell . ':' . 'H' . $cell)->applyFromArray($styleContent);
                     $event->sheet->setCellValue('A' . $cell, $row->name);
                     $event->sheet->setCellValue('B' . $cell, $row->department_name);
                     $event->sheet->setCellValue('C' . $cell, $row->approved_by);
@@ -94,16 +103,5 @@ class LoanExport implements FromCollection, WithHeadings, ShouldAutoSize, WithEv
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function collection()
-    {
-        //return Loan::all();
-        return collect(Loan::getLoan());
-    }
-    // public function styles(Worksheet $sheet)
-    // {
-    //     return [
-    //         // Style the first row as bold text.
-    //         'A1:W1'    => ['font' => ['bold' => true]],
-    //     ];
-    // }
+    
 }
