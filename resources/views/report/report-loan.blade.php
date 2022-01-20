@@ -34,35 +34,42 @@
                                 <div class="col-sm-4 mb-1">
                                     <label for="date">From</label>
                                     <div class="input-group input-group-sm mb-3">
-                                        <input required type="datetime-local" name="from_date"
-                                                    class="form-control" placeholder="Choose a date"
-                                                    id="password-id-icon">
+                                        <input required type="datetime-local" name="from_date" class="form-control"
+                                            placeholder="Choose a date" id="password-id-icon"
+                                            value="{{ request('from_date') }}">
                                     </div>
                                 </div>
                                 <div class="col-sm-4 mb-1">
                                     <label for="date">To</label>
                                     <div class="input-group input-group-sm mb-3">
-                                        <input required type="datetime-local" name="to_date"
-                                                    class="form-control" placeholder="Choose a date"
-                                                    id="password-id-icon" >
+                                        <input required type="datetime-local" name="to_date" class="form-control"
+                                            placeholder="Choose a date" id="password-id-icon"
+                                            value="{{ request('to_date') }}">
                                     </div>
                                 </div>
                                 <div class="col-sm-4 mb-1">
                                     <div class="dropdown  mt-4">
-                                        <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
+                                        <button type="submit" class="btn btn-primary"><i
+                                                class="bi bi-search"></i></button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </form>
-                   
+
                 </div>
             </div>
         </div>
-        <div class="col-md-12  buttons">
-            <a href="{{ route('export') }}" class="btn btn-dark rounded-pill pl-3 pr-3">Print Report <i class="fa fa-print ml-2" ></i></a>
+        <div class="col-md-12 buttons">
+            <form action="{{ request('from_date') && request('to_date') ? route('export-parameter') : route('export') }}" method="GET">
+                @if (request('from_date') && request('to_date'))
+                <input type="hidden" name="fromDate" value="{{ request('from_date') }}">
+                <input type="hidden" name="toDate" value="{{ request('to_date') }}">    
+                @endif
+                <button type="submit" class="btn btn-dark rounded-pill pl-3 pr-3">Print Report     
+                <i class="fa fa-print ml-2"></i></button>
+            </form>
         </div>
-      
         <div class="card-body">
             <table class="table" id="table1">
                 <thead>
@@ -82,7 +89,8 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>
                             {{ $loan->name }}
-                            @if ($carbon > $loan->estimation_return_date || $loan->real_return_date > $loan->estimation_return_date)
+                            @if ($carbon > $loan->estimation_return_date || $loan->real_return_date >
+                            $loan->estimation_return_date)
                             <span class="badge bg-danger">Late</span>
                             @endif
                         </td>
