@@ -141,6 +141,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h4>Recent 3 Loan <span class="badge bg-danger">Late</span></h4>
+
                         </div>
                         <div class="card-body">
 
@@ -233,7 +234,7 @@
                     <div class="recent-message d-flex px-4 py-3">
                         <div class="name ms-4">
                             <h6 class="text-muted mb-1">ID: {{$service->id}}</h6>
-                            <h5 class="mb-1">{{$service->name}} <span class="badge bg-primary">{{$service->qty}}</span></h5>
+                            <h5 class="mb-1">{{$service->name}}</h5> <span class="badge bg-primary"><strong>{{$service->qty}}</strong></span>
                             <p class="mb-0">{{$log->created_at}}</p>
                         </div>
                     </div>
@@ -253,14 +254,14 @@
                 <div class="card-body text-center">
                     <img src="{{ url('/img/asset-service.png') }}" width="70" class="mb-2"><br>
                     <h6 class="mb-1">Total Trouble Asset</h6>
-                    <h4><strong>{{$inrepair + $fixed}}</strong></h4>
+                    <span class="badge bg-primary"><strong>{{$inrepair + $fixed}}</strong></span>
                 </div>
             </div>
             <div class="card">
                 <div class="card-body text-center">
-                    <img src="{{ url('/img/loan.png') }}" width="70" class="mb-2"><br>
+                    <img src="{{ url('/img/loan2.png') }}" width="70" class="mb-2"><br>
                     <h6 class="mb-1">Total Loan Data</h6>
-                    <h4><strong>{{$inloan + $return}}</strong></h4>
+                    <span class="badge bg-primary"><strong>{{$inloan + $return}}</strong></span>
                 </div>
             </div>
             <!-- <div id="chart-visitors-profile"></div> -->
