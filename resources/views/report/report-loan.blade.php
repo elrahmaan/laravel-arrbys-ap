@@ -76,6 +76,7 @@
                 <i class="fa fa-print ml-2"></i></button>
             </form>
         </div>
+        @if ($found)
         <div class="card-body">
             <table class="table" id="table1">
                 <thead>
@@ -121,6 +122,10 @@
                 </tbody>
             </table>
         </div>
+        @else
+        <p>Data Not Found</p>
+        @endif
+        
     </div>
 </section>
 @endsection

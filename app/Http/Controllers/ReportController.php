@@ -21,13 +21,18 @@ class ReportController extends Controller
         $report = UnitLog::getDataUnit();
         $fromDates = Carbon::parse(date(request('from_date')))->format('Y-m-d');
         $toDates = Carbon::parse(date(request('to_date')))->format('Y-m-d');
-
+        $found = true;
         if (request('from_date') && request('from_date')) {
-            // $report = UnitLog::where('created_at', '>=', $fromDates)
-            //     ->where('created_at', '<=', $toDates)->get();
             $report = UnitLog::getServiceParameter($fromDates,$toDates);
+            $found =false;
+            if ($report) {
+                $found = true;
+            }else{
+                $found = false;
+            }
+            
         }
-        return view('report.report-repairing',compact('report'));
+        return view('report.report-repairing',compact('report','found'));
     }
 
     /**
