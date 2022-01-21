@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\AssetServiceParameterExport;
+use App\Exports\AssetServiceExport;
+use App\Models\UnitLog;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use Carbon\Carbon;
 
 class ReportController extends Controller
 {
@@ -13,7 +18,16 @@ class ReportController extends Controller
      */
     public function index()
     {
-        return view('report.report-repairing');
+        $report = UnitLog::getDataUnit();
+        $fromDates = Carbon::parse(date(request('from_date')))->format('Y-m-d');
+        $toDates = Carbon::parse(date(request('to_date')))->format('Y-m-d');
+
+        if (request('from_date') && request('from_date')) {
+            // $report = UnitLog::where('created_at', '>=', $fromDates)
+            //     ->where('created_at', '<=', $toDates)->get();
+            $report = UnitLog::getServiceParameter($fromDates,$toDates);
+        }
+        return view('report.report-repairing',compact('report'));
     }
 
     /**
@@ -80,5 +94,17 @@ class ReportController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function export_excel()
+    {
+        $filename = Carbon::now()->isoFormat('d-m-YYYY');
+        return Excel::download(new AssetServiceExport, 'Laporan Perbaikan Asset '.$filename.'.xlsx');
+    }
+    public function export_excel_parameter()
+    {
+        $fromDates = Carbon::parse(date(request('fromDate')))->format('Y-m-d');
+        $toDates = Carbon::parse(date(request('toDate')))->format('Y-m-d');
+        $filename = Carbon::now()->isoFormat('d-m-YYYY');
+        return Excel::download(new AssetServiceParameterExport($fromDates,$toDates), 'Laporan Perbaikan Asset '.$filename.'.xlsx');
     }
 }
