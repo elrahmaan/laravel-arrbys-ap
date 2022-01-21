@@ -99,7 +99,8 @@ class ReportLoanController extends Controller
     }
     public function export_excel()
     {
-        return Excel::download(new LoanExport, 'loan.xlsx');
+        $filename = Carbon::now()->isoFormat('d-m-YYYY');
+        return Excel::download(new LoanExport, 'Laporan Peminjaman Asset '.$filename.'.xlsx');
     }
 
     public function export_excel_parameter()
