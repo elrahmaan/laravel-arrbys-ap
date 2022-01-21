@@ -43,8 +43,12 @@ Route::get('/user/delete/{id}', [UserController::class, 'destroy']);
 Route::get('/loan/delete/{id}', [LoanController::class, 'destroy']);
 
 Route::post('/service/{id}/repair', [ServiceAssetController::class, 'repair']);
-Route::get('/report-loan/export_excel', [ReportLoanController::class, 'export_excel'])->name('export');
-Route::get('/report-parameter/export_excel_parameter', [ReportLoanController::class, 'export_excel_parameter'])->name('export-parameter');
+
+//export excel
+Route::get('/report-loan/export_excel', [ReportLoanController::class, 'export_excel'])->name('export-loan');
+Route::get('/report-parameter/export_excel_parameter', [ReportLoanController::class, 'export_excel_parameter'])->name('export-loan-parameter');
+Route::get('/report-service/export_excel', [ReportController::class, 'export_excel'])->name('export-service');
+Route::get('/report-service-parameter/export_excel_parameter', [ReportController::class, 'export_excel_parameter'])->name('export-service-parameter');
 
 Route::resources([
     'service' => ServiceAssetController::class,

@@ -53,6 +53,12 @@
                                                 class="bi bi-search"></i></button>
                                     </div>
                                 </div>
+                                <div class="col-sm-4 mb-1">
+                                    <div class="dropdown mt-4">
+                                        <a href="{{ route('report-loan.index') }}" class="btn btn-warning"><i
+                                                class="bi bi-arrow-repeat"></i></a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -61,7 +67,7 @@
             </div>
         </div>
         <div class="col-md-12 buttons">
-            <form action="{{ request('from_date') && request('to_date') ? route('export-parameter') : route('export') }}" method="GET">
+            <form action="{{ request('from_date') && request('to_date') ? route('export-loan-parameter') : route('export-loan') }}" method="GET">
                 @if (request('from_date') && request('to_date'))
                 <input type="hidden" name="fromDate" value="{{ request('from_date') }}">
                 <input type="hidden" name="toDate" value="{{ request('to_date') }}">    
