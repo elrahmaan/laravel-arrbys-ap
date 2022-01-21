@@ -31,24 +31,23 @@
                 <nav class="navbar navbar-expand navbar-light ml-auto ">
                     <div class="container-fluid">
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <div class="dropdown position-absolute" style="left: 85%">
+                            <div class="dropdown position-absolute" style="left: 90%">
                                 <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
                                     <div class="user-menu d-flex" style="border-radius: 20px; ">
-                                        <div class="user-name" style="padding-block: 10px; padding-inline: 40px"  >
-                                            <h6 class="mb-0 text-dark d-flex">
-                                                Bandot81 <i class="bi bi-caret-down-square-fill ms-2"></i>
+                                        <div class="user-name" style="padding-inline: 40px">
+                                            <h6 class="mb-0 text-dark d-flex text-capitalize">
+                                                {{Auth::user()->name != null ? Auth::user()->name : "username"}}
+                                                <i class="bi bi-caret-down-square-fill ms-2"></i>
                                             </h6>
                                             <p class="mb-0 text-sm text-gray-600">
                                                 Admin
                                             </p>
-                                            
                                         </div>
-                                        
                                     </div>
                                 </a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton" >
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
                                     <li>
-                                        <h6 class="dropdown-header">Hello, Tes
+                                        <h6 class="dropdown-header">Hello, {{Auth::user()->name}}
                                         </h6>
                                     </li>
                                     <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
