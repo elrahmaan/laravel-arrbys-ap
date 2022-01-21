@@ -24,12 +24,18 @@ class ReportLoanController extends Controller
         $carbon = Carbon::now()->toDateString();
         $fromDates = Carbon::parse(date(request('from_date')))->format('Y-m-d');
         $toDates = Carbon::parse(date(request('to_date')))->format('Y-m-d');
-
+        $found = true;
         if (request('from_date') && request('to_date')) {
             $loan = Loan::where('loan_date', '>=', $fromDates)
                 ->where('loan_date', '<=', $toDates)->get();
+                $found =false;
+                if ($loan->count()) {
+                    $found = true;
+                }else{
+                    $found = false;
+                }
         }
-        return view('report.report-loan', compact('loan', 'carbon'));
+        return view('report.report-loan', compact('loan', 'carbon','found'));
     }
 
     /**
