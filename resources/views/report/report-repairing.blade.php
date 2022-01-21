@@ -2,6 +2,44 @@
 @section('title', 'Report-Loan')
 @include('components.sidebar')
 @section('body')
+@section('css')
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/bootstrap.css">
+
+<!-- <link rel="stylesheet" href="assets/vendors/jquery-datatables/jquery.dataTables.min.css"> -->
+<link rel="stylesheet" href="assets/vendors/jquery-datatables/jquery.dataTables.bootstrap5.min.css">
+<link rel="stylesheet" href="assets/vendors/fontawesome/all.min.css">
+<style>
+    table.dataTable td {
+        padding: 15px 8px;
+    }
+
+    .fontawesome-icons .the-icon svg {
+        font-size: 24px;
+    }
+</style>
+
+<link rel="stylesheet" href="assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+<link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
+<link rel="stylesheet" href="assets/css/app.css">
+<link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
+@endsection
+@section('script')
+<script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+
+<script src="assets/vendors/jquery/jquery.min.js"></script>
+<script src="assets/vendors/jquery-datatables/jquery.dataTables.min.js"></script>
+<script src="assets/vendors/jquery-datatables/custom.jquery.dataTables.bootstrap5.min.js"></script>
+<script src="assets/vendors/fontawesome/all.min.js"></script>
+<script>
+    // Jquery Datatable
+    let jquery_datatable = $("#table1").DataTable()
+</script>
+
+<script src="assets/js/mazer.js"></script>
+@endsection
 
 <div class="page-title">
     <div class="row">
@@ -25,7 +63,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header" style="margin-bottom: -20px">
-                    <h4 class="card-title">Filter Report <i class="fa fa-file-pdf"></i></h4>
+                    <h4 class="card-title">Filter Report</h4>
                 </div>
                 <div class="card-content">
                     <form action="" method="GET">
@@ -47,63 +85,68 @@
                                             value="{{ request('to_date') }}">
                                     </div>
                                 </div>
-                                <div class="col-sm-4 mb-1">
-                                    <div class="dropdown mt-4">
+                                <div class="col-sm-2 mb-1 d-flex">
+                                    <div class="dropdown  mt-4 me-3">
                                         <button type="submit" class="btn btn-primary"><i
                                                 class="bi bi-search"></i></button>
                                     </div>
-                                </div>
-                                <div class="col-sm-4 mb-1">
-                                    <div class="dropdown mt-4">
-                                        <a href="{{ route('report-repairing.index') }}" class="btn btn-warning"><i
+                                    <div class="refresh mt-4">
+                                        <a href="{{ route('report-loan.index') }}" class="btn btn-dark"><i
                                                 class="bi bi-arrow-repeat"></i></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>
-        <div class="col-md-12 buttons">
-            <form action="{{ request('from_date') && request('to_date') ? route('export-service-parameter') : route('export-service') }}" method="GET">
-                @if (request('from_date') && request('to_date'))
-                <input type="hidden" name="fromDate" value="{{ request('from_date') }}">
-                <input type="hidden" name="toDate" value="{{ request('to_date') }}">    
-                @endif
-                <button type="submit" class="btn btn-dark rounded-pill pl-3 pr-3">Print Report     
-                <i class="fa fa-print ml-2"></i></button>
-            </form>
-        </div>
-        <div class="card-body">
-            <table class="table" id="table1">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Asset Name</th>
-                        <th>Unit</th>
-                        <th>Complainant Name</th>
-                        <th>Desc Complain</th>
-                        <th>Diagnose</th>
-                        <th>Date Fixed</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($report as $report)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $report->asset_name }}</td>
-                        <td>{{ $report->department_name }}</td>
-                        <td>{{ $report->complainant_name }}</td>
-                        <td>{{ $report->desc_complain }}</td>
-                        <td>{{ $report->diagnose }}</td>
-                        <td>{{ $report->date_fixed }}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div>
-</section>
-@endsection
+       
+        <section id="input-group-size">
+            <div class="row">
+                <div class="card">
+                    <div class="card-header" style="margin-bottom: -20px">
+                        <h4 class="card-title">Data Repairing</h4>
+                    </div>
+                    <div class="ms-4 col-md-12 buttons">
+                        <form action="{{ request('from_date') && request('to_date') ? route('export-loan-parameter') : route('export-loan') }}" method="GET">
+                            @if (request('from_date') && request('to_date'))
+                            <input type="hidden" name="fromDate" value="{{ request('from_date') }}">
+                            <input type="hidden" name="toDate" value="{{ request('to_date') }}">    
+                            @endif
+                            <button type="submit" class="btn btn-success rounded-3 pl-3 pr-3">Print Report     
+                            <i class="fa fa-print ml-2"></i></button>
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <table class="table" id="table1">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Asset Name</th>
+                                    <th>Unit</th>
+                                    <th>Complainant Name</th>
+                                    <th>Desc Complain</th>
+                                    <th>Diagnose</th>
+                                    <th>Date Fixed</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($report as $report)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $report->asset_name }}</td>
+                                    <td>{{ $report->department_name }}</td>
+                                    <td>{{ $report->complainant_name }}</td>
+                                    <td>{{ $report->desc_complain }}</td>
+                                    <td>{{ $report->diagnose }}</td>
+                                    <td>{{ $report->date_fixed }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+        @endsection
