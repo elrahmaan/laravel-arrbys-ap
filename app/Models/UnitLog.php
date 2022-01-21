@@ -19,7 +19,7 @@ class UnitLog extends Model
     {
         return $this->belongsTo(ServiceAsset::class);
     }
-    public function getDataUnit()
+    public static function getDataUnit()
     {
         $record = DB::table('unit_logs')->leftJoin('service_assets','unit_logs.asset_id', '=' ,'service_assets.id')
         ->leftJoin('departments','unit_logs.department_id','=','departments.id')
@@ -28,7 +28,7 @@ class UnitLog extends Model
         'unit_logs.date_fixed as date_fixed')->get()->toArray();
         return $record;
     }
-    public function getServiceParameter($fromDates, $toDates)
+    public static function getServiceParameter($fromDates, $toDates)
     {
         if ($fromDates == $toDates) {
             $record = DB::table('unit_logs')->leftJoin('service_assets','unit_logs.asset_id', '=' ,'service_assets.id')

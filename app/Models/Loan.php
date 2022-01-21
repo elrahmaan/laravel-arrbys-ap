@@ -16,13 +16,13 @@ class Loan extends Model
         return $this->belongsTo(Department::class);
     }
 
-    public function getLoan()
+    public static function getLoan()
     {
         $record = DB::table('loans')->leftJoin('departments', 'loans.department_id', '=', 'departments.id')
             ->select('loans.name as name', 'departments.name as department_name', 'loans.approved_by as approved_by', 'loans.equipment as equipment', 'loans.category_asset as category_asset', 'loans.loan_date as loan_date', 'loans.estimation_return_date', 'loans.status')->get()->toArray();
         return $record;
     }
-    public function getLoanParameter($fromDates, $toDates)
+    public static function getLoanParameter($fromDates, $toDates)
     {
         if ($fromDates == $toDates) {
             $record = DB::table('loans')->leftJoin('departments', 'loans.department_id', '=', 'departments.id')
