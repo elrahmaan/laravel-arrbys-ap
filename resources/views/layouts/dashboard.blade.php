@@ -1,6 +1,6 @@
 @extends('master')
 @section('body')
-@section('title-page', 'Dashboard')
+@section('title', 'AP1 Series | Dashboard')
 @section('css')
 
 @endsection

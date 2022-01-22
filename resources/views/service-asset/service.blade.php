@@ -1,5 +1,5 @@
 @extends('master')
-@section('tittle', 'Table Data Asssets')
+@section('title', 'AP1 Series | Services of Asset')
 @section('body')
 @section('css')
 

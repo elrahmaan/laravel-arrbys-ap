@@ -1,5 +1,5 @@
 @extends('master')
-@section('title', 'Report-Loan')
+@section('title', 'AP1 Series | Repairing Report')
 @include('components.sidebar')
 @section('body')
 @section('css')
@@ -72,27 +72,21 @@
                                 <div class="col-sm-4 mb-1">
                                     <label for="date">From</label>
                                     <div class="input-group input-group-sm mb-3">
-                                        <input required type="datetime-local" name="from_date" class="form-control"
-                                            placeholder="Choose a date" id="password-id-icon"
-                                            value="{{ request('from_date') }}">
+                                        <input required type="datetime-local" name="from_date" class="form-control" placeholder="Choose a date" id="password-id-icon" value="{{ request('from_date') }}">
                                     </div>
                                 </div>
                                 <div class="col-sm-4 mb-1">
                                     <label for="date">To</label>
                                     <div class="input-group input-group-sm mb-3">
-                                        <input required type="datetime-local" name="to_date" class="form-control"
-                                            placeholder="Choose a date" id="password-id-icon"
-                                            value="{{ request('to_date') }}">
+                                        <input required type="datetime-local" name="to_date" class="form-control" placeholder="Choose a date" id="password-id-icon" value="{{ request('to_date') }}">
                                     </div>
                                 </div>
                                 <div class="col-sm-2 mb-1 d-flex">
                                     <div class="dropdown  mt-4 me-3">
-                                        <button type="submit" class="btn btn-primary"><i
-                                                class="bi bi-search"></i></button>
+                                        <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
                                     </div>
                                     <div class="refresh mt-4">
-                                        <a href="{{ route('report-loan.index') }}" class="btn btn-dark"><i
-                                                class="bi bi-arrow-repeat"></i></a>
+                                        <a href="{{ route('report-loan.index') }}" class="btn btn-dark"><i class="bi bi-arrow-repeat"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -101,7 +95,7 @@
                 </div>
             </div>
         </div>
-       
+
         <section id="input-group-size">
             <div class="row">
                 <div class="card">
@@ -112,10 +106,10 @@
                         <form action="{{ request('from_date') && request('to_date') ? route('export-loan-parameter') : route('export-loan') }}" method="GET">
                             @if (request('from_date') && request('to_date'))
                             <input type="hidden" name="fromDate" value="{{ request('from_date') }}">
-                            <input type="hidden" name="toDate" value="{{ request('to_date') }}">    
+                            <input type="hidden" name="toDate" value="{{ request('to_date') }}">
                             @endif
-                            <button type="submit" class="btn btn-success rounded-3 pl-3 pr-3">Print Report     
-                            <i class="fa fa-print ml-2"></i></button>
+                            <button type="submit" class="btn btn-success rounded-3 pl-3 pr-3">Print Report
+                                <i class="fa fa-print ml-2"></i></button>
                         </form>
                     </div>
                     <div class="card-body">

@@ -1,5 +1,5 @@
 @extends('master')
-@section('tittle', 'Table Data Loan')
+@section('title', 'AP1 Series | Department')
 @section('body')
 @section('css')
 
@@ -19,38 +19,38 @@
 
 <!-- Sweet Alert Delete -->
 <script>
-$('.deleted').click(function() {
-    var id = $(this).attr('data-id');
-    var name = $(this).attr('data-name');
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "Want to delete this data (" + name + ")",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#AAAAAA',
-        confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 10000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
-            Toast.fire({
-                icon: 'info',
-                title: 'Hold on, delete in progress'
-            })
-            window.location = "/department/delete/" + id 
-        }
+    $('.deleted').click(function() {
+        var id = $(this).attr('data-id');
+        var name = $(this).attr('data-name');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Want to delete this data (" + name + ")",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#AAAAAA',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 10000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+                Toast.fire({
+                    icon: 'info',
+                    title: 'Hold on, delete in progress'
+                })
+                window.location = "/department/delete/" + id
+            }
+        })
     })
-})
 </script>
 <!-- End Sweet Alert Delete -->
 @endsection
@@ -82,8 +82,7 @@ $('.deleted').click(function() {
                 </a>
                 <!-- Assets Datatable -->
             </div>
-            <div class="modal fade text-left" id="addData" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160"
-                aria-hidden="true">
+            <div class="modal fade text-left" id="addData" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                     <div class="modal-content">
                         <div class="modal-header bg-primary">
@@ -94,8 +93,7 @@ $('.deleted').click(function() {
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="{{ route('department.store') }}" class="form form-vertical" method="POST"
-                                enctype="multipart/form-data">
+                            <form action="{{ route('department.store') }}" class="form form-vertical" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -103,8 +101,7 @@ $('.deleted').click(function() {
                                             <div class="form-group has-icon-left">
                                                 <label for="first-name-icon">Department Name</label>
                                                 <div class="position-relative">
-                                                    <input type="text" name="name" class="form-control"
-                                                        placeholder="Department Name" id="first-name-icon" required>
+                                                    <input type="text" name="name" class="form-control" placeholder="Department Name" id="first-name-icon" required>
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-person"></i>
                                                     </div>
@@ -116,8 +113,7 @@ $('.deleted').click(function() {
                                             <div class="form-group has-icon-left">
                                                 <label for="email-id-icon">Department Code</label>
                                                 <div class="position-relative">
-                                                    <input type="text" name="code" class="form-control"
-                                                        placeholder="Department Code" required id="email-id-icon">
+                                                    <input type="text" name="code" class="form-control" placeholder="Department Code" required id="email-id-icon">
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-upc"></i>
                                                     </div>
@@ -158,13 +154,11 @@ $('.deleted').click(function() {
                             <td>{{ $d->name }}</td>
                             <td>{{ $d->code }}</td>
                             <td class="d-flex">
-                                <a href="#"><button type="button" class="btn btn-primary me-2" data-bs-toggle="modal"
-                                        data-bs-target="#showData{{ $d->id }}">
+                                <a href="#"><button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#showData{{ $d->id }}">
                                         <i class="fa fa-eye"></i>
                                     </button>
                                 </a>
-                                <a href="#"><button type="button" class="btn btn-warning me-2" data-bs-toggle="modal"
-                                        data-bs-target="#editData{{ $d->id }}">
+                                <a href="#"><button type="button" class="btn btn-warning me-2" data-bs-toggle="modal" data-bs-target="#editData{{ $d->id }}">
                                         <i class="fa fa-edit"></i>
                                     </button>
                                 </a>
@@ -172,15 +166,13 @@ $('.deleted').click(function() {
                             </td>
 
                             <!-- modal show data -->
-                            <div class="modal fade text-left" id="showData{{ $d->id }}" tabindex="-1" role="dialog"
-                                aria-labelledby="myModalLabel160" aria-hidden="true">
+                            <div class="modal fade text-left" id="showData{{ $d->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header bg-primary">
                                             <h5 class="modal-title white" id="myModalLabel160">Detail Data
                                             </h5>
-                                            <button type="button" class="close" data-bs-dismiss="modal"
-                                                aria-label="Close">
+                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                                 <i data-feather="x"></i>
                                             </button>
                                         </div>
@@ -192,9 +184,7 @@ $('.deleted').click(function() {
                                                             <div class="form-group has-icon-left">
                                                                 <label for="first-name-icon">Department Name</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" disabled class="form-control"
-                                                                        id="first-name-icon"
-                                                                        placeholder="{{ $d->name }}">
+                                                                    <input type="text" disabled class="form-control" id="first-name-icon" placeholder="{{ $d->name }}">
                                                                     <div class="form-control-icon">
                                                                         <i class="bi bi-person"></i>
                                                                     </div>
@@ -206,8 +196,7 @@ $('.deleted').click(function() {
                                                             <div class="form-group has-icon-left">
                                                                 <label for="email-id-icon">Department Code</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" disabled class="form-control"
-                                                                        id="email-id-icon" placeholder="{{ $d->code }}">
+                                                                    <input type="text" disabled class="form-control" id="email-id-icon" placeholder="{{ $d->code }}">
                                                                     <div class="form-control-icon">
                                                                         <i class="bi bi-upc"></i>
                                                                     </div>
@@ -229,21 +218,18 @@ $('.deleted').click(function() {
                             </div>
 
                             <!-- modal edit data -->
-                            <div class="modal fade text-left" id="editData{{ $d->id }}" tabindex="-1" role="dialog"
-                                aria-labelledby="myModalLabel160" aria-hidden="true">
+                            <div class="modal fade text-left" id="editData{{ $d->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header bg-warning">
                                             <h5 class="modal-title white" id="myModalLabel160">Edit Data
                                             </h5>
-                                            <button type="button" class="close" data-bs-dismiss="modal"
-                                                aria-label="Close">
+                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                                 <i data-feather="x"></i>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="{{ route('department.update',$d->id) }}"
-                                                class="form form-vertical" method="POST" enctype="multipart/form-data">
+                                            <form action="{{ route('department.update',$d->id) }}" class="form form-vertical" method="POST" enctype="multipart/form-data">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="form-body">
@@ -252,8 +238,7 @@ $('.deleted').click(function() {
                                                             <div class="form-group has-icon-left">
                                                                 <label for="first-name-icon">Department Name</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" name="name" class="form-control"
-                                                                        value="{{ $d->name }}" id="first-name-icon">
+                                                                    <input type="text" name="name" class="form-control" value="{{ $d->name }}" id="first-name-icon">
                                                                     <div class="form-control-icon">
                                                                         <i class="bi bi-person"></i>
                                                                     </div>
@@ -265,8 +250,7 @@ $('.deleted').click(function() {
                                                             <div class="form-group has-icon-left">
                                                                 <label for="email-id-icon">Department Code</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" name="code" class="form-control"
-                                                                        value="{{ $d->code }}" id="email-id-icon">
+                                                                    <input type="text" name="code" class="form-control" value="{{ $d->code }}" id="email-id-icon">
                                                                     <div class="form-control-icon">
                                                                         <i class="bi bi-upc"></i>
                                                                     </div>
@@ -277,8 +261,7 @@ $('.deleted').click(function() {
                                                 </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-light-secondary"
-                                                data-bs-dismiss="modal">
+                                            <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
                                                 <i class="bx bx-x d-block d-sm-none"></i>
                                                 <span class="d-none d-sm-block">Cancel</span>
                                             </button>
