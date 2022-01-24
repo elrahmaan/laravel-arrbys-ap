@@ -103,7 +103,7 @@
                         <h4 class="card-title">Data Repairing</h4>
                     </div>
                     <div class="ms-4 col-md-12 buttons">
-                        <form action="{{ request('from_date') && request('to_date') ? route('export-loan-parameter') : route('export-loan') }}" method="GET">
+                        <form action="{{ request('from_date') && request('to_date') ? route('export-service-parameter') : route('export-service') }}" method="GET">
                             @if (request('from_date') && request('to_date'))
                             <input type="hidden" name="fromDate" value="{{ request('from_date') }}">
                             <input type="hidden" name="toDate" value="{{ request('to_date') }}">

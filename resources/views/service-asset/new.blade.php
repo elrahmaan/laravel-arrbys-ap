@@ -207,6 +207,10 @@
                                         <i class="fa fa-edit"></i>
                                     </button>
                                 </a>
+                                <a href="#"><button type="button" class="btn btn-dark me-2" data-bs-toggle="modal" data-bs-target="#serialNumber{{ $service->id }}">
+                                        <i class="fa fa-barcode"></i>
+                                    </button>
+                                </a>
                                 <a href="#"><button type="button" class="btn btn-danger deleted" data-id="{{ $service->id }}" data-name="{{ $service->name }}"> <i class="fa fa-trash-alt"></i></button></a>
                             </td>
 
@@ -309,18 +313,22 @@
                                 </div>
                             </div>
                             <!-- modal edit data -->
-                            <div class="modal fade text-left" id="editData{{ $service->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
+                            <div class="modal fade text-left" id="editData{{ $service->id }}" tabindex="-1"
+                                role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header bg-warning">
                                             <h5 class="modal-title white" id="myModalLabel160">Edit Data
                                             </h5>
-                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                            <button type="button" class="close" data-bs-dismiss="modal"
+                                                aria-label="Close">
                                                 <i data-feather="x"></i>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form class="form form-vertical" method="POST" action="{{ route('service.update', $service->id) }}" enctype="multipart/form-data">
+                                            <form class="form form-vertical" method="POST"
+                                                action="{{ route('service.update', $service->id) }}"
+                                                enctype="multipart/form-data">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="form-body">
@@ -329,7 +337,10 @@
                                                             <div class="form-group has-icon-left">
                                                                 <label for="first-name-icon">Asset Name*</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" name="name" class="form-control" placeholder="Asset Name" value="{{ $service->name }}" id="first-name-icon" required>
+                                                                    <input type="text" name="name" class="form-control"
+                                                                        placeholder="Asset Name"
+                                                                        value="{{ $service->name }}"
+                                                                        id="first-name-icon" required>
                                                                     <div class="form-control-icon">
                                                                         <i class="fa fa-box"></i>
                                                                     </div>
@@ -340,9 +351,11 @@
                                                             <div class="form-group has-icon-left">
                                                                 <label for="password-id-icon">Category</label>
                                                                 <div class="position-relative">
-                                                                    <select class="choices form-select" name="category_id">
+                                                                    <select class="choices form-select"
+                                                                        name="category_id">
                                                                         @foreach ($categories as $cat)
-                                                                        <option value="{{ $cat->id }}" {{ $service->category_id == $cat->id ? ' selected' : ' ' }}>
+                                                                        <option value="{{ $cat->id }}"
+                                                                            {{ $service->category_id == $cat->id ? ' selected' : ' ' }}>
                                                                             {{ $cat->name }}
                                                                         </option>
                                                                         @endforeach
@@ -353,8 +366,10 @@
                                                         <div class="col-12">
                                                             <label for="email-id-icon">Image</label>
                                                             <div class="position-relative mb-2">
-                                                                <img class="mb-2" src="{{ asset($service->image) }}" alt="" style="max-height: 300px">
-                                                                <input class="form-control" name="image" type="file" id="formFile">
+                                                                <img class="mb-2" src="{{ asset($service->image) }}"
+                                                                    alt="" style="max-height: 300px">
+                                                                <input class="form-control" name="image" type="file"
+                                                                    id="formFile">
                                                                 <!-- <img src="" alt=""> -->
                                                             </div>
                                                         </div>
@@ -362,14 +377,19 @@
                                                             <label for="mobile-id-icon">Detail
                                                                 (Specification)*</label>
                                                             <div class="position-relative mb-2">
-                                                                <textarea class="form-control" name="detail_of_specification" id="" rows="5" required> {{ $service->detail_of_specification }}</textarea>
+                                                                <textarea class="form-control"
+                                                                    name="detail_of_specification" id="" rows="5"
+                                                                    required> {{ $service->detail_of_specification }}</textarea>
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
                                                             <div class="form-group has-icon-left">
                                                                 <label for="password-id-icon">Quantity*</label>
                                                                 <div class="position-relative">
-                                                                    <input type="number" name="qty" class="form-control" placeholder="Quantity" value="{{ $service->qty }}" id="password-id-icon" required>
+                                                                    <input type="number" name="qty" class="form-control"
+                                                                        placeholder="Quantity"
+                                                                        value="{{ $service->qty }}"
+                                                                        id="password-id-icon" required>
                                                                     <div class="form-control-icon">
                                                                         <i class="fa fa-sort-numeric-up"></i>
                                                                     </div>
@@ -380,7 +400,9 @@
                                                         <div class="col-12">
                                                             <label for="password-id-icon">Date of entry*</label>
                                                             <div class="position-relative mb-2">
-                                                                <input type="text" name="date" class="form-control" id="password-id-icon" value="{{ $service->date }}" disabled>
+                                                                <input type="text" name="date" class="form-control"
+                                                                    id="password-id-icon" value="{{ $service->date }}"
+                                                                    disabled>
                                                                 <!-- <input type="datetime-local" name="date" class="form-control" placeholder="Choose a date" id="password-id-icon" value="{{ $service->created_at }}" required> -->
 
                                                             </div>
@@ -463,6 +485,60 @@
 
                                                         </div>
 
+                                                    </div>
+                                                </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-light-dark" data-bs-dismiss="modal">
+                                                <i class="bx bx-x d-block d-sm-none"></i>
+                                                <span class="d-none d-sm-block">Cancel</span>
+                                            </button>
+                                            <button type="button" class="btn btn-dark ml-1" data-bs-dismiss="modal">
+                                                <i class="bx bx-check d-block d-sm-none"></i>
+                                                <span class="d-none d-sm-block">Add</span>
+                                            </button>
+                                        </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- Modal Serial Number --}}
+                            <div class="modal fade text-left" id="serialNumber{{ $service->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-dark">
+                                            <h5 class="modal-title white" id="myModalLabel160">Serial Number
+                                            </h5>
+                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                <i data-feather="x"></i>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form class="form form-vertical">
+                                                <div class="form-body">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div class="form-group has-icon-left">
+                                                                <label for="first-name-icon">ID</label>
+                                                                <div class="position-relative">
+                                                                    <input type="text" name="name" readonly value="{{ $service->id }}" class="form-control" id="first-name-icon">
+                                                                    <div class="form-control-icon">
+                                                                        <i class="fa fa-key"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <div class="form-group has-icon-left">
+                                                                <label for="first-name-icon">Serial Number</label>
+                                                                <div class="position-relative">
+                                                                    <input type="text" name="name" placeholder="Serial Number" class="form-control" id="first-name-icon">
+                                                                    <div class="form-control-icon">
+                                                                        <i class="fa fa-barcode"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                         </div>
