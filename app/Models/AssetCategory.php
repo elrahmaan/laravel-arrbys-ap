@@ -18,4 +18,8 @@ class AssetCategory extends Model
     {
         return $this->hasMany(ServiceAsset::class);
     }
+    public function asset()
+    {
+        return $this->hasMany(Asset::class);
+    }
 }

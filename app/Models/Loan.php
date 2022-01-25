@@ -15,6 +15,10 @@ class Loan extends Model
     {
         return $this->belongsTo(Department::class);
     }
+    public function serial()
+    {
+        return $this->belongsTo(Serial::class);
+    }
 
     public static function getLoan()
     {

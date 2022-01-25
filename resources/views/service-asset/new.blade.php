@@ -1,5 +1,5 @@
 @extends('master')
-@section('title', 'AP1 Series | New Assets')
+@section('title', 'AP1 Series | Assets')
 @section('body')
 @section('css')
 
@@ -49,7 +49,7 @@
                     icon: 'info',
                     title: 'Hold on, delete in progress'
                 })
-                window.location = "/new/delete/" + id
+                window.location = "/asset/delete/" + id
             }
         })
     })
@@ -60,8 +60,8 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>New Assets</h3>
-                <p class="text-subtitle text-muted">Asset from AP-1 & Loan</p>
+                <h3>Assets</h3>
+                <p class="text-subtitle text-muted">Asset from AP-1</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -98,7 +98,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form class="form form-vertical" method="POST" action="{{ route('new.store') }}" enctype="multipart/form-data">
+                            <form class="form form-vertical" method="POST" action="{{ route('asset.store') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -137,6 +137,15 @@
                                             <label for="mobile-id-icon">Detail (Specification)*</label>
                                             <div class="position-relative mb-2">
                                                 <textarea class="form-control" name="detail_of_specification" id="" rows="5" required></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group has-icon-left">
+                                                <label for="email-id-icon">Category Asset</label>
+                                                <select class="choices form-select" name="category_asset" required>
+                                                    <option value="AP">AP</option>
+                                                    <option value="Sewa">Sewa</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-12">
@@ -186,36 +195,36 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($services as $service)
+                        @foreach ($assets as $asset)
                         <tr>
-                            <td>{{ $service->id }}</td>
-                            <td>{{ $service->name }}</td>
+                            <td>{{ $asset->id }}</td>
+                            <td>{{ $asset->name }}</td>
                             @foreach ($categories as $cat)
-                            @if ($cat->id == $service->category_id)
+                            @if ($cat->id == $asset->category_id)
                             <td>{{ $cat->name }}</td>
                             @endif
                             @endforeach
 
-                            <td><img src="{{ asset($service->image) }}" alt="" style="max-height: 40px"></td>
-                            <td>{{ $service->qty }}</td>
+                            <td><img src="{{ asset($asset->image) }}" alt="" style="max-height: 40px"></td>
+                            <td>{{ $asset->qty }}</td>
                             <td class="d-flex">
-                                <a href="#"><button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#showData{{ $service->id }}">
+                                <a href="#"><button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#showData{{ $asset->id }}">
                                         <i class="fa fa-eye"></i>
                                     </button>
                                 </a>
-                                <a href="#"><button type="button" class="btn btn-warning me-2" data-bs-toggle="modal" data-bs-target="#editData{{ $service->id }}">
+                                <a href="#"><button type="button" class="btn btn-warning me-2" data-bs-toggle="modal" data-bs-target="#editData{{ $asset->id }}">
                                         <i class="fa fa-edit"></i>
                                     </button>
                                 </a>
-                                <a href="#"><button type="button" class="btn btn-dark me-2" data-bs-toggle="modal" data-bs-target="#serialNumber{{ $service->id }}">
+                                <a href="#"><button type="button" class="btn btn-dark me-2" data-bs-toggle="modal" data-bs-target="#serialNumber{{ $asset->id }}">
                                         <i class="fa fa-barcode"></i>
                                     </button>
                                 </a>
-                                <a href="#"><button type="button" class="btn btn-danger deleted" data-id="{{ $service->id }}" data-name="{{ $service->name }}"> <i class="fa fa-trash-alt"></i></button></a>
+                                <a href="#"><button type="button" class="btn btn-danger deleted" data-id="{{ $asset->id }}" data-name="{{ $asset->name }}"> <i class="fa fa-trash-alt"></i></button></a>
                             </td>
 
                             <!-- modal show data -->
-                            <div class="modal fade text-left" id="showData{{ $service->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
+                            <div class="modal fade text-left" id="showData{{ $asset->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header bg-primary">
@@ -233,7 +242,7 @@
                                                             <div class="form-group has-icon-left">
                                                                 <label for="id-icon">ID</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" class="form-control" placeholder="{{ $service->id }}" id="id-icon" disabled>
+                                                                    <input type="text" class="form-control" placeholder="{{ $asset->id }}" id="id-icon" disabled>
                                                                     <div class="form-control-icon">
                                                                         <i class="bi bi-key-fill"></i>
                                                                     </div>
@@ -245,7 +254,7 @@
                                                                 <label for="id-icon">Category</label>
                                                                 <div class="position-relative">
                                                                     @foreach ($categories as $cat)
-                                                                    @if ($cat->id == $service->category_id)
+                                                                    @if ($cat->id == $asset->category_id)
                                                                     <input type="text" class="form-control" placeholder="{{ $cat->name }}" id="id-icon" disabled>
                                                                     @endif
                                                                     @endforeach
@@ -259,7 +268,7 @@
                                                             <div class="form-group has-icon-left">
                                                                 <label for="first-name-icon">Asset Name</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" class="form-control" value="{{ $service->name }}" id="first-name-icon" disabled>
+                                                                    <input type="text" class="form-control" value="{{ $asset->name }}" id="first-name-icon" disabled>
                                                                     <div class="form-control-icon">
                                                                         <i class="fa fa-box"></i>
                                                                     </div>
@@ -269,21 +278,21 @@
                                                         <div class="col-12">
                                                             <label for="email-id-icon">Image</label>
                                                             <div class="position-relative mb-2">
-                                                                <img src="{{ asset($service->image) }}" alt="" style="max-height: 300px">
+                                                                <img src="{{ asset($asset->image) }}" alt="" style="max-height: 300px">
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
                                                             <label for="mobile-id-icon">Detail
                                                                 (Specification)</label>
                                                             <div class="position-relative mb-2">
-                                                                <textarea class="form-control" name="" id="" rows="5" disabled>{{ $service->detail_of_specification }}</textarea>
+                                                                <textarea class="form-control" name="" id="" rows="5" disabled>{{ $asset->detail_of_specification }}</textarea>
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
                                                             <div class="form-group has-icon-left">
                                                                 <label for="password-id-icon">Quantity</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" class="form-control" id="password-id-icon" value="{{ $service->qty }}" disabled>
+                                                                    <input type="text" class="form-control" id="password-id-icon" value="{{ $asset->qty }}" disabled>
                                                                     <div class="form-control-icon">
                                                                         <i class="fa fa-sort-numeric-up"></i>
                                                                     </div>
@@ -294,7 +303,7 @@
                                                         <div class="col-12">
                                                             <label for="password-id-icon">Date of entry</label>
                                                             <div class="position-relative mb-2">
-                                                                <input type="text" class="form-control" id="password-id-icon" value="{{ $service->date }}" disabled>
+                                                                <input type="text" class="form-control" id="password-id-icon" value="{{ $asset->date }}" disabled>
 
                                                             </div>
 
@@ -313,22 +322,18 @@
                                 </div>
                             </div>
                             <!-- modal edit data -->
-                            <div class="modal fade text-left" id="editData{{ $service->id }}" tabindex="-1"
-                                role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
+                            <div class="modal fade text-left" id="editData{{ $asset->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header bg-warning">
                                             <h5 class="modal-title white" id="myModalLabel160">Edit Data
                                             </h5>
-                                            <button type="button" class="close" data-bs-dismiss="modal"
-                                                aria-label="Close">
+                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                                 <i data-feather="x"></i>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form class="form form-vertical" method="POST"
-                                                action="{{ route('service.update', $service->id) }}"
-                                                enctype="multipart/form-data">
+                                            <form class="form form-vertical" method="POST" action="{{ route('asset.update', $asset->id) }}" enctype="multipart/form-data">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="form-body">
@@ -337,10 +342,7 @@
                                                             <div class="form-group has-icon-left">
                                                                 <label for="first-name-icon">Asset Name*</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" name="name" class="form-control"
-                                                                        placeholder="Asset Name"
-                                                                        value="{{ $service->name }}"
-                                                                        id="first-name-icon" required>
+                                                                    <input type="text" name="name" class="form-control" placeholder="Asset Name" value="{{ $asset->name }}" id="first-name-icon" required>
                                                                     <div class="form-control-icon">
                                                                         <i class="fa fa-box"></i>
                                                                     </div>
@@ -351,11 +353,9 @@
                                                             <div class="form-group has-icon-left">
                                                                 <label for="password-id-icon">Category</label>
                                                                 <div class="position-relative">
-                                                                    <select class="choices form-select"
-                                                                        name="category_id">
+                                                                    <select class="choices form-select" name="category_id">
                                                                         @foreach ($categories as $cat)
-                                                                        <option value="{{ $cat->id }}"
-                                                                            {{ $service->category_id == $cat->id ? ' selected' : ' ' }}>
+                                                                        <option value="{{ $cat->id }}" {{ $asset->category_id == $cat->id ? ' selected' : ' ' }}>
                                                                             {{ $cat->name }}
                                                                         </option>
                                                                         @endforeach
@@ -366,10 +366,8 @@
                                                         <div class="col-12">
                                                             <label for="email-id-icon">Image</label>
                                                             <div class="position-relative mb-2">
-                                                                <img class="mb-2" src="{{ asset($service->image) }}"
-                                                                    alt="" style="max-height: 300px">
-                                                                <input class="form-control" name="image" type="file"
-                                                                    id="formFile">
+                                                                <img class="mb-2" src="{{ asset($asset->image) }}" alt="" style="max-height: 300px">
+                                                                <input class="form-control" name="image" type="file" id="formFile">
                                                                 <!-- <img src="" alt=""> -->
                                                             </div>
                                                         </div>
@@ -377,19 +375,25 @@
                                                             <label for="mobile-id-icon">Detail
                                                                 (Specification)*</label>
                                                             <div class="position-relative mb-2">
-                                                                <textarea class="form-control"
-                                                                    name="detail_of_specification" id="" rows="5"
-                                                                    required> {{ $service->detail_of_specification }}</textarea>
+                                                                <textarea class="form-control" name="detail_of_specification" id="" rows="5" required> {{ $asset->detail_of_specification }}</textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <div class="form-group has-icon-left">
+                                                                <label for="email-id-icon">Category</label>
+                                                                <select class="choices form-select" name="category_asset" required>
+                                                                    <option value="AP" {{ $asset->category_asset == 'AP' ? ' selected' : '' }}>
+                                                                        AP</option>
+                                                                    <option value="Sewa" {{ $asset->category_asset == 'Sewa' ? ' selected' : '' }}>
+                                                                        Sewa</option>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
                                                             <div class="form-group has-icon-left">
                                                                 <label for="password-id-icon">Quantity*</label>
                                                                 <div class="position-relative">
-                                                                    <input type="number" name="qty" class="form-control"
-                                                                        placeholder="Quantity"
-                                                                        value="{{ $service->qty }}"
-                                                                        id="password-id-icon" required>
+                                                                    <input type="number" name="qty" class="form-control" placeholder="Quantity" value="{{ $asset->qty }}" id="password-id-icon" required>
                                                                     <div class="form-control-icon">
                                                                         <i class="fa fa-sort-numeric-up"></i>
                                                                     </div>
@@ -400,10 +404,8 @@
                                                         <div class="col-12">
                                                             <label for="password-id-icon">Date of entry*</label>
                                                             <div class="position-relative mb-2">
-                                                                <input type="text" name="date" class="form-control"
-                                                                    id="password-id-icon" value="{{ $service->date }}"
-                                                                    disabled>
-                                                                <!-- <input type="datetime-local" name="date" class="form-control" placeholder="Choose a date" id="password-id-icon" value="{{ $service->created_at }}" required> -->
+                                                                <input type="text" name="date" class="form-control" id="password-id-icon" value="{{ $asset->date }}" disabled>
+                                                                <!-- <input type="datetime-local" name="date" class="form-control" placeholder="Choose a date" id="password-id-icon" value="{{ $asset->created_at }}" required> -->
 
                                                             </div>
                                                         </div>
@@ -503,7 +505,7 @@
                                 </div>
                             </div>
                             {{-- Modal Serial Number --}}
-                            <div class="modal fade text-left" id="serialNumber{{ $service->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
+                            <div class="modal fade text-left" id="serialNumber{{ $asset->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header bg-dark">
@@ -514,31 +516,39 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form class="form form-vertical">
+                                            <form class="form form-vertical" method="POST" action="{{route('serial.store')}}">
+                                                @csrf
+                                                <input type="hidden" name="qty" value="{{$asset->qty}}">
+                                                <input type="hidden" name="asset_id" value="{{$asset->id}}">
                                                 <div class="form-body">
                                                     <div class="row">
                                                         <div class="col-12">
                                                             <div class="form-group has-icon-left">
                                                                 <label for="first-name-icon">ID</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" name="name" readonly value="{{ $service->id }}" class="form-control" id="first-name-icon">
+                                                                    <input type="text" name="id" readonly value="{{ $asset->id }}" class="form-control" id="first-name-icon">
                                                                     <div class="form-control-icon">
                                                                         <i class="fa fa-key"></i>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-12">
-                                                            <div class="form-group has-icon-left">
-                                                                <label for="first-name-icon">Serial Number</label>
-                                                                <div class="position-relative">
-                                                                    <input type="text" name="name" placeholder="Serial Number" class="form-control" id="first-name-icon">
-                                                                    <div class="form-control-icon">
-                                                                        <i class="fa fa-barcode"></i>
+
+                                                        <?php
+                                                        $i = 0;
+                                                        for ($i = 0; $i < $asset->qty; $i++) { ?>
+                                                            <div class="col-12">
+                                                                <div class="form-group has-icon-left">
+                                                                    <label for="first-name-icon">Serial Number</label>
+                                                                    <div class="position-relative">
+                                                                        <input type="text" name="no_serial[{{$i}}]" placeholder="Serial Number" class="form-control" id="first-name-icon">
+                                                                        <div class="form-control-icon">
+                                                                            <i class="fa fa-barcode"></i>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        <?php } ?>
                                                     </div>
                                                 </div>
                                         </div>
@@ -547,7 +557,7 @@
                                                 <i class="bx bx-x d-block d-sm-none"></i>
                                                 <span class="d-none d-sm-block">Cancel</span>
                                             </button>
-                                            <button type="button" class="btn btn-dark ml-1" data-bs-dismiss="modal">
+                                            <button type="submit" class="btn btn-dark ml-1">
                                                 <i class="bx bx-check d-block d-sm-none"></i>
                                                 <span class="d-none d-sm-block">Add</span>
                                             </button>

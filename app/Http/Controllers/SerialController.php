@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AssetCategory;
+use App\Models\Serial;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class CategoryController extends Controller
+class SerialController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,11 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $countCategory = DB::table('asset_categories')->count();
-        $id = $countCategory + 1;
-
-        $categories = AssetCategory::all();
-        return view('categories.category', compact('id', 'categories'));
+        //
     }
 
     /**
@@ -40,14 +35,17 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $countCategory = DB::table('asset_categories')->count();
-        $id = $countCategory + 1;
-        $category = new AssetCategory();
-        $category->id = $id;
-        $category->name = $request->name;
-        $category->save();
 
-        return redirect()->route('category.index')->with('success', 'Data Added');
+        $qty = $request->qty;
+        $asset_id = $request->asset_id;
+
+        for ($i = 0; $i < $qty; $i++) {
+            $serial = new Serial();
+            $serial->no_serial = $request->no_serial[$i];
+            $serial->asset_id = $asset_id;
+            $serial->save();
+        }
+        return redirect()->route('asset.index');
     }
 
     /**
@@ -81,11 +79,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $category = AssetCategory::find($id);
-        $category->name = $request->name;
-        $category->save();
-
-        return redirect()->route('category.index')->with('success', 'Data Updated!');
+        //
     }
 
     /**
@@ -96,8 +90,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        AssetCategory::find($id)->delete();
-
-        return redirect()->route('category.index')->with('success', 'Data Deleted!');
+        //
     }
 }

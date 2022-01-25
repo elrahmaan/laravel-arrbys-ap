@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Asset;
 use App\Models\AssetCategory;
+use App\Models\Serial;
 use App\Models\ServiceAsset;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class NewAssetController extends Controller
+class AssetController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +20,9 @@ class NewAssetController extends Controller
     public function index()
     {
         $categories = AssetCategory::all();
-        $services = DB::table('service_assets')
-            ->where('status', 'New')->get();
-        return view('service-asset.new', compact('services', 'categories'));
+        $assets = Asset::all();
+        $serials = Serial::all();
+        return view('service-asset.new', compact('categories', 'assets', 'serials'));
     }
 
     /**
@@ -41,7 +43,7 @@ class NewAssetController extends Controller
      */
     public function store(Request $request)
     {
-        $asset = new ServiceAsset();
+        $asset = new Asset();
         $asset->id = time();
         $asset->name = $request->name;
         $asset->category_id = $request->category_id;
@@ -54,14 +56,13 @@ class NewAssetController extends Controller
             $asset->image = $image_data;
         }
 
-
+        $asset->category_asset = $request->category_asset;
         $asset->detail_of_specification = $request->detail_of_specification;
         $asset->qty = $request->qty;
-        $asset->status = 'New';
         $asset->date = $request->date;
         $asset->save();
 
-        return redirect()->route('new.index')->with('success', 'Data Added!');;
+        return redirect()->route('asset.index')->with('success', 'Data Added!');;
     }
 
     /**
@@ -95,8 +96,7 @@ class NewAssetController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd(request('category_id'));
-        $service = ServiceAsset::find($id);
+        $service = Asset::find($id);
         $service->name = $request->name;
         $service->category_id = request();
         $service->detail_of_specification = $request->detail_of_specification;
@@ -116,11 +116,10 @@ class NewAssetController extends Controller
             $image_data = '/uploads/service-assets/' . $file_name;
             $service->image = $image_data;
         }
-        dd($service);
+        // dd($service);
         $service->save();
 
         return redirect()->route('service.index');
-        
     }
 
     /**
@@ -138,6 +137,6 @@ class NewAssetController extends Controller
             // unlink($file_path);
         }
         $service->delete();
-        return redirect()->route('new.index')->with('success', 'Data Deleted!');;
+        return redirect()->route('asset.index')->with('success', 'Data Deleted!');;
     }
 }

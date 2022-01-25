@@ -6,7 +6,8 @@ use App\Http\Controllers\ReportLoanController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
-use App\Http\Controllers\NewAssetController;
+use App\Http\Controllers\AssetController;
+use App\Http\Controllers\SerialController;
 use App\Http\Controllers\ServiceAssetController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -41,20 +42,21 @@ Route::middleware(['auth', 'cekrole:superadmin,teknisi,viewer'])->group(function
         'report-loan' => ReportLoanController::class,
     ]);
     //export excel
-     Route::get('/report-loan/export_excel', [ReportLoanController::class, 'export_excel'])->name('export-loan');
-     Route::get('/report-parameter/export_excel_parameter', [ReportLoanController::class, 'export_excel_parameter'])->name('export-loan-parameter');
-     Route::get('/report-service/export_excel', [ReportController::class, 'export_excel'])->name('export-service');
-     Route::get('/report-service-parameter/export_excel_parameter', [ReportController::class, 'export_excel_parameter'])->name('export-service-parameter');
+    Route::get('/report-loan/export_excel', [ReportLoanController::class, 'export_excel'])->name('export-loan');
+    Route::get('/report-parameter/export_excel_parameter', [ReportLoanController::class, 'export_excel_parameter'])->name('export-loan-parameter');
+    Route::get('/report-service/export_excel', [ReportController::class, 'export_excel'])->name('export-service');
+    Route::get('/report-service-parameter/export_excel_parameter', [ReportController::class, 'export_excel_parameter'])->name('export-service-parameter');
 });
 Route::middleware(['auth', 'cekrole:superadmin,teknisi'])->group(function () {
     Route::get('/department/delete/{id}', [DepartmentController::class, 'destroy']);
     Route::get('/category/delete/{id}', [CategoryController::class, 'destroy']);
     Route::get('/service/delete/{id}', [ServiceAssetController::class, 'destroy']);
-    Route::get('/new/delete/{id}', [NewAssetController::class, 'destroy']);
+    Route::get('/asset/delete/{id}', [AssetController::class, 'destroy']);
     Route::get('/loan/delete/{id}', [LoanController::class, 'destroy']);
     Route::resources([
         'service' => ServiceAssetController::class,
-        'new' => NewAssetController::class,
+        'asset' => AssetController::class,
+        'serial' => SerialController::class,
         'loan' => LoanController::class,
         'report-repairing' => ReportController::class,
         'report-loan' => ReportLoanController::class,
