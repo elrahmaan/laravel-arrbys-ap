@@ -11,6 +11,7 @@ use App\Http\Controllers\ServiceAssetController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,22 +28,30 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('layouts.dashboard');
 // });
-
-Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+Route::middleware(['auth', 'cekrole:superadmin'])->group(function () {
+    Route::resources([
+        'user' => UserController::class,
+    ]);
+    Route::get('/user/delete/{id}', [UserController::class, 'destroy']);
+});
+Route::middleware(['auth', 'cekrole:superadmin,teknisi,viewer'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('home');
+    Route::resources([
+        'report-repairing' => ReportController::class,
+        'report-loan' => ReportLoanController::class,
+    ]);
+    //export excel
+     Route::get('/report-loan/export_excel', [ReportLoanController::class, 'export_excel'])->name('export-loan');
+     Route::get('/report-parameter/export_excel_parameter', [ReportLoanController::class, 'export_excel_parameter'])->name('export-loan-parameter');
+     Route::get('/report-service/export_excel', [ReportController::class, 'export_excel'])->name('export-service');
+     Route::get('/report-service-parameter/export_excel_parameter', [ReportController::class, 'export_excel_parameter'])->name('export-service-parameter');
+});
+Route::middleware(['auth', 'cekrole:superadmin,teknisi'])->group(function () {
     Route::get('/department/delete/{id}', [DepartmentController::class, 'destroy']);
     Route::get('/category/delete/{id}', [CategoryController::class, 'destroy']);
     Route::get('/service/delete/{id}', [ServiceAssetController::class, 'destroy']);
     Route::get('/new/delete/{id}', [NewAssetController::class, 'destroy']);
-    Route::get('/user/delete/{id}', [UserController::class, 'destroy']);
     Route::get('/loan/delete/{id}', [LoanController::class, 'destroy']);
-
-    //export excel
-    Route::get('/report-loan/export_excel', [ReportLoanController::class, 'export_excel'])->name('export-loan');
-    Route::get('/report-parameter/export_excel_parameter', [ReportLoanController::class, 'export_excel_parameter'])->name('export-loan-parameter');
-    Route::get('/report-service/export_excel', [ReportController::class, 'export_excel'])->name('export-service');
-    Route::get('/report-service-parameter/export_excel_parameter', [ReportController::class, 'export_excel_parameter'])->name('export-service-parameter');
-
     Route::resources([
         'service' => ServiceAssetController::class,
         'new' => NewAssetController::class,
@@ -51,6 +60,5 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         'report-loan' => ReportLoanController::class,
         'category' => CategoryController::class,
         'department' => DepartmentController::class,
-        'user' => UserController::class,
     ]);
 });

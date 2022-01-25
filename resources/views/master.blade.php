@@ -40,7 +40,13 @@
                                                 <i class="bi bi-caret-down-square-fill ms-2"></i>
                                             </h6>
                                             <p class="mb-0 text-sm text-gray-600">
-                                                Admin
+                                                @if (auth()->user()->role== "superadmin")
+                                                Superadmin
+                                                @elseif(auth()->user()->role== "teknisi")
+                                                Teknisi
+                                                @else
+                                                Viewer    
+                                                @endif
                                             </p>
                                         </div>
                                     </div>
