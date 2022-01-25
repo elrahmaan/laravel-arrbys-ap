@@ -48,6 +48,7 @@ Route::middleware(['auth', 'cekrole:superadmin,teknisi,viewer'])->group(function
     Route::get('/report-service-parameter/export_excel_parameter', [ReportController::class, 'export_excel_parameter'])->name('export-service-parameter');
 });
 Route::middleware(['auth', 'cekrole:superadmin,teknisi'])->group(function () {
+    Route::post('/service/{id}/repair', [ServiceAssetController::class, 'repair']);
     Route::get('/department/delete/{id}', [DepartmentController::class, 'destroy']);
     Route::get('/category/delete/{id}', [CategoryController::class, 'destroy']);
     Route::get('/service/delete/{id}', [ServiceAssetController::class, 'destroy']);

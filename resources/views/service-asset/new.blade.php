@@ -540,15 +540,15 @@
                                                         </div>
 
                                                         @foreach ($serials as $serial)
-                                                        @if ($serial->asset_id == $asset->id)
                                                         <?php
                                                         $i = 0;
                                                         ?>
+                                                        @if ($serial->asset_id == $asset->id)
                                                         <div class="col-12">
                                                             <div class="form-group has-icon-left">
                                                                 <label for="first-name-icon">Serial Number</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" name="no_serial[{{$i++}}]" placeholder="Serial Number" value="{{$serial->no_serial}}" class="form-control" id="first-name-icon">
+                                                                    <input type="text" name="no_serial[{{$serial->id}}]" placeholder="Serial Number" value="{{$serial->no_serial}}" class="form-control" id="first-name-icon">
                                                                     <div class="form-control-icon">
                                                                         <i class="fa fa-barcode"></i>
                                                                     </div>
@@ -568,7 +568,7 @@
                                             </button>
                                             <button type="submit" class="btn btn-dark ml-1">
                                                 <i class="bx bx-check d-block d-sm-none"></i>
-                                                <span class="d-none d-sm-block">Add</span>
+                                                <span class="d-none d-sm-block">Update</span>
                                             </button>
                                         </div>
                                         </form>

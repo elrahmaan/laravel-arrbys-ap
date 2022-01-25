@@ -66,7 +66,6 @@ class ServiceAssetController extends Controller
         $asset->desc_complain = $request->desc_complain;
         $asset->diagnose = $request->diagnose;
         $asset->date = $request->date;
-        $asset->date_estimation_fixed = $request->date_estimation_fixed;
 
         $asset->save();
 

@@ -222,12 +222,12 @@
 
                                             </div>
                                         </div>
-                                        <div class="col-12">
+                                        <!-- <div class="col-12">
                                             <label for="password-id-icon">Estimated date completed</label>
                                             <div class="position-relative mb-2">
                                                 <input type="datetime-local" name="date_estimation_fixed" class="form-control" placeholder="Choose a date" id="password-id-icon">
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                         </div>
@@ -275,17 +275,14 @@
                                 @endif
                             </td>
                             <td class="d-flex">
-                                @if ($service->status == 'Fixed')
-                                <a href="#"><button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#logData{{$service->id}}">
-                                        <i class="fa fa-clipboard-list"></i>
-                                    </button>
-                                </a>
-                                @else
+
+
+
                                 <a href="#"><button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#showData{{$service->id}}">
                                         <i class="fa fa-eye"></i>
                                     </button>
                                 </a>
-                                @endif
+
                                 <!-- <a href="#"><button type="button" class="btn btn-warning me-2" data-bs-toggle="modal" data-bs-target="#editData{{$service->id}}">
                                         <i class="fa fa-edit"></i>
                                     </button>
@@ -301,6 +298,10 @@
                                     </button>
                                 </a>
                                 @endif
+                                <a href="#"><button type="button" class="btn btn-info me-2" data-bs-toggle="modal" data-bs-target="#logData{{$service->id}}">
+                                        <i class="fa fa-clipboard-list"></i>
+                                    </button>
+                                </a>
                                 <a href="#"><button type="button" class="btn btn-danger me-2 deleted" data-id="{{$service->id}}" data-name="{{$service->name}}"> <i class="fa fa-trash-alt"></i></button></a>
                             </td>
 
@@ -439,13 +440,12 @@
                                                             </div>
 
                                                         </div>
-
-                                                        <div class="col-12">
+                                                        <!-- <div class="col-12">
                                                             <label for="password-id-icon">Estimated date completed</label>
                                                             <div class="position-relative mb-2">
                                                                 <input type="text" class="form-control" value="{{$service->date_estimation_fixed}}" id="password-id-icon" disabled>
                                                             </div>
-                                                        </div>
+                                                        </div> -->
 
                                                         <div class="col-12">
                                                             <label for="password-id-icon">Date Fixed</label>
@@ -590,12 +590,12 @@
                                                                 <input type="datetime-local" name="date" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
                                                             </div>
                                                         </div>
-                                                        <div class="col-12">
+                                                        <!-- <div class="col-12">
                                                             <label for="password-id-icon">Estimated date completed</label>
                                                             <div class="position-relative mb-2">
                                                                 <input type="datetime-local" name="date_estimation_fixed" class="form-control" placeholder="Choose a date" id="password-id-icon">
                                                             </div>
-                                                        </div>
+                                                        </div> -->
                                                     </div>
                                                 </div>
                                         </div>
@@ -691,7 +691,7 @@
                             <div class="modal fade text-left" id="logData{{$service->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                                     <div class="modal-content">
-                                        <div class="modal-header bg-dark">
+                                        <div class="modal-header bg-info">
                                             <h5 class="modal-title white" id="myModalLabel160">Log Repairing Unit
                                             </h5>
                                             <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
@@ -700,7 +700,6 @@
                                         </div>
                                         <div class="modal-body">
                                             <form class="form form-vertical" action="">
-
                                                 <input type="hidden" name="id" value="{{$service->id}}">
                                                 <input type="hidden" name="asset_id" value="{{$service->id}}">
                                                 <input type="hidden" name="department_id" value="{{$service->department_id}}">
@@ -760,7 +759,7 @@
                                                 </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-dark ml-1" data-bs-dismiss="modal">
+                                            <button type="button" class="btn btn-info ml-1" data-bs-dismiss="modal">
                                                 <i class="bx bx-check d-block d-sm-none"></i>
                                                 <span class="d-none d-sm-block">OK</span>
                                             </button>

@@ -27,7 +27,6 @@ class CreateServiceAssetsTable extends Migration
             $table->text('desc_complain')->nullable();
             $table->text('diagnose')->nullable();
             $table->date('date');
-            $table->date('date_estimation_fixed')->nullable();
             $table->date('date_fixed')->nullable();
             $table->string('detail_of_specification')->nullable();
             $table->timestamps();
