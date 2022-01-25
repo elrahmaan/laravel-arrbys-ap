@@ -108,7 +108,7 @@
                             <input type="hidden" name="fromDate" value="{{ request('from_date') }}">
                             <input type="hidden" name="toDate" value="{{ request('to_date') }}">
                             @endif
-                            <button type="submit" class="btn btn-success rounded-3 pl-3 pr-3">Print Report
+                            <button type="submit" class="btn btn-success rounded-3 pl-3 pr-3">Print Report .xlsx
                                 <i class="fa fa-print ml-2"></i></button>
                         </form>
                     </div>

@@ -129,6 +129,20 @@
                     <div class="card">
                         <div class="card-header">
                             <h4>Statistic {{$current_year}}</h4>
+                            <div class="btn-group mb-1">
+                                <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle me-1" type="button"
+                                        id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        Year
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#">2022</a>
+                                        <a class="dropdown-item" href="#">1945</a>
+                                        <a class="dropdown-item" href="#">2023</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div id="line"></div>
