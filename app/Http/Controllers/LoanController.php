@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use App\Models\Loan;
+use App\Models\Serial;
 use Carbon\Carbon;
 
 class LoanController extends Controller
@@ -16,11 +17,12 @@ class LoanController extends Controller
      */
     public function index()
     {
-        $data= Loan::all();
-        $carbon=Carbon::now()->toDateString();
+        $data = Loan::all();
+        $serials = Serial::all();
+        $carbon = Carbon::now()->toDateString();
         $departments = Department::all();
         // $cok = Department::all();
-        return view('layouts.loan.index',compact('data','departments','carbon'));
+        return view('layouts.loan.index', compact('data', 'departments', 'carbon', 'serials'));
     }
 
     /**
@@ -43,19 +45,20 @@ class LoanController extends Controller
     {
         $loan = new Loan();
         $loan->name = $request->name;
-        $loan->category_asset = $request->category_asset;
+        // $loan->category_asset = $request->category_asset;
         $loan->status = $request->status;
         $loan->department_id = $request->department_id;
+        $loan->serial_id = json_encode($request->serial_id);
         $loan->approved_by = $request->approved_by;
         $loan->phone = $request->phone;
         $loan->purpose = $request->purpose;
         $loan->detail_loan = $request->detail_loan;
-        $loan->loan_date = $request->loan_date;
-        $loan->estimation_return_date = $request->estimation_return_date;
-        $loan->real_return_date = $request->real_return_date;
-        $loan->reason = $request->reason;
-        $loan->equipment = $request->equipment;
-        $loan->save(); 
+        $loan->loan_date = Carbon::parse(date($request->loan_date))->format('Y-m-d');
+        $loan->estimation_return_date = Carbon::parse(date($request->estimation_return_date))->format('Y-m-d');
+        // $loan->estimation_return_date = $request->estimation_return_date;
+        // $loan->real_return_date = $request->real_return_date;
+        // $loan->reason = $request->reason;
+        $loan->save();
         return redirect('/loan')->with('success', 'Data Added !');
     }
 
@@ -91,13 +94,10 @@ class LoanController extends Controller
     public function update(Request $request, $id)
     {
         $loan = Loan::find($id);
-        if($request->real_return_date === null)
-        {
+        if ($request->real_return_date === null) {
             $update_status = 'In Loan';
-        }
-        else
-        {
-         $update_status = 'Return';       
+        } else {
+            $update_status = 'Return';
         }
         $loan->name = $request->name;
         $loan->category_asset = $request->category_asset;
@@ -112,9 +112,8 @@ class LoanController extends Controller
         $loan->real_return_date = $request->real_return_date;
         $loan->reason = $request->reason;
         $loan->equipment = $request->equipment;
-        $loan->save(); 
+        $loan->save();
         return redirect('/loan')->with('success', 'Data Updated!');
-        
     }
 
     /**

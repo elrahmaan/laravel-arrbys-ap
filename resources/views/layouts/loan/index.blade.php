@@ -14,6 +14,8 @@
 <script src="assets/vendors/jquery-datatables/jquery.dataTables.min.js"></script>
 <script src="assets/vendors/jquery-datatables/custom.jquery.dataTables.bootstrap5.min.js"></script>
 
+<!-- <script src="assets/vendors/choices.js/choices.min.js"></script>
+<script src="assets/js/pages/form-element-select.js"></script> -->
 <script>
     // Jquery Datatable
     let jquery_datatable = $("#table1").DataTable()
@@ -151,20 +153,35 @@
                                             <div class="form-group has-icon-left">
                                                 <label for="mobile-id-icon">Asset Name*</label>
                                                 <div class="position-relative">
-                                                    <input type="text" placeholder="Asset name" name="equipment" class="form-control" id="mobile-id-icon" required>
+                                                    <div class="form-group">
+                                                        <select class="choices form-select multiple-remove" multiple="multiple" name="serial_id[]">
+                                                            @foreach ($serials as $serial)
+                                                            <option value="{{$serial->id}}">{{$serial->asset->name}} | {{$serial->no_serial}}</option>
+                                                            @endforeach
+
+                                                            <!-- <option value="trapeze" selected>Trapeze</option>
+                                                            <option value="triangle">Triangle</option>
+                                                            <option value="polygon">Polygon</option>
+                                                            <option value="red">Red</option>
+                                                            <option value="green">Green</option>
+                                                            <option value="blue" selected>Blue</option>
+                                                            <option value="purple">Purple</option> -->
+                                                        </select>
+                                                    </div>
+                                                    <!-- <input type="text" placeholder="Asset name" name="equipment" class="form-control" id="mobile-id-icon" required>
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-archive-fill"></i>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group has-icon-left">
+                                        <!-- <div class="form-group has-icon-left">
                                             <label for="email-id-icon">Category*</label>
                                             <select class="choices form-select" name="category_asset" required>
                                                 <option value="AP">AP</option>
                                                 <option value="Sewa">Sewa</option>
                                             </select>
-                                        </div>
+                                        </div> -->
                                         <div class="col-12">
                                             <div class="form-group has-icon-left">
                                                 <label for="mobile-id-icon">Purpose*</label>
@@ -179,7 +196,7 @@
                                         <div class="col-12">
                                             <label for="mobile-id-icon">Detail Loan*</label>
                                             <div class="position-relative">
-                                                <textarea class="form-control" name="detail_of_specification" id="" rows="5" required> </textarea>
+                                                <textarea class="form-control" name="detail_loan" id="" rows="5" required> </textarea>
                                             </div>
                                         </div>
                                         <div class="col-12">
@@ -517,10 +534,26 @@
                                                             <div class="form-group has-icon-left">
                                                                 <label for="mobile-id-icon">Asset Name</label>
                                                                 <div class="position-relative">
-                                                                    <input readonly type="text" value="{{ $data->equipment }}" name="equipment" class="form-control" id="mobile-id-icon">
+                                                                    <div class="form-group">
+                                                                        <select class="choices form-select multiple-remove" multiple="multiple">
+                                                                            <optgroup label="Figures">
+                                                                                <option value="romboid">Romboid</option>
+                                                                                <option value="trapeze" selected>Trapeze</option>
+                                                                                <option value="triangle">Triangle</option>
+                                                                                <option value="polygon">Polygon</option>
+                                                                            </optgroup>
+                                                                            <optgroup label="Colors">
+                                                                                <option value="red">Red</option>
+                                                                                <option value="green">Green</option>
+                                                                                <option value="blue" selected>Blue</option>
+                                                                                <option value="purple">Purple</option>
+                                                                            </optgroup>
+                                                                        </select>
+                                                                    </div>
+                                                                    <!-- <input readonly type="text" value="{{ $data->equipment }}" name="equipment" class="form-control" id="mobile-id-icon">
                                                                     <div class="form-control-icon">
                                                                         <i class="bi bi-archive-fill"></i>
-                                                                    </div>
+                                                                    </div> -->
                                                                 </div>
                                                             </div>
                                                         </div>
