@@ -516,8 +516,13 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form class="form form-vertical" method="POST" action="{{route('serial.store')}}">
+                                            <?php
+                                            $countData = DB::table('serials')->where('asset_id', $asset->id)->count();
+                                            ?>
+                                            @if ($countData > 0)
+                                            <form class="form form-vertical" method="POST" action="{{route('serial.update', $asset->id)}}">
                                                 @csrf
+                                                @method('PUT')
                                                 <input type="hidden" name="qty" value="{{$asset->qty}}">
                                                 <input type="hidden" name="asset_id" value="{{$asset->id}}">
                                                 <div class="form-body">
@@ -534,21 +539,25 @@
                                                             </div>
                                                         </div>
 
+                                                        @foreach ($serials as $serial)
+                                                        @if ($serial->asset_id == $asset->id)
                                                         <?php
                                                         $i = 0;
-                                                        for ($i = 0; $i < $asset->qty; $i++) { ?>
-                                                            <div class="col-12">
-                                                                <div class="form-group has-icon-left">
-                                                                    <label for="first-name-icon">Serial Number</label>
-                                                                    <div class="position-relative">
-                                                                        <input type="text" name="no_serial[{{$i}}]" placeholder="Serial Number" class="form-control" id="first-name-icon">
-                                                                        <div class="form-control-icon">
-                                                                            <i class="fa fa-barcode"></i>
-                                                                        </div>
+                                                        ?>
+                                                        <div class="col-12">
+                                                            <div class="form-group has-icon-left">
+                                                                <label for="first-name-icon">Serial Number</label>
+                                                                <div class="position-relative">
+                                                                    <input type="text" name="no_serial[{{$i++}}]" placeholder="Serial Number" value="{{$serial->no_serial}}" class="form-control" id="first-name-icon">
+                                                                    <div class="form-control-icon">
+                                                                        <i class="fa fa-barcode"></i>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        <?php } ?>
+                                                        </div>
+
+                                                        @endif
+                                                        @endforeach
                                                     </div>
                                                 </div>
                                         </div>
@@ -563,17 +572,65 @@
                                             </button>
                                         </div>
                                         </form>
+                                        @else
+                                        <form class="form form-vertical" method="POST" action="{{route('serial.store')}}">
+                                            @csrf
+                                            <input type="hidden" name="qty" value="{{$asset->qty}}">
+                                            <input type="hidden" name="asset_id" value="{{$asset->id}}">
+                                            <div class="form-body">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group has-icon-left">
+                                                            <label for="first-name-icon">ID</label>
+                                                            <div class="position-relative">
+                                                                <input type="text" name="id" readonly value="{{ $asset->id }}" class="form-control" id="first-name-icon">
+                                                                <div class="form-control-icon">
+                                                                    <i class="fa fa-key"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <?php
+                                                    $i = 0;
+                                                    for ($i = 0; $i < $asset->qty; $i++) { ?>
+                                                        <div class="col-12">
+                                                            <div class="form-group has-icon-left">
+                                                                <label for="first-name-icon">Serial Number</label>
+                                                                <div class="position-relative">
+                                                                    <input type="text" name="no_serial[{{$i}}]" placeholder="Serial Number" class="form-control" id="first-name-icon">
+                                                                    <div class="form-control-icon">
+                                                                        <i class="fa fa-barcode"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    <?php } ?>
+                                                </div>
+                                            </div>
                                     </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-light-dark" data-bs-dismiss="modal">
+                                            <i class="bx bx-x d-block d-sm-none"></i>
+                                            <span class="d-none d-sm-block">Cancel</span>
+                                        </button>
+                                        <button type="submit" class="btn btn-dark ml-1">
+                                            <i class="bx bx-check d-block d-sm-none"></i>
+                                            <span class="d-none d-sm-block">Add</span>
+                                        </button>
+                                    </div>
+                                    </form>
+                                    @endif
                                 </div>
                             </div>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
             </div>
+            </tr>
+            @endforeach
+            </tbody>
+            </table>
         </div>
+</div>
 
-    </section>
-    <!-- Basic Tables end -->
+</section>
+<!-- Basic Tables end -->
 </div>
 @endsection

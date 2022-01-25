@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Asset;
 use App\Models\Serial;
 use Illuminate\Http\Request;
 
@@ -79,7 +80,20 @@ class SerialController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // $qty = $request->qty;
+        $asset_id = $request->asset_id;
+        $serials = Serial::all();
+
+        foreach ($serials as $serial) {
+            if ($serial->asset_id == $id) {
+                $i = 0;
+                $serial = Serial::find($serial->id);
+                $serial->no_serial = $request->no_serial[$i];
+                $serial->asset_id = $asset_id;
+                $serial->save();
+            }
+        }
+        return redirect()->route('asset.index');
     }
 
     /**
