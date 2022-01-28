@@ -20,7 +20,7 @@ class CreateSerialsTable extends Migration
             $table->unsignedBigInteger('asset_id');
             $table->foreign('asset_id')->references('id')->on('assets');
             // $table->foreignId('asset_id');
-            $table->string('status');
+            $table->boolean('is_borrowed');
             $table->timestamps();
         });
     }

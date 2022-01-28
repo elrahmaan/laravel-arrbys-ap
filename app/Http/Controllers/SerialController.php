@@ -44,6 +44,7 @@ class SerialController extends Controller
             $serial = new Serial();
             $serial->no_serial = $request->no_serial[$i];
             $serial->asset_id = $asset_id;
+            $serial->is_borrowed = false;
             $serial->save();
         }
         return redirect()->route('asset.index');

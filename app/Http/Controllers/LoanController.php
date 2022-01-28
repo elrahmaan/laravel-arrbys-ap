@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use App\Models\Loan;
+use App\Models\LoanAsset;
 use App\Models\Serial;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class LoanController extends Controller
 {
@@ -21,8 +23,10 @@ class LoanController extends Controller
         $serials = Serial::all();
         $carbon = Carbon::now()->toDateString();
         $departments = Department::all();
+        $loans = Loan::all();
+        $loanAssets = LoanAsset::all();
         // $cok = Department::all();
-        return view('layouts.loan.index', compact('data', 'departments', 'carbon', 'serials'));
+        return view('layouts.loan.index', compact('data', 'departments', 'carbon', 'serials', 'loans', 'loanAssets'));
     }
 
     /**
@@ -44,22 +48,28 @@ class LoanController extends Controller
     public function store(Request $request)
     {
         $loan = new Loan();
+        $countLoan = DB::table('loans')->count();
+        $id = $countLoan + 1;
+        $loan->id = $id;
         $loan->name = $request->name;
-        // $loan->category_asset = $request->category_asset;
         $loan->status = $request->status;
         $loan->department_id = $request->department_id;
-        $loan->serial_id = json_encode($request->serial_id);
+        $serials = $request->serials;
         $loan->approved_by = $request->approved_by;
         $loan->phone = $request->phone;
         $loan->purpose = $request->purpose;
         $loan->detail_loan = $request->detail_loan;
         $loan->loan_date = Carbon::parse(date($request->loan_date))->format('Y-m-d');
         $loan->estimation_return_date = Carbon::parse(date($request->estimation_return_date))->format('Y-m-d');
-        // $loan->estimation_return_date = $request->estimation_return_date;
-        // $loan->real_return_date = $request->real_return_date;
-        // $loan->reason = $request->reason;
-        $loan->save();
-        return redirect('/loan')->with('success', 'Data Added !');
+        if ($loan->save()) {
+            foreach ($serials as $serial) {
+                $loanAsset = new LoanAsset();
+                $loanAsset->loan_id = $id;
+                $loanAsset->serial_id = $serial;
+                $loanAsset->save();
+            }
+            return redirect('/loan')->with('success', 'Data Added !');
+        }
     }
 
     /**
@@ -100,7 +110,6 @@ class LoanController extends Controller
             $update_status = 'Return';
         }
         $loan->name = $request->name;
-        $loan->category_asset = $request->category_asset;
         $loan->status = $update_status;
         $loan->department_id = $request->department_id;
         $loan->approved_by = $request->approved_by;
@@ -113,6 +122,16 @@ class LoanController extends Controller
         $loan->reason = $request->reason;
         $loan->equipment = $request->equipment;
         $loan->save();
+        // $serials = $request->serials;
+        // if ($loan->save()) {
+        //     foreach ($serials as $serial) {
+        //         $loanAsset = new LoanAsset();
+        //         $loanAsset->loan_id = $id;
+        //         $loanAsset->serial_id = $serial;
+        //         $loanAsset->save();
+        //     }
+        //     return redirect('/loan')->with('success', 'Data Added !');
+        // }
         return redirect('/loan')->with('success', 'Data Updated!');
     }
 

@@ -20,6 +20,11 @@ class Loan extends Model
         return $this->belongsTo(Serial::class);
     }
 
+    public function loanAsset()
+    {
+        return $this->hasMany(LoanAsset::class);
+    }
+
     public static function getLoan()
     {
         $record = DB::table('loans')->leftJoin('departments', 'loans.department_id', '=', 'departments.id')
