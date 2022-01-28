@@ -17,7 +17,10 @@ class CreateSerialsTable extends Migration
             $table->id();
             $table->string('no_serial')->nullable();
             // $table->unsignedBigInteger('asset_id');
-            $table->foreignId('asset_id');
+            $table->unsignedBigInteger('asset_id');
+            $table->foreign('asset_id')->references('id')->on('assets');
+            // $table->foreignId('asset_id');
+            $table->string('status');
             $table->timestamps();
         });
     }
