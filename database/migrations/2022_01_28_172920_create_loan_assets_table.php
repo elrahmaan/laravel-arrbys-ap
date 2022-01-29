@@ -16,9 +16,9 @@ class CreateLoanAssetsTable extends Migration
         Schema::create('loan_assets', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('loan_id');
-            $table->foreign('loan_id')->references('id')->on('loans');
+            $table->foreign('loan_id')->references('id')->on('loans')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->unsignedBigInteger('serial_id');
-            $table->foreign('serial_id')->references('id')->on('serials');
+            $table->foreign('serial_id')->references('id')->on('serials')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->timestamps();
         });
     }

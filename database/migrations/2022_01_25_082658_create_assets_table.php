@@ -17,7 +17,7 @@ class CreateAssetsTable extends Migration
             $table->id();
             $table->string('name');
             $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('asset_categories');
+            $table->foreign('category_id')->references('id')->on('asset_categories')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->string('category_asset');
             $table->text('image')->nullable();
             $table->string('detail_of_specification')->nullable();

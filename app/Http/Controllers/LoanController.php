@@ -67,6 +67,10 @@ class LoanController extends Controller
                 $loanAsset->loan_id = $id;
                 $loanAsset->serial_id = $serial;
                 $loanAsset->save();
+
+                $serialData = Serial::find($serial);
+                $serialData->is_borrowed = true;
+                $serialData->save();
             }
             return redirect('/loan')->with('success', 'Data Added !');
         }
@@ -109,6 +113,35 @@ class LoanController extends Controller
         } else {
             $update_status = 'Return';
         }
+
+        //menghapus data peminjaman asset sebelum diedit
+        $old_serials = $request->old_serials;
+        // dd($old_serials);
+        foreach ($old_serials as $old_serial) {
+            $serialData = Serial::find($old_serial);
+            $serialData->is_borrowed = false;
+            $serialData->save();
+        }
+        DB::table('loan_assets')->where('loan_id', $id)->delete();
+
+        //set data asset setelah diedit
+        $serials = $request->serials;
+        foreach ($serials as $serial) {
+            $loanAsset = new LoanAsset();
+            $loanAsset->loan_id = $id;
+            $loanAsset->serial_id = $serial;
+            $loanAsset->save();
+
+            $serialData = Serial::find($serial);
+            if ($request->real_return_date != null) {
+                $serialData->is_borrowed = false;
+            } else {
+                $serialData->is_borrowed = true;
+            }
+
+
+            $serialData->save();
+        }
         $loan->name = $request->name;
         $loan->status = $update_status;
         $loan->department_id = $request->department_id;
@@ -120,7 +153,6 @@ class LoanController extends Controller
         $loan->estimation_return_date = $request->estimation_return_date;
         $loan->real_return_date = $request->real_return_date;
         $loan->reason = $request->reason;
-        $loan->equipment = $request->equipment;
         $loan->save();
         // $serials = $request->serials;
         // if ($loan->save()) {

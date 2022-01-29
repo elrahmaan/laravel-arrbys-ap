@@ -98,7 +98,9 @@ class AssetController extends Controller
     {
         $service = Asset::find($id);
         $service->name = $request->name;
-        $service->category_id = request();
+        $service->category_id = $request->category_id;
+        $service->category_asset = $request->category_asset;
+        dd($request->category_id);
         $service->detail_of_specification = $request->detail_of_specification;
         $service->qty = $request->qty;
         $service->date = $request->date;
@@ -119,7 +121,7 @@ class AssetController extends Controller
         // dd($service);
         $service->save();
 
-        return redirect()->route('service.index');
+        return redirect()->route('asset.index');
     }
 
     /**

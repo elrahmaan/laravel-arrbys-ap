@@ -103,7 +103,7 @@
                                                 <div class="position-relative">
                                                     <input type="text" name="name" class="form-control" placeholder="Department Name" id="first-name-icon" required>
                                                     <div class="form-control-icon">
-                                                        <i class="bi bi-person"></i>
+                                                        <i class="fa fa-window-restore"></i>
                                                     </div>
                                                 </div>
                                             </div>
@@ -115,7 +115,7 @@
                                                 <div class="position-relative">
                                                     <input type="text" name="code" class="form-control" placeholder="Department Code" required id="email-id-icon">
                                                     <div class="form-control-icon">
-                                                        <i class="bi bi-upc"></i>
+                                                        <i class="bi bi-key-fill"></i>
                                                     </div>
                                                 </div>
                                             </div>
@@ -186,7 +186,7 @@
                                                                 <div class="position-relative">
                                                                     <input type="text" disabled class="form-control" id="first-name-icon" placeholder="{{ $d->name }}">
                                                                     <div class="form-control-icon">
-                                                                        <i class="bi bi-person"></i>
+                                                                        <i class="fa fa-window-restore"></i>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -198,7 +198,7 @@
                                                                 <div class="position-relative">
                                                                     <input type="text" disabled class="form-control" id="email-id-icon" placeholder="{{ $d->code }}">
                                                                     <div class="form-control-icon">
-                                                                        <i class="bi bi-upc"></i>
+                                                                        <i class="bi bi-key-fill"></i>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -240,7 +240,7 @@
                                                                 <div class="position-relative">
                                                                     <input type="text" name="name" class="form-control" value="{{ $d->name }}" id="first-name-icon">
                                                                     <div class="form-control-icon">
-                                                                        <i class="bi bi-person"></i>
+                                                                        <i class="fa fa-window-restore"></i>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -252,7 +252,7 @@
                                                                 <div class="position-relative">
                                                                     <input type="text" name="code" class="form-control" value="{{ $d->code }}" id="email-id-icon">
                                                                     <div class="form-control-icon">
-                                                                        <i class="bi bi-upc"></i>
+                                                                        <i class="bi bi-key-fill"></i>
                                                                     </div>
                                                                 </div>
                                                             </div>

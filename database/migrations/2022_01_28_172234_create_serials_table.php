@@ -18,7 +18,7 @@ class CreateSerialsTable extends Migration
             $table->string('no_serial')->nullable();
             // $table->unsignedBigInteger('asset_id');
             $table->unsignedBigInteger('asset_id');
-            $table->foreign('asset_id')->references('id')->on('assets');
+            $table->foreign('asset_id')->references('id')->on('assets')->onDelete('CASCADE')->onUpdate('CASCADE');
             // $table->foreignId('asset_id');
             $table->boolean('is_borrowed');
             $table->timestamps();

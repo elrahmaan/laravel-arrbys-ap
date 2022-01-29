@@ -125,7 +125,6 @@ class ServiceAssetController extends Controller
         $asset->status = $request->status;
         $asset->desc_complain = $request->desc_complain;
         $asset->date = $request->date;
-        $asset->date_estimation_fixed = $request->date_estimation_fixed;
         $asset->save();
 
         return redirect()->route('service.index')->with('success', 'Data Edited!');;

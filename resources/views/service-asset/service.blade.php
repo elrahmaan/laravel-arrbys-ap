@@ -7,18 +7,26 @@
 <link rel="stylesheet" href="assets/vendors/jquery-datatables/jquery.dataTables.bootstrap5.min.css">
 <link rel="stylesheet" href="assets/vendors/fontawesome/all.min.css">
 <link rel="stylesheet" href="assets/vendors/choices.js/choices.min.css" />
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endsection
 @section('script')
 <script src="/assets/vendors/jquery/jquery.min.js"></script>
 <script src="/assets/vendors/jquery-datatables/jquery.dataTables.min.js"></script>
 <script src="/assets/vendors/jquery-datatables/custom.jquery.dataTables.bootstrap5.min.js"></script>
 <script src="assets/vendors/choices.js/choices.min.js"></script>
-<script src="assets/js/pages/form-element-select.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<!-- <script src="assets/js/pages/form-element-select.js"></script>
+<script src="assets/vendors/select2/form-select2.min.js"></script> -->
+
 <script>
     // Jquery Datatable
     let jquery_datatable = $("#table1").DataTable()
 </script>
-
+<script>
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
+</script>
 <!-- Sweet Alert Delete -->
 <script>
     $('.deleted').click(function() {
@@ -96,7 +104,7 @@
             </div>
 
             <!-- Add Data Modal -->
-            <div class="modal fade text-left" id="addData" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
+            <div class="modal fade text-left" id="addData" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                     <div class="modal-content">
                         <div class="modal-header bg-primary">
@@ -122,11 +130,12 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="col-12">
                                             <div class="form-group has-icon-left">
                                                 <label for="password-id-icon">Category</label>
-                                                <div class="position-relative">
-                                                    <select class="choices form-select" name="category_id">
+                                                <div class="position-relative mb-2">
+                                                    <select class="select2 form-select" name="category_id" style="width: 100%;">
                                                         @foreach ($categories as $cat)
                                                         <option value="{{$cat->id}}">{{$cat->name}}</option>
                                                         @endforeach
@@ -172,8 +181,8 @@
                                         </div>
                                         <div class="col-12">
                                             <label for="password-id-icon">Department of Complainant</label>
-                                            <div class="position-relative">
-                                                <select class="choices form-select" name="department_id">
+                                            <div class="position-relative mb-2">
+                                                <select class="select2 form-select" name="department_id" style="width: 100%;">
                                                     @foreach ($departments as $dep)
                                                     <option value="{{$dep->id}}">{{$dep->name}}</option>
                                                     @endforeach
@@ -183,28 +192,9 @@
                                         <div class="col-12">
                                             <label for="password-id-icon">Status</label>
                                             <div class="position-relative mb-2">
-                                                <!-- <div class="form-check form-check-danger">
-                                                    <input class="form-check-input" type="radio" name="status" id="Danger" value="Broken" checked>
-                                                    <label class="form-check-label" for="Danger">
-                                                        Broken
-                                                    </label>
-                                                </div>
-                                                <div class="form-check form-check-warning">
-                                                    <input class="form-check-input" type="radio" name="status" id="Warning" value="In Repair">
-                                                    <label class="form-check-label" for="Warning">
-                                                        In Repair
-                                                    </label>
-                                                </div>
-                                                <div class="form-check form-check-success">
-                                                    <input class="form-check-input" type="radio" name="status" id="Success" value="Good">
-                                                    <label class="form-check-label" for="Success">
-                                                        Good
-                                                    </label>
-                                                </div> -->
                                                 <span class="badge bg-warning">In Repair</span>
                                                 <input type="hidden" name="status" value="In Repair">
                                             </div>
-
                                         </div>
 
                                         <div class="col-12">
@@ -468,7 +458,7 @@
                             </div>
 
                             <!-- modal new service data -->
-                            <div class="modal fade text-left" id="newData{{$service->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
+                            <div class="modal fade text-left" id="newData{{$service->id}}" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header bg-secondary">
@@ -559,8 +549,8 @@
                                                         </div>
                                                         <div class="col-12">
                                                             <label for="password-id-icon">Department of Complainant</label>
-                                                            <div class="position-relative">
-                                                                <select class="choices form-select" name="department_id">
+                                                            <div class="position-relative mb-2">
+                                                                <select class="select2 form-select" name="department_id" style="width: 100%;">
                                                                     @foreach ($departments as $dep)
                                                                     <option value="{{$dep->id}}">{{$dep->name}}</option>
                                                                     @endforeach
