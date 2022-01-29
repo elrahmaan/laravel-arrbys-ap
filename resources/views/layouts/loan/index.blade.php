@@ -283,10 +283,12 @@
                                         <i class="fa fa-eye"></i>
                                     </button>
                                 </a>
+                                @if ($data->status != 'Return')
                                 <a href="#"><button type="button" class="btn btn-warning me-2" data-bs-toggle="modal" data-bs-target="#editData{{ $data->id }}">
                                         <i class="fa fa-edit"></i>
                                     </button>
                                 </a>
+                                @endif
                                 <a href="#"><button type="button" class="btn btn-danger deleted" data-id="{{$data->id}}" data-name="{{$data->name}}"> <i class="fa fa-trash-alt"></i></button></a>
                             </td>
 
