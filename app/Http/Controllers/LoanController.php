@@ -176,10 +176,13 @@ class LoanController extends Controller
     public function destroy($id)
     {
         $loan_assets = DB::table('loan_assets')->where('loan_id', $id)->get();
-        foreach ($loan_assets as $loan_asset) {
-            $serialData = Serial::find($loan_asset->serial_id);
-            $serialData->is_borrowed = false;
-            $serialData->save();
+        $loan = Loan::find($id);
+        if ($loan->status != 'Return') {
+            foreach ($loan_assets as $loan_asset) {
+                $serialData = Serial::find($loan_asset->serial_id);
+                $serialData->is_borrowed = false;
+                $serialData->save();
+            }
         }
         Loan::find($id)->delete();
         return redirect('/loan')->with('success', 'Data Deleted!');
