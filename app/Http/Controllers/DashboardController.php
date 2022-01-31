@@ -13,23 +13,34 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $logs = DB::table('unit_logs')->count();
-        $loans = Loan::orderBy('loan_date', 'desc')->take(5)->get();
+        if (request('year')) {
+            $current_year = request('year');
+        } else {
+            $current_year = Carbon::now()->isoFormat('YYYY');
+        }
+
+        $logs = DB::table('unit_logs')->whereYear('created_at', $current_year)->count();
+        $loans = Loan::orderBy('loan_date', 'desc')->whereYear('loan_date', $current_year)->take(5)->get();
         $now = Carbon::now()->toDateString();
         $loan_late = DB::table('loans')
             ->where('estimation_return_date', '<', $now)
             ->where('status', 'In Loan')
             ->orderBy('loan_date', 'desc')
+            ->whereYear('created_at', $current_year)
             ->take(5)
             ->get();
         $services = ServiceAsset::all();
         $logs_data = UnitLog::orderBy('created_at', 'desc')->take(5)->get();
-        $inrepair = DB::table('service_assets')->where('status', 'In Repair')->count();
-        $fixed = DB::table('service_assets')->where('status', 'Fixed')->count();
-        $inloan = DB::table('loans')->where('status', 'In Loan')->count();
-        $return = DB::table('loans')->where('status', 'Return')->count();
+        $inrepair = DB::table('service_assets')->where('status', 'In Repair')->whereYear('date', $current_year)->count();
+        $fixed = DB::table('service_assets')->where('status', 'Fixed')->whereYear('date', $current_year)->count();
+        $inloan = DB::table('loans')->where('status', 'In Loan')->whereYear('loan_date', $current_year)->count();
+        $return = DB::table('loans')->where('status', 'Return')->whereYear('loan_date', $current_year)->count();
 
-        $current_year = Carbon::now()->isoFormat('YYYY');
+
+
+        $year_chart = DB::table("loans")
+            ->selectRaw("DISTINCT year(loan_date) year")
+            ->get();
 
         $service_1 = DB::table('unit_logs')
             ->whereMonth('created_at', 1)
@@ -165,7 +176,8 @@ class DashboardController extends Controller
             'loan_10',
             'loan_11',
             'loan_12',
-            'current_year'
+            'current_year',
+            'year_chart'
         ));
     }
 }

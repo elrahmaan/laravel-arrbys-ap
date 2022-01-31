@@ -34,8 +34,43 @@
     var line = new ApexCharts(document.querySelector("#line"), lineOptions);
     line.render();
 </script>
+<script>
+    // $(function() {
+    //     $('.date-select').change(function() {
+    //         $('.loading-text').removeClass('d-none')
+    //         var year = $(this).val()
+    //         console.log(year)
+
+    //     })
+    // })
+    $(function() {
+        $('.year-select').click(function() {
+            $('.loading-text').removeClass('d-none')
+            var year = $(this).val()
+            console.log(year)
+
+        })
+    })
+</script>
 @endsection
 <div class="page-content">
+    <form action="{{ route('home') }}" method="GET">
+        <section class="row mb-3 d-flex align-items-center">
+            <div class="col-lg-2 col-md-2 col-sm-2">
+                <select name="year" id="" class="form-select date-select">
+                    @foreach ($year_chart as $year)
+                    <option value="{{$year->year}}" {{request('year') == $year->year ? ' selected' : ''}}>{{$year->year}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2">
+                <button type="submit" class="btn btn-primary year-select">
+                    Filter by Year
+                </button>
+            </div>
+    </form>
+    </section>
+    <div class="mb-4 loading-text d-none">Loading ...</div>
     <section class="row">
         <div class="col-12 col-lg-9">
             <div class="row">
@@ -52,7 +87,7 @@
                                     <h6 class="text-muted font-semibold">
                                         In Repair
                                     </h6>
-                                    <h6 class="font-extrabold mb-0">
+                                    <h6 class="font-extrabold mb-0 inrepair-display">
                                         {{$inrepair}}
                                     </h6>
                                 </div>
@@ -73,7 +108,7 @@
                                     <h6 class="text-muted font-semibold">
                                         Fixed
                                     </h6>
-                                    <h6 class="font-extrabold mb-0">
+                                    <h6 class="font-extrabold mb-0 fixed-display">
                                         {{$fixed}}
                                     </h6>
                                 </div>
@@ -94,7 +129,7 @@
                                     <h6 class="text-muted font-semibold">
                                         In Loan
                                     </h6>
-                                    <h6 class="font-extrabold mb-0">
+                                    <h6 class="font-extrabold mb-0 inloan-display">
                                         {{$inloan}}
                                     </h6>
                                 </div>
@@ -115,7 +150,7 @@
                                     <h6 class="text-muted font-semibold">
                                         Return (Loan)
                                     </h6>
-                                    <h6 class="font-extrabold mb-0">
+                                    <h6 class="font-extrabold mb-0 return-display">
                                         {{$return}}
                                     </h6>
                                 </div>
@@ -129,11 +164,9 @@
                     <div class="card">
                         <div class="card-header">
                             <h4>Statistic {{$current_year}}</h4>
-                            <div class="btn-group mb-1">
+                            <!-- <div class="btn-group mb-1">
                                 <div class="dropdown">
-                                    <button class="btn btn-primary dropdown-toggle me-1" type="button"
-                                        id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
+                                    <button class="btn btn-primary dropdown-toggle me-1" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Year
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -142,7 +175,7 @@
                                         <a class="dropdown-item" href="#">2023</a>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="card-body">
                             <div id="line"></div>
