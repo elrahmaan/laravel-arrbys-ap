@@ -38,9 +38,9 @@ class DashboardController extends Controller
 
 
 
-        $year_chart = DB::table("loans")
-            ->selectRaw("DISTINCT year(loan_date) year")
-            ->get();
+        $year_chart_1 = Carbon::now()->isoFormat('YYYY');
+        $year_chart_2 = $year_chart_1 - 1;
+        $year_chart_3 = $year_chart_1 - 2;
 
         $service_1 = DB::table('unit_logs')
             ->whereMonth('created_at', 1)
@@ -177,7 +177,9 @@ class DashboardController extends Controller
             'loan_11',
             'loan_12',
             'current_year',
-            'year_chart'
+            'year_chart_1',
+            'year_chart_2',
+            'year_chart_3',
         ));
     }
 }

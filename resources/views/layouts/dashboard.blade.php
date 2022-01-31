@@ -58,9 +58,9 @@
         <section class="row mb-3 d-flex align-items-center">
             <div class="col-lg-2 col-md-2 col-sm-2">
                 <select name="year" id="" class="form-select date-select">
-                    @foreach ($year_chart as $year)
-                    <option value="{{$year->year}}" {{request('year') == $year->year ? ' selected' : ''}}>{{$year->year}}</option>
-                    @endforeach
+                    <option value="{{$year_chart_1}}" {{request('year') == $year_chart_1 ? ' selected' : ''}}>{{$year_chart_1}}</option>
+                    <option value="{{$year_chart_2}}" {{request('year') == $year_chart_2 ? ' selected' : ''}}>{{$year_chart_2}}</option>
+                    <option value="{{$year_chart_3}}" {{request('year') == $year_chart_3 ? ' selected' : ''}}>{{$year_chart_3}}</option>
                 </select>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2">
