@@ -42,7 +42,7 @@ Route::middleware(['auth', 'cekrole:superadmin,teknisi,viewer'])->group(function
         'report-loan' => ReportLoanController::class,
     ]);
     //export excel
-    Route::get('/report-loan/export_excel', [ReportLoanController::class, 'export_excel'])->name('export-loan');
+    Route::get('/report-loans/export_excel', [ReportLoanController::class, 'export_excel'])->name('export-loan.index');
     Route::get('/report-parameter/export_excel_parameter', [ReportLoanController::class, 'export_excel_parameter'])->name('export-loan-parameter');
     Route::get('/report-service/export_excel', [ReportController::class, 'export_excel'])->name('export-service');
     Route::get('/report-service-parameter/export_excel_parameter', [ReportController::class, 'export_excel_parameter'])->name('export-service-parameter');
@@ -59,8 +59,6 @@ Route::middleware(['auth', 'cekrole:superadmin,teknisi'])->group(function () {
         'asset' => AssetController::class,
         'serial' => SerialController::class,
         'loan' => LoanController::class,
-        'report-repairing' => ReportController::class,
-        'report-loan' => ReportLoanController::class,
         'category' => CategoryController::class,
         'department' => DepartmentController::class,
     ]);
