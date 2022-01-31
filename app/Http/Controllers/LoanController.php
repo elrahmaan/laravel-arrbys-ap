@@ -23,7 +23,7 @@ class LoanController extends Controller
         $serials = Serial::all();
         $carbon = Carbon::now()->toDateString();
         $departments = Department::all();
-        $loans = Loan::all();
+        $loans = Loan::all()->where('status','Return');
         $loanAssets = LoanAsset::all();
         // $cok = Department::all();
         return view('layouts.loan.index', compact('data', 'departments', 'carbon', 'serials', 'loans', 'loanAssets'));
