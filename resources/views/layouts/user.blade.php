@@ -5,21 +5,25 @@
 
 <!-- <link rel="stylesheet" href="assets/vendors/jquery-datatables/jquery.dataTables.min.css"> -->
 <link rel="stylesheet" href="assets/vendors/jquery-datatables/jquery.dataTables.bootstrap5.min.css">
-
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endsection
 @section('script')
 <script src="assets/vendors/jquery/jquery.min.js"></script>
 <script src="assets/vendors/jquery-datatables/jquery.dataTables.min.js"></script>
 <script src="assets/vendors/jquery-datatables/custom.jquery.dataTables.bootstrap5.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
     // Jquery Datatable
     let jquery_datatable = $("#table1").DataTable()
 </script>
-
+<script>
+    $(document).ready(function () {
+        $('.select2').select2();
+    });
+</script>
 <!-- Sweet Alert Delete -->
 <script>
-    $('.deleted').click(function() {
+    $('.deleted').click(function () {
         var id = $(this).attr('data-id');
         var name = $(this).attr('data-name');
         Swal.fire({
@@ -85,7 +89,8 @@
                 </a>
                 <!-- Assets Datatable -->
             </div>
-            <div class="modal fade text-left" id="addData" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
+            <div class="modal fade text-left" id="addData" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160"
+                aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                     <div class="modal-content">
                         <div class="modal-header bg-primary">
@@ -96,7 +101,8 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="{{ route('user.store') }}" class="form form-vertical" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('user.store') }}" class="form form-vertical" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <form class="form form-vertical">
                                     <div class="form-body">
@@ -105,7 +111,8 @@
                                                 <div class="form-group has-icon-left">
                                                     <label for="first-name-icon">Name</label>
                                                     <div class="position-relative">
-                                                        <input type="text" name="name" class="form-control" placeholder="Name" id="first-name-icon">
+                                                        <input type="text" name="name" class="form-control"
+                                                            placeholder="Name" id="first-name-icon">
                                                         <div class="form-control-icon">
                                                             <i class="bi bi-person"></i>
                                                         </div>
@@ -113,11 +120,11 @@
                                                 </div>
                                             </div>
                                             <div class="col-12">
-
                                                 <div class="form-group has-icon-left">
                                                     <label for="email-id-icon">Email</label>
                                                     <div class="position-relative">
-                                                        <input type="text" name="email" class="form-control" placeholder="Email" id="email-id-icon">
+                                                        <input type="text" name="email" class="form-control"
+                                                            placeholder="Email" id="email-id-icon">
                                                         <div class="form-control-icon">
                                                             <i class="bi bi-envelope"></i>
                                                         </div>
@@ -125,11 +132,21 @@
                                                 </div>
                                             </div>
                                             <div class="col-12">
-
+                                                <div class="form-group has-icon-left">
+                                                    <label for="email-id-icon">Role</label>
+                                                    <select class="select2 form-select" name="role" style="width: 100%;" required>
+                                                        <option value="superadmin">Super Admin</option>
+                                                        <option value="teknisi">Teknisi</option>
+                                                        <option value="viewer">Viewer</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
                                                 <div class="form-group has-icon-left">
                                                     <label for="email-id-icon">Password</label>
                                                     <div class="position-relative">
-                                                        <input type="password" name="password" class="form-control" placeholder="Password" id="email-id-icon">
+                                                        <input type="password" name="password" class="form-control"
+                                                            placeholder="Password" id="email-id-icon">
                                                         <div class="form-control-icon">
                                                             <i class="bi bi-eye-slash-fill"></i>
                                                         </div>
@@ -160,6 +177,7 @@
                             <th>No</th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Role</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -170,27 +188,33 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $i->name }}</td>
                             <td>{{ $i->email }}</td>
+                            <td class="text-capitalize">{{ $i->role }}</td>
                             <td class="d-flex">
-                                <a href="#"><button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#showData{{ $i->id }}">
+                                <a href="#"><button type="button" class="btn btn-primary me-2" data-bs-toggle="modal"
+                                        data-bs-target="#showData{{ $i->id }}">
                                         <i class="fa fa-eye"></i>
                                     </button>
                                 </a>
-                                <a href="#"><button type="button" class="btn btn-warning me-2" data-bs-toggle="modal" data-bs-target="#editData{{ $i->id }}">
+                                <a href="#"><button type="button" class="btn btn-warning me-2" data-bs-toggle="modal"
+                                        data-bs-target="#editData{{ $i->id }}">
                                         <i class="fa fa-edit"></i>
                                     </button>
                                 </a>
-                                <a href="#"><button type="button" class="btn btn-danger deleted" data-id="{{$i->id}}" data-name="{{$i->name}}"> <i class="fa fa-trash-alt"></i></button></a>
+                                <a href="#"><button type="button" class="btn btn-danger deleted" data-id="{{$i->id}}"
+                                        data-name="{{$i->name}}"> <i class="fa fa-trash-alt"></i></button></a>
                             </td>
 
 
                             <!-- modal show data -->
-                            <div class="modal fade text-left" id="showData{{ $i->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
+                            <div class="modal fade text-left" id="showData{{ $i->id }}" tabindex="-1" role="dialog"
+                                aria-labelledby="myModalLabel160" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header bg-primary">
                                             <h5 class="modal-title white" id="myModalLabel160">Detail Data
                                             </h5>
-                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                            <button type="button" class="close" data-bs-dismiss="modal"
+                                                aria-label="Close">
                                                 <i data-feather="x"></i>
                                             </button>
                                         </div>
@@ -202,7 +226,9 @@
                                                             <div class="form-group has-icon-left">
                                                                 <label for="first-name-icon">Name</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" class="form-control" placeholder="{{ $i->name }}" id="first-name-icon" disabled>
+                                                                    <input type="text" class="form-control"
+                                                                        placeholder="{{ $i->name }}"
+                                                                        id="first-name-icon" disabled>
                                                                     <div class="form-control-icon">
                                                                         <i class="bi bi-person"></i>
                                                                     </div>
@@ -210,13 +236,28 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
-
                                                             <div class="form-group has-icon-left">
                                                                 <label for="email-id-icon">Email</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" class="form-control" placeholder="{{ $i->email }}" id="email-id-icon" disabled>
+                                                                    <input type="text" class="form-control"
+                                                                        placeholder="{{ $i->email }}" id="email-id-icon"
+                                                                        disabled>
                                                                     <div class="form-control-icon">
                                                                         <i class="bi bi-envelope"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <div class="form-group has-icon-left">
+                                                                <label for="email-id-icon">Role</label>
+                                                                <div class="position-relative">
+                                                                    <input type="text"
+                                                                        class="form-control text-capitalize"
+                                                                        placeholder="{{ $i->role }}" id="email-id-icon"
+                                                                        disabled>
+                                                                    <div class="form-control-icon">
+                                                                        <i class="bi bi-people-fill"></i>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -236,18 +277,21 @@
                             </div>
 
                             <!-- modal edit data -->
-                            <div class="modal fade text-left" id="editData{{ $i->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
+                            <div class="modal fade text-left" id="editData{{ $i->id }}" tabindex="-1" role="dialog"
+                                aria-labelledby="myModalLabel160" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header bg-warning">
                                             <h5 class="modal-title white" id="myModalLabel160">Edit Data
                                             </h5>
-                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                            <button type="button" class="close" data-bs-dismiss="modal"
+                                                aria-label="Close">
                                                 <i data-feather="x"></i>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="{{ route('user.update', $i->id) }}" class="form form-vertical" method="POST" enctype="multipart/form-data">
+                                            <form action="{{ route('user.update', $i->id) }}" class="form form-vertical"
+                                                method="POST" enctype="multipart/form-data">
                                                 @csrf
                                                 @method('PUT')
                                                 <form class="form form-vertical">
@@ -257,7 +301,9 @@
                                                                 <div class="form-group has-icon-left">
                                                                     <label for="first-name-icon">Name</label>
                                                                     <div class="position-relative">
-                                                                        <input type="text" name="name" value="{{ $i->name }}" class="form-control" placeholder="Name" id="first-name-icon">
+                                                                        <input type="text" name="name"
+                                                                            value="{{ $i->name }}" class="form-control"
+                                                                            placeholder="Name" id="first-name-icon">
                                                                         <div class="form-control-icon">
                                                                             <i class="bi bi-person"></i>
                                                                         </div>
@@ -265,22 +311,41 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-12">
-
                                                                 <div class="form-group has-icon-left">
                                                                     <label for="email-id-icon">Email</label>
                                                                     <div class="position-relative">
-                                                                        <input type="text" name="email" value="{{ $i->email }}" class="form-control" placeholder="Email" id="email-id-icon">
+                                                                        <input type="text" name="email"
+                                                                            value="{{ $i->email }}" class="form-control"
+                                                                            placeholder="Email" id="email-id-icon">
                                                                         <div class="form-control-icon">
                                                                             <i class="bi bi-envelope"></i>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            <div class="col-12">
+                                                                <div class="form-group has-icon-left">
+                                                                    <label for="email-id-icon">Role User</label>
+                                                                    <select class="select2 form-select" name="role"
+                                                                        style="width:100%;">
+                                                                        <option value="superadmin"
+                                                                            {{ $i->role == 'superadmin' ? ' selected' : '' }}>
+                                                                            Super Admin</option>
+                                                                        <option value="teknisi"
+                                                                            {{ $i->role == 'teknisi' ? ' selected' : '' }}>
+                                                                            Teknisi</option>
+                                                                        <option value="viewer"
+                                                                            {{ $i->role == 'viewer' ? ' selected' : '' }}>
+                                                                            Viewer</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                                            <button type="button" class="btn btn-light-secondary"
+                                                data-bs-dismiss="modal">
                                                 <i class="bx bx-x d-block d-sm-none"></i>
                                                 <span class="d-none d-sm-block">Cancel</span>
                                             </button>
