@@ -31,7 +31,7 @@
                 <nav class="navbar navbar-expand navbar-light ml-auto ">
                     <div class="container-fluid">
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <div class="dropdown position-absolute" style="left: 90%">
+                            <div class="dropdown position-absolute" style="left: 87%">
                                 <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
                                     <div class="user-menu d-flex" style="border-radius: 20px; ">
                                         <div class="user-name" style="padding-inline: 40px">

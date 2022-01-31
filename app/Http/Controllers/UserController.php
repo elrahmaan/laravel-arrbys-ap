@@ -36,12 +36,19 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+    {   
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->role = $request->role;
+        $user->password = Hash::make($request->password);
+        $user->save();
+        // User::create([
+        //     'name' => $request->name,
+        //     'email' => $request->email,
+        //     'role' => $request->role,
+        //     'password' => Hash::make($request->password),
+        // ]);
         return redirect('/user')->with('success', 'Data Added!');
     }
 
@@ -79,6 +86,7 @@ class UserController extends Controller
         $user = User::find($id);
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->role = $request->role;
         $user -> save();
         return redirect('/user')->with('success', 'Data Updated!');
     }
@@ -94,11 +102,5 @@ class UserController extends Controller
         $user = User::find($id);
         $user -> delete();
         return redirect('/user')->with('success', 'Data Deleted!');
-    }
-    public function confirm($id){
-        alert()->question('Apakah yakin untuk hapus?','Anda tidak akan dapat mengembalikan ini!')
-               ->showConfirmButton( '<a href="/delete/'. $id .'" class="text-white" style="text-decoration:none"> Yes! Delete it</a>', '#3085d6')->toHtml()
-               ->showCancelButton('Cancel', '#aaa')->reverseButtons();
-        return redirect('/user');
     }
 }
