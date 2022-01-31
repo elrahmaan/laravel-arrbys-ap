@@ -66,7 +66,7 @@
                     <h4 class="card-title">Filter Report</h4>
                 </div>
                 <div class="card-content">
-                    <form action="" method="GET">
+                    <form action="{{route('report-repairing.index')}}" method="GET">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-4 mb-1">
@@ -86,7 +86,7 @@
                                         <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
                                     </div>
                                     <div class="refresh mt-4">
-                                        <a href="{{ route('report-loan.index') }}" class="btn btn-dark"><i class="bi bi-arrow-repeat"></i></a>
+                                        <a href="{{ route('report-repairing.index') }}" class="btn btn-dark"><i class="bi bi-arrow-repeat"></i></a>
                                     </div>
                                 </div>
                             </div>

@@ -66,7 +66,7 @@
                     <h4 class="card-title">Filter Report</h4>
                 </div>
                 <div class="card-content">
-                    <form action="{{ route('loan.index') }}" method="GET">
+                    <form action="{{ route('report-loan.index') }}" method="GET">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-4 mb-1">
@@ -86,7 +86,7 @@
                                         <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
                                     </div>
                                     <div class="refresh mt-4">
-                                        <a href="{{ route('loan.index') }}" class="btn btn-dark"><i class="bi bi-arrow-repeat"></i></a>
+                                        <a href="{{ route('report-loan.index') }}" class="btn btn-dark"><i class="bi bi-arrow-repeat"></i></a>
                                     </div>
                                 </div>
 
@@ -101,10 +101,10 @@
             <div class="row">
                 <div class="card">
                     <div class="card-header" style="margin-bottom: -20px">
-                        <h4 class="card-title">Data Repairing</h4>
+                        <h4 class="card-title">Data Loan</h4>
                     </div>
                     <div class="ms-4 col-md-12 buttons">
-                        <form action="{{ request('from_date') && request('to_date') ? route('export-service-parameter') : route('export-loan.index') }}" method="GET">
+                        <form action="{{ request('from_date') && request('to_date') ? route('export-loan-parameter') : route('export-loan.index') }}" method="GET">
                             @if (request('from_date') && request('to_date'))
                             <input type="hidden" name="fromDate" value="{{ request('from_date') }}">
                             <input type="hidden" name="toDate" value="{{ request('to_date') }}">
