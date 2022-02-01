@@ -199,9 +199,8 @@
                         </div>
                         <div class="card-body">
 
+                            @if ($loans_late > 0)
                             @foreach ($loan_late as $late)
-
-
                             <div class="recent-message d-flex px-4 py-3">
                                 <div class="name ms-4">
                                     <h6 class="text-muted mb-1">ID: {{$late->id}}</h6>
@@ -214,13 +213,21 @@
                                 </div>
                             </div>
                             @endforeach
+                            @else
+                            <div class="recent-message d-flex px-4 py-3">
+                                <div class="name ms-4">
+                                    <h6 class="text-muted mb-1">None</h6>
+                                </div>
+                            </div>
+                            @endif
+
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-xl-8">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Assets (In Loan)</h4>
+                            <h4>Assets <span class="badge bg-warning">In Loan</span></h4>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
