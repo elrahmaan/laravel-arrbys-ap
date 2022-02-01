@@ -21,7 +21,7 @@ class ServiceAssetController extends Controller
     {
         $departments = Department::all();
         $categories = AssetCategory::all();
-        $services = ServiceAsset::all();
+        $services = ServiceAsset::latest()->get()->sortBy('status', SORT_REGULAR, true);;
         $logs = UnitLog::all();
         return view('service-asset.service', compact('departments', 'services', 'categories', 'logs'));
     }

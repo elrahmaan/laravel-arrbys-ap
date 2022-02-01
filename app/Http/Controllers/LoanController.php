@@ -19,7 +19,7 @@ class LoanController extends Controller
      */
     public function index()
     {
-        $data = Loan::all();
+        $data = Loan::latest()->get()->sortBy('status');
         $serials = Serial::all();
         $carbon = Carbon::now()->toDateString();
         $departments = Department::all();
