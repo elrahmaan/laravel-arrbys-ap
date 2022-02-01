@@ -2,13 +2,20 @@
 @section('body')
 @section('title', 'AP1 Series | Dashboard')
 @section('css')
-
+<link rel="stylesheet" href="assets/vendors/jquery-datatables/jquery.dataTables.bootstrap5.min.css">
 @endsection
 @section('script')
 <script src="assets/vendors/dayjs/dayjs.min.js"></script>
 <script src="assets/vendors/apexcharts/apexcharts.js"></script>
 <script src="assets/js/pages/dashboard.js"></script>
 
+<script src="assets/vendors/jquery/jquery.min.js"></script>
+<script src="assets/vendors/jquery-datatables/jquery.dataTables.min.js"></script>
+<script src="assets/vendors/jquery-datatables/custom.jquery.dataTables.bootstrap5.min.js"></script>
+<script>
+    // Jquery Datatable
+    let jquery_datatable = $("#table1").DataTable()
+</script>
 <script>
     var lineOptions = {
         chart: {
@@ -213,36 +220,36 @@
                 <div class="col-12 col-xl-8">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Latest Data of Loans</h4>
+                            <h4>Assets (In Loan)</h4>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-hover table-lg">
+                                <table class="table table-hover table-lg" id="table1">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
+                                            <th>No</th>
                                             <th>Asset Name</th>
-                                            <th>Date</th>
+                                            <th>Serial Number</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($loans as $loan)
+                                        @foreach ($serials as $serial)
                                         <tr>
                                             <td class="col-3">
                                                 <div class="d-flex align-items-center">
                                                     <p class="font-bold ms-3 mb-0">
-                                                        {{$loan->id}}
+                                                        {{$serial->id}}
                                                     </p>
                                                 </div>
                                             </td>
                                             <td class="col-auto">
                                                 <p class="mb-0">
-                                                    {{$loan->equipment}}
+                                                    {{$serial->asset->name}}
                                                 </p>
                                             </td>
                                             <td class="col-auto">
                                                 <p class="mb-0">
-                                                    {{$loan->loan_date}}
+                                                    {{$serial->no_serial}}
                                                 </p>
                                             </td>
                                         </tr>

@@ -413,7 +413,7 @@
                                                             <div class="form-group has-icon-left">
                                                                 <label for="password-id-icon">Quantity*</label>
                                                                 <div class="position-relative">
-                                                                    <input type="number" name="qty" class="form-control" placeholder="Quantity" value="{{ $asset->qty }}" id="password-id-icon" required>
+                                                                    <input type="number" name="qty" class="form-control" placeholder="Quantity" value="{{ $asset->qty }}" id="password-id-icon" readonly required>
                                                                     <div class="form-control-icon">
                                                                         <i class="fa fa-sort-numeric-up"></i>
                                                                     </div>

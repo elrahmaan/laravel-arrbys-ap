@@ -100,7 +100,7 @@ class AssetController extends Controller
         $service->name = $request->name;
         $service->category_id = $request->category_id;
         $service->category_asset = $request->category_asset;
-        dd($request->category_id);
+        // dd($request->category_id);
         $service->detail_of_specification = $request->detail_of_specification;
         $service->qty = $request->qty;
         $service->date = $request->date;

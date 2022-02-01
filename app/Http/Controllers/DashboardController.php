@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Loan;
+use App\Models\Serial;
 use App\Models\ServiceAsset;
 use App\Models\UnitLog;
 use Carbon\Carbon;
@@ -30,13 +31,12 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
         $services = ServiceAsset::all();
+        $serials = Serial::all()->sortBy('asset_id')->where('is_borrowed', true);
         $logs_data = UnitLog::orderBy('created_at', 'desc')->take(5)->get();
         $inrepair = DB::table('service_assets')->where('status', 'In Repair')->whereYear('date', $current_year)->count();
         $fixed = DB::table('service_assets')->where('status', 'Fixed')->whereYear('date', $current_year)->count();
         $inloan = DB::table('loans')->where('status', 'In Loan')->whereYear('loan_date', $current_year)->count();
         $return = DB::table('loans')->where('status', 'Return')->whereYear('loan_date', $current_year)->count();
-
-
 
         $year_chart_1 = Carbon::now()->isoFormat('YYYY');
         $year_chart_2 = $year_chart_1 - 1;
@@ -148,6 +148,7 @@ class DashboardController extends Controller
             'loan_late',
             'services',
             'loans',
+            'serials',
             'inrepair',
             'fixed',
             'inloan',
