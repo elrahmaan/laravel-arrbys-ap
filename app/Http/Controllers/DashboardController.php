@@ -21,8 +21,15 @@ class DashboardController extends Controller
         }
 
         $logs = DB::table('unit_logs')->whereYear('created_at', $current_year)->count();
-        $loans = Loan::orderBy('loan_date', 'desc')->whereYear('loan_date', $current_year)->take(5)->get();
         $now = Carbon::now()->toDateString();
+        $loans_late = DB::table('loans')
+            ->where('estimation_return_date', '<', $now)
+            ->where('status', 'In Loan')
+            ->orderBy('loan_date', 'desc')
+            ->whereYear('created_at', $current_year)
+            ->take(5)
+            ->count();
+        $loans = Loan::orderBy('loan_date', 'desc')->whereYear('loan_date', $current_year)->take(5)->get();
         $loan_late = DB::table('loans')
             ->where('estimation_return_date', '<', $now)
             ->where('status', 'In Loan')
@@ -146,6 +153,7 @@ class DashboardController extends Controller
             'logs',
             'logs_data',
             'loan_late',
+            'loans_late',
             'services',
             'loans',
             'serials',
