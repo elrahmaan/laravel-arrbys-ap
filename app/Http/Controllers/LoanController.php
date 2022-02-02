@@ -9,6 +9,7 @@ use App\Models\LoanAsset;
 use App\Models\Serial;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LoanController extends Controller
 {
@@ -47,33 +48,41 @@ class LoanController extends Controller
      */
     public function store(Request $request)
     {
-        $loan = new Loan();
-        $countLoan = DB::table('loans')->count();
-        $id = $countLoan + 1;
-        $loan->id = $id;
-        $loan->name = $request->name;
-        $loan->status = $request->status;
-        $loan->department_id = $request->department_id;
-        $serials = $request->serials;
-        $loan->approved_by = $request->approved_by;
-        $loan->approved_by_return = $request->approved_by_return;
-        $loan->phone = $request->phone;
-        $loan->purpose = $request->purpose;
-        $loan->detail_loan = $request->detail_loan;
-        $loan->loan_date = Carbon::parse(date($request->loan_date))->format('Y-m-d');
-        $loan->estimation_return_date = Carbon::parse(date($request->estimation_return_date))->format('Y-m-d');
-        if ($loan->save()) {
-            foreach ($serials as $serial) {
-                $loanAsset = new LoanAsset();
-                $loanAsset->loan_id = $id;
-                $loanAsset->serial_id = $serial;
-                $loanAsset->save();
 
-                $serialData = Serial::find($serial);
-                $serialData->is_borrowed = true;
-                $serialData->save();
+        $loan_date = Carbon::parse(date($request->loan_date))->format('Y-m-d');
+        $estimation_return_date = Carbon::parse(date($request->estimation_return_date))->format('Y-m-d');
+        if ($estimation_return_date < $loan_date) {
+
+            return redirect('/loan')->with('error', 'Invalid Parameter Date!');
+        } else {
+            $loan = new Loan();
+            $countLoan = DB::table('loans')->count();
+            $id = $countLoan + 1;
+            $loan->id = $id;
+            $loan->name = $request->name;
+            $loan->status = $request->status;
+            $loan->department_id = $request->department_id;
+            $serials = $request->serials;
+            $loan->approved_by = $request->approved_by;
+            $loan->approved_by_return = $request->approved_by_return;
+            $loan->phone = $request->phone;
+            $loan->purpose = $request->purpose;
+            $loan->detail_loan = $request->detail_loan;
+            $loan->loan_date = $loan_date;
+            $loan->estimation_return_date = $estimation_return_date;
+            if ($loan->save()) {
+                foreach ($serials as $serial) {
+                    $loanAsset = new LoanAsset();
+                    $loanAsset->loan_id = $id;
+                    $loanAsset->serial_id = $serial;
+                    $loanAsset->save();
+
+                    $serialData = Serial::find($serial);
+                    $serialData->is_borrowed = true;
+                    $serialData->save();
+                }
+                return redirect('/loan')->with('success', 'Data Added !');
             }
-            return redirect('/loan')->with('success', 'Data Added !');
         }
     }
 

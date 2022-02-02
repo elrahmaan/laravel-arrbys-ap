@@ -250,7 +250,7 @@
                     </thead>
                     <tbody>
                         @foreach ($data as $data)
-                        <tr class="align-content-center">
+                        <tr class="align-items-center">
                             <td>{{ $loop->iteration }}</td>
                             <td>
                                 {{ $data->name }}
@@ -602,7 +602,7 @@
                                                         <div class="col-12">
                                                             <label for="password-id-icon">Real Return Date*</label>
                                                             <div class="position-relative mb-2">
-                                                                <input type="datetime-local" value="{{ $data->real_return_date }}" name="real_return_date" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
+                                                                <input type="date" value="{{ $data->real_return_date }}" name="real_return_date" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
                                                             </div>
                                                             <!-- @if ($data->real_return_date !== null)
                                                             <div class="position-relative mb-2">
@@ -622,13 +622,13 @@
                                                             </div>
                                                         </div>
                                                         @endif
-                                                        <div class="col-12">
+                                                        <!-- <div class="col-12">
                                                             <label for="password-id-icon">Status</label>
                                                             <div class="position-relative mb-2">
                                                                 <span class="badge bg-warning">In Loan</span>
                                                                 <input type="hidden" name="status" value="{{ $data->status }}">
                                                             </div>
-                                                        </div>
+                                                        </div> -->
 
                                                     </div>
                                                 </div>
@@ -775,15 +775,14 @@
                                                         <div class="col-12">
                                                             <label for="password-id-icon">Loan Date*</label>
                                                             <div class="position-relative mb-2">
-                                                                <input readonly type="text" value="{{ $data->loan_date }}" name="loan_date" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
+                                                                <input type="date" value="{{ $data->loan_date }}" name="loan_date" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
                                                             <label for="password-id-icon">Estimation Return
                                                                 Date</label>
                                                             <div class="position-relative mb-2">
-                                                                <input readonly type="date" value="{{ $data->estimation_return_date }}" name="estimation_return_date" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
-
+                                                                <input type="date" value="{{ $data->estimation_return_date }}" name="estimation_return_date" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
                                                             </div>
                                                         </div>
                                                         <!-- <div class="col-12">
