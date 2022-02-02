@@ -17,7 +17,7 @@ class CreateLoansTable extends Migration
             $table->id();
             $table->string('name');
             $table->unsignedBigInteger('department_id');
-            $table->foreign('department_id')->references('id')->on('departments');
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('CASCADE')->onUpdate('CASCADE');
             // $table->unsignedBigInteger('serial_id')->nullable();
             // $table->foreignId('serial_id')->nullable();
             $table->string('approved_by');

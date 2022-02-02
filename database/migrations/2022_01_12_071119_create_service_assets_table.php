@@ -17,9 +17,9 @@ class CreateServiceAssetsTable extends Migration
             $table->id();
             $table->string('name');
             $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('asset_categories');
+            $table->foreign('category_id')->references('id')->on('asset_categories')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->unsignedBigInteger('department_id')->nullable();
-            $table->foreign('department_id')->references('id')->on('departments');
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->text('image')->nullable();
             $table->integer('qty')->nullable();
             $table->string('complainant_name')->nullable();
