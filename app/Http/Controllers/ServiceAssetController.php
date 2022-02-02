@@ -6,6 +6,7 @@ use App\Models\AssetCategory;
 use App\Models\Department;
 use App\Models\ServiceAsset;
 use App\Models\UnitLog;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,9 +22,10 @@ class ServiceAssetController extends Controller
     {
         $departments = Department::all();
         $categories = AssetCategory::all();
-        $services = ServiceAsset::latest()->get()->sortBy('status', SORT_REGULAR, true);;
+        $services = ServiceAsset::latest()->get()->sortBy('status', SORT_REGULAR, true);
+        $now = Carbon::now()->format('Y-m-d');
         $logs = UnitLog::all();
-        return view('service-asset.service', compact('departments', 'services', 'categories', 'logs'));
+        return view('service-asset.service', compact('departments', 'services', 'categories', 'logs', 'now'));
     }
 
     /**

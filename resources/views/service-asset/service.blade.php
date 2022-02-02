@@ -19,20 +19,20 @@
 <script src="assets/vendors/select2/form-select2.min.js"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
 <script>
-        // $(document).ready(function () {
+    // $(document).ready(function () {
 
-        //         $('#date-entry').datepicker({
-        //             format: "yyyy-mm-dd"
-        //         });  
+    //         $('#date-entry').datepicker({
+    //             format: "yyyy-mm-dd"
+    //         });  
 
-        //     });
+    //     });
 
-        $('#date-entry').datepicker({
-            todayHighlight: true,
-            // todayBtn: "linked",
-            format: "yyyy-mm-dd",
-            autoclose: true,
-        }); 
+    $('#date-entry').datepicker({
+        todayHighlight: true,
+        // todayBtn: "linked",
+        format: "yyyy-mm-dd",
+        autoclose: true,
+    });
 </script>
 <script>
     // Jquery Datatable
@@ -224,7 +224,7 @@
                                         <div class="col-12">
                                             <label for="password-id-icon">Date of entry*</label>
                                             <div class="position-relative mb-2">
-                                                <input type="date" name="date" class="form-control" placeholder="Choose a date"  required>
+                                                <input type="date" name="date" class="form-control" placeholder="Choose a date" required>
                                             </div>
                                         </div>
                                         <!-- <div class="col-12">
@@ -266,14 +266,24 @@
                     </thead>
                     <tbody>
                         @foreach ($services as $service)
-                        @if ($service->status != 'New')
+                        @php
+                        if($service->status == 'Fixed'){
+                        $to = \Carbon\Carbon::createFromFormat('Y-m-d', $service->date_fixed);
+
+                        }else{
+                        $to = \Carbon\Carbon::createFromFormat('Y-m-d', $now);
+                        }
+
+                        $from = \Carbon\Carbon::createFromFormat('Y-m-d', $service->date);
+                        @endphp
+
                         <tr>
                             <td>{{$service->id}}</td>
                             <td>{{$service->name}}</td>
                             <td>{{$service->category->name}}</td>
                             <td><img src="{{asset($service->image)}}" alt="" style="max-height: 40px"></td>
                             <td>{{$service->qty}}</td>
-                            <td>{{$service->date}}</td>
+                            <td>{{\Carbon\Carbon::parse($service->date)->isoFormat('D MMM YYYY')}} <span class="badge bg-success">{{$to->diffInDays($from)}} days</span> </td>
                             <td>
                                 @if ($service->status == 'Fixed')
                                 <span class="badge bg-success">Fixed</span>
@@ -320,6 +330,7 @@
                                                 <div class="form-body">
                                                     <div class="row">
                                                         <div class="col-12">
+
                                                             <div class="form-group has-icon-left">
                                                                 <label for="id-icon">ID</label>
                                                                 <div class="position-relative">
@@ -434,7 +445,7 @@
                                                         <div class="col-12">
                                                             <label for="password-id-icon">Date of entry</label>
                                                             <div class="position-relative mb-2">
-                                                                <input type="date" class="form-control" id="password-id-icon" value="{{$service->date}}" disabled>
+                                                                <input type="text" class="form-control" id="password-id-icon" value="{{\Carbon\Carbon::parse($service->date)->isoFormat('D MMM YYYY')}}" disabled>
 
                                                             </div>
 
@@ -449,7 +460,7 @@
                                                         <div class="col-12">
                                                             <label for="password-id-icon">Date Fixed</label>
                                                             <div class="position-relative mb-2">
-                                                                <input type="text" class="form-control" value="{{$service->date_fixed}}" id="password-id-icon" disabled>
+                                                                <input type="text" class="form-control" value="{{\Carbon\Carbon::parse($service->date_fixed)->isoFormat('D MMM YYYY')}}" id="password-id-icon" disabled>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -586,7 +597,7 @@
                                                         <div class="col-12">
                                                             <label for="password-id-icon">Date of entry*</label>
                                                             <div class="position-relative mb-2">
-                                                                <input type="datetime-local" name="date" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
+                                                                <input type="date" name="date" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
                                                             </div>
                                                         </div>
                                                         <!-- <div class="col-12">
@@ -666,14 +677,14 @@
                                                         <div class="col-12">
                                                             <label for="password-id-icon">Date Repaired</label>
                                                             <div class="position-relative mb-2">
-                                                                <input type="datetime-local" class="form-control" name="date_fixed" placeholder="Choose a date" id="password-id-icon">
+                                                                <input type="date" class="form-control" name="date_fixed" placeholder="Choose a date" id="password-id-icon">
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-light-dark" data-bs-dismiss="modal">
+                                            <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
                                                 <i class="bx bx-x d-block d-sm-none"></i>
                                                 <span class="d-none d-sm-block">Cancel</span>
                                             </button>
@@ -769,7 +780,6 @@
                             </div>
             </div>
             </tr>
-            @endif
             @endforeach
             </tbody>
             </table>

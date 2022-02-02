@@ -261,9 +261,9 @@
                             </td>
                             <td>{{ $data->department->name }}</td>
                             <td>{{ $data->approved_by }}</td>
-                            <td>{{ $data->loan_date }}</td>
+                            <td>{{\Carbon\Carbon::parse($data->loan_date)->isoFormat('D MMM YYYY')}}</td>
                             <td>
-                                {{ $data->real_return_date != null ? $data->real_return_date : '-' }}
+                                {{ $data->real_return_date != null ? \Carbon\Carbon::parse($data->real_return_date)->isoFormat('D MMM YYYY') : '-' }}
                             </td>
                             <td>
 
@@ -387,26 +387,26 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
-                                                        <label for="password-id-icon">Loan Date*</label>
+                                                        <label for="password-id-icon">Loan Date</label>
                                                         <div class="position-relative mb-2">
-                                                            <input disabled type="text" disabled value="{{ $data->loan_date }}" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
+                                                            <input disabled type="text" disabled value="{{\Carbon\Carbon::parse($data->loan_date)->isoFormat('D MMM YYYY')}}" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
 
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <label for="password-id-icon">Estimation Return
-                                                            Date*</label>
+                                                            Date</label>
                                                         <div class="position-relative mb-2">
-                                                            <input disabled type="text" value="{{ $data->estimation_return_date }}" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
+                                                            <input disabled type="text" value="{{\Carbon\Carbon::parse($data->estimation_return_date)->isoFormat('D MMM YYYY')}}" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
 
                                                         </div>
                                                     </div>
                                                     @if ($data->real_return_date !== null)
                                                     <div class="col-12">
                                                         <label for="password-id-icon">Real Return
-                                                            Date*</label>
+                                                            Date</label>
                                                         <div class="position-relative mb-2">
-                                                            <input readonly required type="text" value="{{ $data->real_return_date }}" name="real_return_date" class="form-control" placeholder="Choose a date" id="password-id-icon">
+                                                            <input readonly required type="text" value="{{\Carbon\Carbon::parse($data->real_return_date)->isoFormat('D MMM YYYY')}}" name="real_return_date" class="form-control" placeholder="Choose a date" id="password-id-icon">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">

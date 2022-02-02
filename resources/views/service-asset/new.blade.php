@@ -218,7 +218,7 @@
 
                             <td><img src="{{ asset($asset->image) }}" alt="" style="max-height: 40px"></td>
                             <td>{{ $asset->qty }}</td>
-                            <td>{{ $asset->date }}</td>
+                            <td>{{\Carbon\Carbon::parse($asset->date)->isoFormat('D MMM YYYY')}}</td>
                             <td class="d-flex">
                                 <a href="#"><button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#showData{{ $asset->id }}">
                                         <i class="fa fa-eye"></i>
@@ -326,7 +326,7 @@
                                                         <div class="col-12">
                                                             <label for="password-id-icon">Date of entry</label>
                                                             <div class="position-relative mb-2">
-                                                                <input type="date" class="form-control" id="password-id-icon" value="{{ $asset->date }}" disabled>
+                                                                <input type="text" class="form-control" id="password-id-icon" value="{{\Carbon\Carbon::parse($asset->date)->isoFormat('D MMM YYYY')}}" disabled>
 
                                                             </div>
 
