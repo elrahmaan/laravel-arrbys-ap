@@ -24,11 +24,12 @@ class CreateLoansTable extends Migration
             $table->text('phone')->nullable();
             $table->string('purpose')->nullable();
             $table->string('detail_loan')->nullable();
-            $table->date('loan_date');
-            $table->date('estimation_return_date');
+            $table->date('loan_date')->nullable();
+            $table->string('approved_by_return')->nullable();
+            $table->date('estimation_return_date')->nullable();
             $table->date('real_return_date')->nullable();
             $table->string('reason')->nullable();
-            $table->string('status');
+            $table->string('status')->nullable();
             // $table->string('equipment');
             $table->timestamps();
         });

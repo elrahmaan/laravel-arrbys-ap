@@ -21,12 +21,13 @@ class CreateServiceAssetsTable extends Migration
             $table->unsignedBigInteger('department_id')->nullable();
             $table->foreign('department_id')->references('id')->on('departments');
             $table->text('image')->nullable();
-            $table->integer('qty');
+            $table->integer('qty')->nullable();
             $table->string('complainant_name')->nullable();
-            $table->string('status');
+            $table->string('category_asset')->nullable();
+            $table->string('status')->nullable();
             $table->text('desc_complain')->nullable();
             $table->text('diagnose')->nullable();
-            $table->date('date');
+            $table->date('date')->nullable();
             $table->date('date_fixed')->nullable();
             $table->string('detail_of_specification')->nullable();
             $table->timestamps();
