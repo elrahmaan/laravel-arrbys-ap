@@ -23,7 +23,7 @@ class LoanController extends Controller
         $serials = Serial::all();
         $carbon = Carbon::now()->toDateString();
         $departments = Department::all();
-        $loans = Loan::all()->where('status','Return');
+        $loans = Loan::all()->where('status', 'Return');
         $loanAssets = LoanAsset::all();
         // $cok = Department::all();
         return view('layouts.loan.index', compact('data', 'departments', 'carbon', 'serials', 'loans', 'loanAssets'));
@@ -56,6 +56,7 @@ class LoanController extends Controller
         $loan->department_id = $request->department_id;
         $serials = $request->serials;
         $loan->approved_by = $request->approved_by;
+        $loan->approved_by_return = $request->approved_by_return;
         $loan->phone = $request->phone;
         $loan->purpose = $request->purpose;
         $loan->detail_loan = $request->detail_loan;
@@ -98,6 +99,24 @@ class LoanController extends Controller
         //
     }
 
+    public function returned(Request $request, $id)
+    {
+        $loan = Loan::find($id);
+        $loan->approved_by_return = $request->approved_by_return;
+        $loan->real_return_date = $request->real_return_date;
+        $loan->reason = $request->reason;
+        $loan->status = 'Return';
+
+        //set data asset setelah diedit
+        $serials = $request->serials;
+        foreach ($serials as $serial) {
+            $serialData = Serial::find($serial);
+            $serialData->is_borrowed = false;
+            $serialData->save();
+        }
+        $loan->save();
+        return redirect('/loan')->with('success', 'Loan Returned!');
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -108,11 +127,11 @@ class LoanController extends Controller
     public function update(Request $request, $id)
     {
         $loan = Loan::find($id);
-        if ($request->real_return_date === null) {
-            $update_status = 'In Loan';
-        } else {
-            $update_status = 'Return';
-        }
+        // if ($request->real_return_date === null) {
+        //     $update_status = 'In Loan';
+        // } else {
+        //     $update_status = 'Return';
+        // }
 
         //menghapus data peminjaman asset sebelum diedit
         $old_serials = $request->old_serials;
@@ -143,7 +162,7 @@ class LoanController extends Controller
             $serialData->save();
         }
         $loan->name = $request->name;
-        $loan->status = $update_status;
+        // $loan->status = $update_status;
         $loan->department_id = $request->department_id;
         $loan->approved_by = $request->approved_by;
         $loan->phone = $request->phone;
@@ -151,8 +170,7 @@ class LoanController extends Controller
         $loan->detail_loan = $request->detail_loan;
         $loan->loan_date = $request->loan_date;
         $loan->estimation_return_date = $request->estimation_return_date;
-        $loan->real_return_date = $request->real_return_date;
-        $loan->reason = $request->reason;
+
         $loan->save();
         // $serials = $request->serials;
         // if ($loan->save()) {

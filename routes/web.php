@@ -49,6 +49,7 @@ Route::middleware(['auth', 'cekrole:superadmin,teknisi,viewer'])->group(function
 });
 Route::middleware(['auth', 'cekrole:superadmin,teknisi'])->group(function () {
     Route::post('/service/{id}/repair', [ServiceAssetController::class, 'repair']);
+    Route::post('/loan/{id}/returned', [LoanController::class, 'returned']);
     Route::get('/department/delete/{id}', [DepartmentController::class, 'destroy']);
     Route::get('/category/delete/{id}', [CategoryController::class, 'destroy']);
     Route::get('/service/delete/{id}', [ServiceAssetController::class, 'destroy']);
