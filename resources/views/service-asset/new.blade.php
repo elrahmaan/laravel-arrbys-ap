@@ -172,7 +172,7 @@
                                         <div class="col-12">
                                             <label for="password-id-icon">Date of entry*</label>
                                             <div class="position-relative mb-2">
-                                                <input type="datetime-local" name="date" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
+                                                <input type="date" name="date" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
                                             </div>
                                         </div>
                                     </div>
@@ -324,7 +324,7 @@
                                                         <div class="col-12">
                                                             <label for="password-id-icon">Date of entry</label>
                                                             <div class="position-relative mb-2">
-                                                                <input type="text" class="form-control" id="password-id-icon" value="{{ $asset->date }}" disabled>
+                                                                <input type="date" class="form-control" id="password-id-icon" value="{{ $asset->date }}" disabled>
 
                                                             </div>
 
@@ -424,7 +424,7 @@
                                                         <div class="col-12">
                                                             <label for="password-id-icon">Date of entry*</label>
                                                             <div class="position-relative mb-2">
-                                                                <input type="text" name="date" class="form-control" id="password-id-icon" value="{{ $asset->date }}" readonly>
+                                                                <input type="date" name="date" class="form-control" id="password-id-icon" value="{{ $asset->date }}" readonly>
                                                                 <!-- <input type="datetime-local" name="date" class="form-control" placeholder="Choose a date" id="password-id-icon" value="{{ $asset->created_at }}" required> -->
 
                                                             </div>

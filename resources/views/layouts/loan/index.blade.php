@@ -199,14 +199,14 @@
                                         <div class="col-12">
                                             <label for="password-id-icon">Loan Date*</label>
                                             <div class="position-relative mb-2">
-                                                <input type="datetime-local" required name="loan_date" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
+                                                <input type="date" required name="loan_date" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
 
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <label for="password-id-icon">Estimation Return Date*</label>
                                             <div class="position-relative mb-2">
-                                                <input required type="datetime-local" name="estimation_return_date" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
+                                                <input required type="date" name="estimation_return_date" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
 
                                             </div>
                                         </div>
@@ -564,7 +564,7 @@
                                                             <label for="password-id-icon">Estimation Return
                                                                 Date</label>
                                                             <div class="position-relative mb-2">
-                                                                <input readonly type="text" value="{{ $data->estimation_return_date }}" name="estimation_return_date" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
+                                                                <input readonly type="date" value="{{ $data->estimation_return_date }}" name="estimation_return_date" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
 
                                                             </div>
                                                         </div>
@@ -572,11 +572,11 @@
                                                             <label for="password-id-icon">Real Return Date*</label>
                                                             @if ($data->real_return_date !== null)
                                                             <div class="position-relative mb-2">
-                                                                <input readonly required type="text" value="{{ $data->real_return_date }}" name="real_return_date" class="form-control" placeholder="Choose a date" id="password-id-icon">
+                                                                <input readonly required type="date" value="{{ $data->real_return_date }}" name="real_return_date" class="form-control" placeholder="Choose a date" id="password-id-icon">
                                                             </div>
                                                             @else
                                                             <div class="position-relative mb-2">
-                                                                <input type="datetime-local" value="{{ $data->real_return_date }}" name="real_return_date" class="form-control" placeholder="Choose a date" id="password-id-icon">
+                                                                <input type="date" value="{{ $data->real_return_date }}" name="real_return_date" class="form-control" placeholder="Choose a date" id="password-id-icon">
                                                             </div>
                                                             @endif
                                                         </div>

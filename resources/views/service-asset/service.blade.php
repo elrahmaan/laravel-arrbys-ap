@@ -17,7 +17,23 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <!-- <script src="assets/js/pages/form-element-select.js"></script>
 <script src="assets/vendors/select2/form-select2.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+<script>
+        // $(document).ready(function () {
 
+        //         $('#date-entry').datepicker({
+        //             format: "yyyy-mm-dd"
+        //         });  
+
+        //     });
+
+        $('#date-entry').datepicker({
+            todayHighlight: true,
+            // todayBtn: "linked",
+            format: "yyyy-mm-dd",
+            autoclose: true,
+        }); 
+</script>
 <script>
     // Jquery Datatable
     let jquery_datatable = $("#table1").DataTable()
@@ -78,13 +94,13 @@
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
                 <h3>Service of Assets</h3>
-                <!-- <p class="text-subtitle text-muted">Trouble Assets</p> -->
+                <p class="text-subtitle text-muted">Trouble Assets</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{route('home')}}">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Services</li>
+                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Monitor Assets</li>
                     </ol>
                 </nav>
             </div>
@@ -151,16 +167,6 @@
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <div class="form-group has-icon-left">
-                                                <label for="email-id-icon">Category Asset</label>
-                                                <select class="select2 form-select" name="category_asset" style="width: 100%;" required>
-                                                    <option value="AP">AP</option>
-                                                    <option value="Sewa">Sewa</option>
-                                                    <option value="Other">Lain-lain</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
                                             <label for="mobile-id-icon">Detail (Specification)*</label>
                                             <div class="position-relative mb-2">
                                                 <textarea class="form-control" name="detail_of_specification" id="" rows="5" required></textarea>
@@ -218,8 +224,7 @@
                                         <div class="col-12">
                                             <label for="password-id-icon">Date of entry*</label>
                                             <div class="position-relative mb-2">
-                                                <input type="datetime-local" name="date" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
-
+                                                <input type="date" name="date" class="form-control" placeholder="Choose a date"  required>
                                             </div>
                                         </div>
                                         <!-- <div class="col-12">
@@ -246,7 +251,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <table class="table table-hover table-lg" id="table1">
+                <table class="table" id="table1">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -360,12 +365,6 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
-                                                            <div class="form-group has-icon-left">
-                                                                <label for="email-id-icon">Category Asset</label>
-                                                                <input type="text" class="form-control" name="category_asset" value="{{$service->category_asset}}" id="first-name-icon" disabled>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12">
                                                             <label for="mobile-id-icon">Detail (Specification)</label>
                                                             <div class="position-relative mb-2">
                                                                 <textarea class="form-control" name="" id="" rows="5" disabled>{{$service->detail_of_specification}}</textarea>
@@ -441,7 +440,7 @@
                                                         <div class="col-12">
                                                             <label for="password-id-icon">Date of entry</label>
                                                             <div class="position-relative mb-2">
-                                                                <input type="text" class="form-control" id="password-id-icon" value="{{$service->date}}" disabled>
+                                                                <input type="date" class="form-control" id="password-id-icon" value="{{$service->date}}" disabled>
 
                                                             </div>
 
