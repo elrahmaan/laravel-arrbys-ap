@@ -201,6 +201,7 @@
                             <th>Category</th>
                             <th>Image</th>
                             <th>Qty</th>
+                            <th>Date</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -217,6 +218,7 @@
 
                             <td><img src="{{ asset($asset->image) }}" alt="" style="max-height: 40px"></td>
                             <td>{{ $asset->qty }}</td>
+                            <td>{{ $asset->date }}</td>
                             <td class="d-flex">
                                 <a href="#"><button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#showData{{ $asset->id }}">
                                         <i class="fa fa-eye"></i>
@@ -507,7 +509,7 @@
                                                 </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-light-dark" data-bs-dismiss="modal">
+                                            <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
                                                 <i class="bx bx-x d-block d-sm-none"></i>
                                                 <span class="d-none d-sm-block">Cancel</span>
                                             </button>

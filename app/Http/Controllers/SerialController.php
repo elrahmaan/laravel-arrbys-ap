@@ -47,7 +47,7 @@ class SerialController extends Controller
             $serial->is_borrowed = false;
             $serial->save();
         }
-        return redirect()->route('asset.index');
+        return redirect()->route('asset.index')->with('success', 'Data Added Serial Number!');
     }
 
     /**
@@ -90,7 +90,7 @@ class SerialController extends Controller
             $serial->asset_id = $asset_id;
             $serial->save();
         }
-        return redirect()->route('asset.index');
+        return redirect()->route('asset.index')->with('success', 'Data Updated Serial Number!');;
     }
 
     /**

@@ -250,7 +250,7 @@
                     </thead>
                     <tbody>
                         @foreach ($data as $data)
-                        <tr>
+                        <tr class="align-content-center">
                             <td>{{ $loop->iteration }}</td>
                             <td>
                                 {{ $data->name }}
@@ -279,12 +279,12 @@
                                     <input type="hidden" name="update_status" id="" value="In Loan">
                                     @endif
                             <td class="d-flex">
-                                <a href="#"><button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#showData{{ $data->id }}">
+                                <a href="#"><button type="button" class="btn btn-primary me-1 mb-2" data-bs-toggle="modal" data-bs-target="#showData{{ $data->id }}">
                                         <i class="fa fa-eye"></i>
                                     </button>
                                 </a>
                                 @if ($data->status != 'Return')
-                                <a href="#"><button type="button" class="btn btn-warning me-2" data-bs-toggle="modal" data-bs-target="#editData{{ $data->id }}">
+                                <a href="#"><button type="button" class="btn btn-warning mb-2 me-1" data-bs-toggle="modal" data-bs-target="#editData{{ $data->id }}">
                                         <i class="fa fa-edit"></i>
                                     </button>
                                 </a>
