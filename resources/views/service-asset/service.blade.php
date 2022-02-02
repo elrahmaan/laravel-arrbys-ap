@@ -151,6 +151,16 @@
                                             </div>
                                         </div>
                                         <div class="col-12">
+                                            <div class="form-group has-icon-left">
+                                                <label for="email-id-icon">Category Asset</label>
+                                                <select class="select2 form-select" name="category_asset" style="width: 100%;" required>
+                                                    <option value="AP">AP</option>
+                                                    <option value="Sewa">Sewa</option>
+                                                    <option value="Other">Lain-lain</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
                                             <label for="mobile-id-icon">Detail (Specification)*</label>
                                             <div class="position-relative mb-2">
                                                 <textarea class="form-control" name="detail_of_specification" id="" rows="5" required></textarea>
@@ -347,6 +357,12 @@
                                                             <label for="email-id-icon">Image</label>
                                                             <div class="position-relative mb-2">
                                                                 <img src="{{asset($service->image)}}" alt="" style="max-width: 450px">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <div class="form-group has-icon-left">
+                                                                <label for="email-id-icon">Category Asset</label>
+                                                                <input type="text" class="form-control" name="category_asset" value="{{$service->category_asset}}" id="first-name-icon" disabled>
                                                             </div>
                                                         </div>
                                                         <div class="col-12">

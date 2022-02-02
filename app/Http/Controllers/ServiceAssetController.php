@@ -57,7 +57,7 @@ class ServiceAssetController extends Controller
             $asset->image = $image_data;
         }
 
-
+        $asset->category_asset = $request->category_asset;
         $asset->detail_of_specification = $request->detail_of_specification;
         $asset->qty = $request->qty;
         $asset->complainant_name = $request->complainant_name;
@@ -118,6 +118,7 @@ class ServiceAssetController extends Controller
             $image_data = '/uploads/service-assets/' . $file_name;
             $asset->image = $image_data;
         }
+        $asset->category_asset = $request->category_asset;
         $asset->detail_of_specification = $request->detail_of_specification;
         $asset->qty = $request->qty;
         $asset->complainant_name = $request->complainant_name;
