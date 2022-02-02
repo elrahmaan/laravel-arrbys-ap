@@ -244,6 +244,7 @@
                             <th>Category</th>
                             <th>Image</th>
                             <th>Qty</th>
+                            <th>Date</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -257,6 +258,7 @@
                             <td>{{$service->category->name}}</td>
                             <td><img src="{{asset($service->image)}}" alt="" style="max-height: 40px"></td>
                             <td>{{$service->qty}}</td>
+                            <td>{{$service->date}}</td>
                             <td>
                                 @if ($service->status == 'Fixed')
                                 <span class="badge bg-success">Fixed</span>
@@ -265,34 +267,26 @@
                                 @endif
                             </td>
                             <td class="d-flex">
-
-
-
-                                <a href="#"><button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#showData{{$service->id}}">
+                                <a href="#"><button type="button" class="btn btn-primary me-1 mb-2" data-bs-toggle="modal" data-bs-target="#showData{{$service->id}}">
                                         <i class="fa fa-eye"></i>
                                     </button>
                                 </a>
-
-                                <!-- <a href="#"><button type="button" class="btn btn-warning me-2" data-bs-toggle="modal" data-bs-target="#editData{{$service->id}}">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                </a> -->
                                 @if ($service->status == 'Fixed')
-                                <a href="#"><button type="button" class="btn btn-secondary me-2" data-bs-toggle="modal" data-bs-target="#newData{{$service->id}}">
+                                <a href="#"><button type="button" class="btn btn-secondary mb-2 me-1" data-bs-toggle="modal" data-bs-target="#newData{{$service->id}}">
                                         <i class="fa fa-plus-circle"></i>
                                     </button>
                                 </a>
                                 @else
-                                <a href="#"><button type="button" class="btn btn-dark me-2" data-bs-toggle="modal" data-bs-target="#repairData{{$service->id}}">
+                                <a href="#"><button type="button" class="btn btn-dark mb-2 me-1" data-bs-toggle="modal" data-bs-target="#repairData{{$service->id}}">
                                         <i class="fa fa-wrench"></i>
                                     </button>
                                 </a>
                                 @endif
-                                <a href="#"><button type="button" class="btn btn-info me-2" data-bs-toggle="modal" data-bs-target="#logData{{$service->id}}">
+                                <a href="#"><button type="button" class="btn btn-info me-1" data-bs-toggle="modal" data-bs-target="#logData{{$service->id}}">
                                         <i class="fa fa-clipboard-list"></i>
                                     </button>
                                 </a>
-                                <a href="#"><button type="button" class="btn btn-danger me-2 deleted" data-id="{{$service->id}}" data-name="{{$service->name}}"> <i class="fa fa-trash-alt"></i></button></a>
+                                <a href="#"><button type="button" class="btn btn-danger  deleted" data-id="{{$service->id}}" data-name="{{$service->name}}"> <i class="fa fa-trash-alt"></i></button></a>
                             </td>
 
                             <!-- modal show data -->

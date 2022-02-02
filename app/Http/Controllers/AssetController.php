@@ -62,7 +62,7 @@ class AssetController extends Controller
         $asset->date = $request->date;
         $asset->save();
 
-        return redirect()->route('asset.index')->with('success', 'Data Added!');;
+        return redirect()->route('asset.index')->with('success', 'Data Added!');
     }
 
     /**
@@ -121,7 +121,7 @@ class AssetController extends Controller
         // dd($service);
         $service->save();
 
-        return redirect()->route('asset.index');
+        return redirect()->route('asset.index')->with('success', 'Data Updated!');;
     }
 
     /**
