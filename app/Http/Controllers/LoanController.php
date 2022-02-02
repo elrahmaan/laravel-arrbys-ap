@@ -52,8 +52,9 @@ class LoanController extends Controller
         $loan_date = Carbon::parse(date($request->loan_date))->format('Y-m-d');
         $estimation_return_date = Carbon::parse(date($request->estimation_return_date))->format('Y-m-d');
         if ($estimation_return_date < $loan_date) {
-
-            return redirect('/loan')->with('error', 'Invalid Parameter Date!');
+            Alert::error('Error', 'Invalid Parameter Date !');
+            return redirect('/loan');
+           
         } else {
             $loan = new Loan();
             $countLoan = DB::table('loans')->count();
