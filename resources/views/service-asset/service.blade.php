@@ -293,7 +293,7 @@
                             <td>{{$service->category->name}}</td>
                             <td><img src="{{asset($service->image)}}" alt="" style="max-height: 40px"></td>
                             <td>{{$service->qty}}</td>
-                            <td>{{\Carbon\Carbon::parse($service->date)->isoFormat('D MMM YYYY')}} <span class="badge bg-success">{{$to->diffInDays($from)}} days</span> </td>
+                            <td>{{\Carbon\Carbon::parse($service->date)->isoFormat('D MMM YYYY')}} <span class="badge bg-light-secondary">{{$to->diffInDays($from)}} days</span> </td>
                             <td>
                                 @if ($service->status == 'Fixed')
                                 <span class="badge bg-success">Fixed</span>

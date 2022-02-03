@@ -209,7 +209,14 @@
                         @foreach ($assets as $asset)
                         <tr>
                             <td>{{ $asset->id }}</td>
-                            <td>{{ $asset->name }}</td>
+                            <td>{{ $asset->name }}
+                                <?php
+                                $countData = DB::table('serials')->where('asset_id', $asset->id)->count();
+                                ?>
+                                @if ($countData > 0)
+                                <span><i class="fa fa-check-circle"></i></span>
+                                @endif
+                            </td>
                             @foreach ($categories as $cat)
                             @if ($cat->id == $asset->category_id)
                             <td>{{ $cat->name }}</td>
@@ -495,7 +502,7 @@
                                                                     <span class="badge bg-warning">In Loan</span>
                                                                     @endif</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" name="no_serial[{{$serial->id}}]" placeholder="Serial Number" value="{{$serial->no_serial}}" class="form-control" id="first-name-icon">
+                                                                    <input type="text" name="no_serial[{{$serial->id}}]" placeholder="Serial Number" value="{{$serial->no_serial}}" class="form-control" id="first-name-icon" required>
                                                                     <div class="form-control-icon">
                                                                         <i class="fa fa-barcode"></i>
                                                                     </div>

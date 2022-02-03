@@ -9,7 +9,7 @@ class Serial extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    protected $with = ['asset', 'loan'];
+    // protected $with = ['asset', 'loan'];
 
     public function asset()
     {

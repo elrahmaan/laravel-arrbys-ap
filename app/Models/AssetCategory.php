@@ -13,7 +13,7 @@ class AssetCategory extends Model
 
     protected $primaryKey = 'id';
     protected $fillable = ['id', 'name'];
-    protected $with = ['service_asset', 'asset'];
+    // protected $with = ['service_asset', 'asset'];
 
     public function service_asset()
     {
