@@ -137,7 +137,7 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group has-icon-left">
-                                                <label for="first-name-icon">Asset Name*</label>
+                                                <label for="first-name-icon">Asset Name</label>
                                                 <div class="position-relative">
                                                     <input type="text" name="name" class="form-control" placeholder="Asset Name" id="first-name-icon" required>
                                                     <div class="form-control-icon">
@@ -167,14 +167,24 @@
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <label for="mobile-id-icon">Detail (Specification)*</label>
+                                            <div class="form-group has-icon-left">
+                                                <label for="email-id-icon">Category Asset</label>
+                                                <select class="select2 form-select" name="category_asset" style="width: 100%;" required>
+                                                    <option value="AP">AP</option>
+                                                    <option value="Sewa">Sewa</option>
+                                                    <option value="Lain-lain">Lain-lain</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="mobile-id-icon">Detail (Specification)</label>
                                             <div class="position-relative mb-2">
                                                 <textarea class="form-control" name="detail_of_specification" id="" rows="5" required></textarea>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group has-icon-left">
-                                                <label for="password-id-icon">Quantity*</label>
+                                                <label for="password-id-icon">Quantity</label>
                                                 <div class="position-relative">
                                                     <input type="number" name="qty" class="form-control" placeholder="Quantity" id="password-id-icon" required>
                                                     <div class="form-control-icon">
@@ -222,7 +232,7 @@
                                         </div>
 
                                         <div class="col-12">
-                                            <label for="password-id-icon">Date of entry*</label>
+                                            <label for="password-id-icon">Date of entry</label>
                                             <div class="position-relative mb-2">
                                                 <input type="date" name="date" class="form-control" placeholder="Choose a date" required>
                                             </div>
@@ -367,6 +377,17 @@
                                                             <label for="email-id-icon">Image</label>
                                                             <div class="position-relative mb-2">
                                                                 <img src="{{asset($service->image)}}" alt="" style="max-width: 450px">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <div class="form-group has-icon-left">
+                                                                <label for="first-name-icon">Category Asset</label>
+                                                                <div class="position-relative">
+                                                                    <input type="text" class="form-control" value="{{ $service->category_asset }}" id="first-name-icon" disabled>
+                                                                    <div class="form-control-icon">
+                                                                        <i class="bi bi-bounding-box"></i>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
@@ -539,14 +560,14 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
-                                                            <label for="mobile-id-icon">Detail (Specification)*</label>
+                                                            <label for="mobile-id-icon">Detail (Specification)</label>
                                                             <div class="position-relative mb-2">
                                                                 <textarea class="form-control" name="detail_of_specification" id="" rows="5" required></textarea>
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
                                                             <div class="form-group has-icon-left">
-                                                                <label for="password-id-icon">Quantity*</label>
+                                                                <label for="password-id-icon">Quantity</label>
                                                                 <div class="position-relative">
                                                                     <input type="number" name="qty" class="form-control" placeholder="Quantity" id="password-id-icon" required>
                                                                     <div class="form-control-icon">
@@ -595,7 +616,7 @@
                                                         </div>
 
                                                         <div class="col-12">
-                                                            <label for="password-id-icon">Date of entry*</label>
+                                                            <label for="password-id-icon">Date of entry</label>
                                                             <div class="position-relative mb-2">
                                                                 <input type="date" name="date" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
                                                             </div>
@@ -670,14 +691,14 @@
                                                         <div class="col-12">
                                                             <label for="password-id-icon">Diagnose</label>
                                                             <div class="position-relative mb-2">
-                                                                <textarea class="form-control" name="diagnose" id="" rows="5"></textarea>
+                                                                <textarea class="form-control" name="diagnose" id="" rows="5" required></textarea>
                                                             </div>
                                                         </div>
 
                                                         <div class="col-12">
                                                             <label for="password-id-icon">Date Repaired</label>
                                                             <div class="position-relative mb-2">
-                                                                <input type="date" class="form-control" name="date_fixed" placeholder="Choose a date" id="password-id-icon">
+                                                                <input type="date" class="form-control" name="date_fixed" placeholder="Choose a date" id="password-id-icon" required>
                                                             </div>
                                                         </div>
                                                     </div>
