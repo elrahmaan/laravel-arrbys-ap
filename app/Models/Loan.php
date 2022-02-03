@@ -10,6 +10,7 @@ class Loan extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    protected $with = ['department', 'serial', 'loanAsset'];
 
     public function department()
     {

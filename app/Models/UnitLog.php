@@ -10,6 +10,7 @@ class UnitLog extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    protected $with = ['department', 'service'];
 
     public function department()
     {
