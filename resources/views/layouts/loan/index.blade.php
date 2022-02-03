@@ -254,10 +254,11 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>
                                 {{ $data->name }}
-                                @if ($carbon > $data->estimation_return_date || $data->real_return_date >
-                                $data->estimation_return_date)
+
+                                @if ($carbon > $data->estimation_return_date && $data->real_return_date == null || $data->real_return_date > $data->estimation_return_date )
                                 <span class="badge bg-danger">Late</span>
                                 @endif
+
                             </td>
                             <td>{{ $data->department->name }}</td>
                             <td>{{ $data->approved_by }}</td>
