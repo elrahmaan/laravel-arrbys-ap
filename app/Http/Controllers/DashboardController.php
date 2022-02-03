@@ -31,20 +31,21 @@ class DashboardController extends Controller
             ->count();
         $loans = Loan::orderBy('loan_date', 'desc')->whereYear('loan_date', $current_year)->take(5)->get();
         $loan_late = DB::table('loans')
-            // ->where(($query){
-            //     $query->where('estimation_return_date', '<', $now)
-            //     ->Where('real_return_date', null)})
-            //     ->orWhere('real_return_date', '>', 'estimation_return_date')
-            // ->whereRaw('estimation_return_date < ' . $now . ' AND real_return_date = null OR real_return_date > estimation_return_date')
-            // ->whereRaw('(estimation_return_date < ' . $now . ' AND real_return_date = null) OR real_return_date > estimation_return_date')
-            // ->where('estimation_return_date', '<', $now)
-            // ->where('real_return_date', null)
-            // ->orWhere('real_return_date', '>', 'estimation_return_date')
-
             ->orderBy('loan_date', 'desc')
             ->whereYear('created_at', $current_year)
-            // ->take(3)
             ->get()->sortBy('status');
+        // $loan_late = Loan::latest()->get()->sortBy('status');
+        // ->where(($query){
+        //     $query->where('estimation_return_date', '<', $now)
+        //     ->Where('real_return_date', null)})
+        //     ->orWhere('real_return_date', '>', 'estimation_return_date')
+        // ->whereRaw('estimation_return_date < ' . $now . ' AND real_return_date = null OR real_return_date > estimation_return_date')
+        // ->whereRaw('(estimation_return_date < ' . $now . ' AND real_return_date = null) OR real_return_date > estimation_return_date')
+        // ->where('estimation_return_date', '<', $now)
+        // ->where('real_return_date', null)
+        // ->orWhere('real_return_date', '>', 'estimation_return_date')
+
+
         $services = ServiceAsset::all();
         $serials = Serial::all()->sortBy('asset_id')->where('is_borrowed', true);
         $logs_data = UnitLog::orderBy('created_at', 'desc')->take(5)->get();
