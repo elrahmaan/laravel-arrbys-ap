@@ -139,7 +139,7 @@
                                         <div class="col-12">
                                             <label for="email-id-icon">Image</label>
                                             <div class="position-relative mb-2">
-                                                <input class="form-control" name="image" type="file" id="formFile" required>
+                                                <input class="form-control" name="image" type="file" id="formFile" accept="image/*" required>
                                                 <!-- <img src="" alt=""> -->
                                             </div>
                                         </div>
@@ -389,7 +389,7 @@
                                                             <label for="email-id-icon">Image</label>
                                                             <div class="position-relative mb-2">
                                                                 <img class="mb-2" src="{{ asset($asset->image) }}" alt="" style="max-height: 300px">
-                                                                <input class="form-control" name="image" type="file" id="formFile">
+                                                                <input class="form-control" name="image" type="file" id="formFile" accept="image/*">
                                                                 <!-- <img src="" alt=""> -->
                                                             </div>
                                                         </div>

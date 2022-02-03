@@ -162,7 +162,7 @@
                                         <div class="col-12">
                                             <label for="email-id-icon">Image</label>
                                             <div class="position-relative mb-2">
-                                                <input class="form-control" name="image" type="file" id="formFile" required>
+                                                <input class="form-control" name="image" type="file" id="formFile" accept="image/*" required>
                                                 <!-- <img src="" alt=""> -->
                                             </div>
                                         </div>
