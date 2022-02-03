@@ -200,18 +200,35 @@
                         <div class="card-body">
 
                             @if ($loans_late > 0)
+                            <?php
+                            $count = 0;
+                            ?>
                             @foreach ($loan_late as $late)
+
+                            @if ($now > $late->estimation_return_date)
+                            @if ($late->real_return_date > $late->estimation_return_date || $late->real_return_date == null)
+
+                            @php if ($count == 3) break; @endphp
                             <div class="recent-message d-flex px-4 py-3">
                                 <div class="name ms-4">
-                                    <h6 class="text-muted mb-1">ID: {{$late->id}}</h6>
+                                    <!-- <h6 class="text-muted mb-1">ID: {{$late->id}}</h6> -->
                                     <h5 class="mb-1">{{$late->name}}
                                         {{-- <span class="badge bg-primary">{{$service->qty}}</span> --}}
                                     </h5>
-                                    <p class="mb-0">{{$late->phone}}</p>
-                                    <p class="mb-0">{{$late->loan_date}}</p>
                                     <p class="mb-0">Estimate to return:<br>{{$late->estimation_return_date}}</p>
+                                    @if ($late->status == 'Return')
+                                    <p class="mb-0"> <span class="badge bg-success">Return</span></p>
+                                    <p class="mb-0">Returned:<br>{{$late->real_return_date}}</p>
+                                    @else
+                                    <p class="mb-0"> <span class="badge bg-warning">In Loan</span></p>
+                                    @endif
+
                                 </div>
                             </div>
+                            @php $count++; @endphp
+
+                            @endif
+                            @endif
                             @endforeach
                             @else
                             <div class="recent-message d-flex px-4 py-3">
