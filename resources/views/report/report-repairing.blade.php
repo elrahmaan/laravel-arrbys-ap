@@ -37,7 +37,23 @@
     // Jquery Datatable
     let jquery_datatable = $("#table1").DataTable()
 </script>
+<script>
+    $(function() {
+        $('.loading').click(function() {
+            $('.loading-text').removeClass('d-none')
+            var year = $(this).val()
+            console.log(year)
 
+        })
+        $('.loading-search').click(function() {
+            var from_date = $('#from_date').val();
+            var to_date = $('#to_date').val();
+            if (from_date != '' && to_date != '') {
+                $('.loading-text').removeClass('d-none')
+            }
+        })
+    })
+</script>
 <script src="assets/js/mazer.js"></script>
 @endsection
 
@@ -72,24 +88,25 @@
                                 <div class="col-sm-4 mb-1">
                                     <label for="date">From</label>
                                     <div class="input-group input-group-sm mb-3">
-                                        <input required type="datetime-local" name="from_date" class="form-control" placeholder="Choose a date" id="password-id-icon" value="{{ request('from_date') }}">
+                                        <input required type="date" name="from_date" id="from_date" class="form-control" placeholder="Choose a date" id="password-id-icon" value="{{ request('from_date') }}">
                                     </div>
                                 </div>
                                 <div class="col-sm-4 mb-1">
                                     <label for="date">To</label>
                                     <div class="input-group input-group-sm mb-3">
-                                        <input required type="datetime-local" name="to_date" class="form-control" placeholder="Choose a date" id="password-id-icon" value="{{ request('to_date') }}">
+                                        <input required type="date" name="to_date" id="to_date" class="form-control" placeholder="Choose a date" id="password-id-icon" value="{{ request('to_date') }}">
                                     </div>
                                 </div>
                                 <div class="col-sm-2 mb-1 d-flex">
                                     <div class="dropdown  mt-4 me-3">
-                                        <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
+                                        <button type="submit" class="btn btn-primary loading-search"><i class="bi bi-search"></i></button>
                                     </div>
                                     <div class="refresh mt-4">
-                                        <a href="{{ route('report-repairing.index') }}" class="btn btn-dark"><i class="bi bi-arrow-repeat"></i></a>
+                                        <a href="{{ route('report-repairing.index') }}" class="btn btn-dark loading"><i class="bi bi-arrow-repeat"></i></a>
                                     </div>
                                 </div>
                             </div>
+                            <div class="mb-2 loading-text d-none">Loading ...</div>
                         </div>
                     </form>
                 </div>
