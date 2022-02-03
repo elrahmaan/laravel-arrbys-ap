@@ -132,9 +132,9 @@ class AssetController extends Controller
      */
     public function destroy($id)
     {
-        $service = ServiceAsset::find($id);
+        $service = Asset::find($id);
         if ($service->image != null) {
-            $file_path =  $service->eform;
+            $file_path =  $service->image;
             File::delete(public_path($file_path));
             // unlink($file_path);
         }

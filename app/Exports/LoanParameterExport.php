@@ -68,17 +68,18 @@ class LoanParameterExport implements FromCollection, WithHeadings, ShouldAutoSiz
         return [
             AfterSheet::class    => function (AfterSheet $event) use ($styleArray, $styleTitle, $styleContent) {
                 // $cellRange = 'A1:G1'; // All headers
-                $event->sheet->setCellValue('A1', 'Laporan Peminjaman Barang')->mergeCells("A1:F1")->getStyle('A1:F1')->applyFromArray($styleTitle);
-                $event->sheet->getStyle('A2:F2')->applyFromArray($styleArray);
+                $event->sheet->setCellValue('A1', 'Laporan Peminjaman Barang')->mergeCells("A1:G1")->getStyle('A1:G1')->applyFromArray($styleTitle);
+                $event->sheet->getStyle('A2:G2')->applyFromArray($styleArray);
                 $event->sheet->setCellValue('A2', 'Nama');
                 $event->sheet->setCellValue('B2', 'Unit');
                 $event->sheet->setCellValue('C2', 'Disetujui Oleh');
-                $event->sheet->setCellValue('D2', 'Nama Asset');
+                $event->sheet->setCellValue('D2', 'Diterima Oleh');
+                $event->sheet->setCellValue('E2', 'Nama Asset');
                 // $event->sheet->setCellValue('E2', 'Kategori Barang Peminjaman');
-                $event->sheet->setCellValue('E2', 'Tanggal Peminjaman');
-                $event->sheet->setCellValue('F2', 'Tanggal Pengembalian');
+                $event->sheet->setCellValue('F2', 'Tanggal Peminjaman');
+                $event->sheet->setCellValue('G2', 'Tanggal Pengembalian');
                 // $event->sheet->setCellValue('H2', 'Status');
-                foreach (range('A', 'F') as $col) {
+                foreach (range('A', 'G') as $col) {
                     $event->sheet->getColumnDimension($col)->setAutoSize(true);
                 }
                 $cell = 3;
@@ -89,17 +90,18 @@ class LoanParameterExport implements FromCollection, WithHeadings, ShouldAutoSiz
                     foreach ($loanAssets as $loanAsset) {
                         $assets[] = $loanAsset->name . ' (' . $loanAsset->no_serial . ' | ' .  $loanAsset->category_asset . ')';
                     }
-                    $event->sheet->getStyle('A' . $cell . ':' . 'F' . $cell)->applyFromArray($styleContent);
+                    $event->sheet->getStyle('A' . $cell . ':' . 'G' . $cell)->applyFromArray($styleContent);
                     $event->sheet->setCellValue('A' . $cell, $row->name);
                     $event->sheet->setCellValue('B' . $cell, $row->department_name);
                     $event->sheet->setCellValue('C' . $cell, $row->approved_by);
+                    $event->sheet->setCellValue('D' . $cell, $row->approved_return);
                     $event->sheet->setCellValue(
-                        'D' . $cell,
+                        'E' . $cell,
                         implode(', ', $assets)
                     );
                     // $event->sheet->setCellValue('E' . $cell, $row->category_asset);
-                    $event->sheet->setCellValue('E' . $cell, $row->loan_date);
-                    $event->sheet->setCellValue('F' . $cell, $row->real_return_date);
+                    $event->sheet->setCellValue('F' . $cell, $row->loan_date);
+                    $event->sheet->setCellValue('G' . $cell, $row->real_return_date);
                     $cell++;
                 }
                 // $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(14);

@@ -28,7 +28,7 @@ class Loan extends Model
     public static function getLoan()
     {
         $record = DB::table('loans')->leftJoin('departments', 'loans.department_id', '=', 'departments.id')
-            ->select('loans.id as id', 'loans.name as name', 'departments.name as department_name', 'loans.approved_by as approved_by', 'loans.loan_date as loan_date', 'loans.real_return_date')
+            ->select('loans.id as id', 'loans.approved_by_return as approved_return', 'loans.name as name', 'departments.name as department_name', 'loans.approved_by as approved_by', 'loans.loan_date as loan_date', 'loans.real_return_date')
             ->where('loans.status', 'Return')
             ->get()->toArray();
         return $record;
@@ -47,7 +47,7 @@ class Loan extends Model
             ->leftJoin('loans', 'loan_assets.loan_id', '=', 'loans.id')
             ->leftJoin('serials', 'loan_assets.serial_id', '=', 'serials.id')
             ->leftJoin('assets', 'serials.asset_id', '=', 'assets.id')
-            ->select('assets.name as name', 'serials.no_serial as no_serial', 'loans.approved_by as approved_by', 'assets.category_asset as category_asset', 'loans.loan_date as loan_date', 'loans.real_return_date')
+            ->select('assets.name as name','loans.approved_by_return as approved_return', 'serials.no_serial as no_serial', 'loans.approved_by as approved_by', 'assets.category_asset as category_asset', 'loans.loan_date as loan_date', 'loans.real_return_date')
             ->where('loan_assets.loan_id', $id)->get()->toArray();
         return $record;
     }
@@ -55,12 +55,12 @@ class Loan extends Model
     {
         if ($fromDates == $toDates) {
             $record = DB::table('loans')->leftJoin('departments', 'loans.department_id', '=', 'departments.id')
-                ->select('loans.id as id', 'loans.name as name', 'departments.name as department_name', 'loans.approved_by as approved_by', 'loans.loan_date as loan_date', 'loans.real_return_date')
+                ->select('loans.id as id','loans.approved_by_return as approved_return', 'loans.name as name', 'departments.name as department_name', 'loans.approved_by as approved_by', 'loans.loan_date as loan_date', 'loans.real_return_date')
                 ->where('loan_date', '=', $fromDates)
                 ->where('status', 'Return')->get()->toArray();
         } else {
             $record = DB::table('loans')->leftJoin('departments', 'loans.department_id', '=', 'departments.id')
-                ->select('loans.id as id', 'loans.name as name', 'departments.name as department_name', 'loans.approved_by as approved_by', 'loans.loan_date as loan_date', 'loans.real_return_date')
+                ->select('loans.id as id','loans.approved_by_return as approved_return', 'loans.name as name', 'departments.name as department_name', 'loans.approved_by as approved_by', 'loans.loan_date as loan_date', 'loans.real_return_date')
                 ->where('loans.loan_date', '>=', $fromDates)
                 ->where('loans.loan_date', '<=', $toDates)
                 ->where('status', 'Return')->get()->toArray();
