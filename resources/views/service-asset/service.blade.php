@@ -455,13 +455,14 @@
                                                             </div>
 
                                                         </div>
-
+                                                        @if ($service->status == 'Fixed')
                                                         <div class="col-12">
                                                             <label for="password-id-icon">Diagnose</label>
                                                             <div class="position-relative mb-2">
                                                                 <textarea class="form-control" name="" id="" rows="5" disabled>{{$service->diagnose}}</textarea>
                                                             </div>
                                                         </div>
+                                                        @endif
 
                                                         <div class="col-12">
                                                             <label for="password-id-icon">Date of entry</label>
@@ -478,12 +479,14 @@
                                                             </div>
                                                         </div> -->
 
+                                                        @if($service->status == 'Fixed')
                                                         <div class="col-12">
                                                             <label for="password-id-icon">Date Fixed</label>
                                                             <div class="position-relative mb-2">
                                                                 <input type="text" class="form-control" value="{{\Carbon\Carbon::parse($service->date_fixed)->isoFormat('D MMM YYYY')}}" id="password-id-icon" disabled>
                                                             </div>
                                                         </div>
+                                                        @endif
                                                     </div>
                                                 </div>
                                         </div>
