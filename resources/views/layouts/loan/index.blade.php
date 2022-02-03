@@ -363,6 +363,17 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
+                                                        <div class="form-group has-icon-left">
+                                                            <label for="mobile-id-icon">Approved By (For Return)</label>
+                                                            <div class="position-relative">
+                                                                <input type="text" value="{{ $data->approved_by_return }}" class="form-control" id="mobile-id-icon" disabled>
+                                                                <div class="form-control-icon">
+                                                                    <i class="bi bi-check-circle-fill"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
                                                         <label for="mobile-id-icon">Asset Name</label>
                                                         <div class="position-relative mb-2">
                                                             @foreach ($loanAssets as $loanAsset)
