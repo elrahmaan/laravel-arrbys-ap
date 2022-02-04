@@ -24,5 +24,9 @@ class Department extends Model
     {
         return $this->hasMany(Loan::class);
     }
+    public function listPrice()
+    {
+        return $this->hasMany(ListPrice::class);
+    }
     
 }

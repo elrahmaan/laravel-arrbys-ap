@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\AssetController;
+use App\Http\Controllers\ListPriceController;
 use App\Http\Controllers\SerialController;
 use App\Http\Controllers\ServiceAssetController;
 use App\Http\Controllers\UserController;
@@ -38,6 +39,7 @@ Route::middleware(['auth', 'cekrole:superadmin'])->group(function () {
 Route::middleware(['auth', 'cekrole:superadmin,teknisi,viewer'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('home');
     Route::resources([
+        'lpp' => ListPriceController::class,
         'report-repairing' => ReportController::class,
         'report-loan' => ReportLoanController::class,
     ]);
