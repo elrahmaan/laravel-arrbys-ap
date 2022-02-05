@@ -19,4 +19,9 @@ class ListPrice extends Model
     {
         return $this->belongsTo(Department::class);
     }
+    public function getLpp()
+    {
+        $record = ListPrice::all();
+        return $record;
+    }
 }

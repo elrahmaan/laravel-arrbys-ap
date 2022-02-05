@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AssetCategory;
+use App\Models\Department;
+use App\Models\ListPrice;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ListPriceController extends Controller
 {
@@ -13,7 +18,14 @@ class ListPriceController extends Controller
      */
     public function index()
     {
-        //
+        $datas = ListPrice::all();
+        $departments = Department::all();
+        $categories = AssetCategory::all();
+        $countCategory = DB::table('asset_categories')->count();
+        $id = $countCategory + 1;
+
+        $categories = AssetCategory::all();
+        return view('report.lpp', compact('id', 'datas', 'categories', 'departments'));
     }
 
     /**
@@ -34,7 +46,20 @@ class ListPriceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $lpp = new ListPrice();
+        $lpp->category_id = $request->category_id;
+        $lpp->department_id = $request->department_id;
+        $lpp->year = $request->year;
+        $lpp->rent_status = $request->rent_status;
+        $lpp->qty = $request->qty;
+        $lpp->usage_condition = ($request->usage_condition / 31) * 100;
+        $lpp->unit_price = round($request->unit_price / 1.1);
+        $lpp->total_price_condition = ($lpp->qty * $lpp->usage_condition * $lpp->unit_price) / 100;
+        $lpp->usage_realization = ($request->usage_realization / 31) * 100;
+        $lpp->total_price_realization = ($lpp->qty * $lpp->usage_realization * $lpp->unit_price) / 100;
+        if ($lpp->save()) {
+        return redirect()->route('lpp.index')->with('success', 'Data Added!');
+        }
     }
 
     /**

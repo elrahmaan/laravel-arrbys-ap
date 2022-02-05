@@ -22,11 +22,11 @@ class CreateListPricesTable extends Migration
             $table->string('year')->nullable();
             $table->string('rent_status')->nullable();
             $table->integer('qty')->nullable();
-            $table->integer('usage_condition')->nullable();
-            $table->integer('unit_price')->nullable();
+            $table->double('usage_condition')->nullable();
+            $table->double('unit_price')->nullable();
             $table->integer('total_price_condition')->nullable();
-            $table->integer('usage_realitation')->nullable();
-            $table->integer('total_price_realitation')->nullable();
+            $table->double('usage_realization')->nullable();
+            $table->integer('total_price_realization')->nullable();
             $table->timestamps();
         });
     }
