@@ -34,18 +34,6 @@ class DashboardController extends Controller
             ->orderBy('loan_date', 'desc')
             ->whereYear('created_at', $current_year)
             ->get()->sortBy('status');
-        // $loan_late = Loan::latest()->get()->sortBy('status');
-        // ->where(($query){
-        //     $query->where('estimation_return_date', '<', $now)
-        //     ->Where('real_return_date', null)})
-        //     ->orWhere('real_return_date', '>', 'estimation_return_date')
-        // ->whereRaw('estimation_return_date < ' . $now . ' AND real_return_date = null OR real_return_date > estimation_return_date')
-        // ->whereRaw('(estimation_return_date < ' . $now . ' AND real_return_date = null) OR real_return_date > estimation_return_date')
-        // ->where('estimation_return_date', '<', $now)
-        // ->where('real_return_date', null)
-        // ->orWhere('real_return_date', '>', 'estimation_return_date')
-
-
         $services = ServiceAsset::all();
         $serials = Serial::all()->sortBy('asset_id')->where('is_borrowed', true);
         $logs_data = UnitLog::orderBy('created_at', 'desc')->take(5)->get();
@@ -53,10 +41,11 @@ class DashboardController extends Controller
         $fixed = DB::table('service_assets')->where('status', 'Fixed')->whereYear('date', $current_year)->count();
         $inloan = DB::table('loans')->where('status', 'In Loan')->whereYear('loan_date', $current_year)->count();
         $return = DB::table('loans')->where('status', 'Return')->whereYear('loan_date', $current_year)->count();
-
-        $year_chart_1 = Carbon::now()->isoFormat('YYYY');
-        $year_chart_2 = $year_chart_1 - 1;
-        $year_chart_3 = $year_chart_1 - 2;
+        $countData = DB::table('loans')->count();
+        $years = DB::table("loans")
+            ->selectRaw("DISTINCT year(loan_date) year")
+            ->orderByRaw('year ASC')
+            ->get();
 
         $service_1 = DB::table('unit_logs')
             ->whereMonth('created_at', 1)
@@ -196,9 +185,8 @@ class DashboardController extends Controller
             'loan_11',
             'loan_12',
             'current_year',
-            'year_chart_1',
-            'year_chart_2',
-            'year_chart_3',
+            'countData',
+            'years',
         ));
     }
 }

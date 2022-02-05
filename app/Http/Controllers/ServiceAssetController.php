@@ -33,7 +33,7 @@ class ServiceAssetController extends Controller
         // $services = ServiceAsset::all()->sortBy('name');
         $now = Carbon::now()->format('Y-m-d');
         $logs = UnitLog::all();
-        $countData = DB::table('loans')->count();
+        $countData = DB::table('service_assets')->count();
         $years = DB::table("service_assets")
             ->selectRaw("DISTINCT year(date) year")
             ->orderByRaw('year ASC')

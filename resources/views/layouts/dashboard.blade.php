@@ -55,11 +55,17 @@
 <div class="page-content">
     <form action="{{ route('home') }}" method="GET">
         <section class="row mb-3 d-flex align-items-center">
-            <div class="col-lg-2 col-md-2 col-sm-2">
-                <select name="year" id="" class="form-select date-select">
-                    <option value="{{$year_chart_1}}" {{request('year') == $year_chart_1 ? ' selected' : ''}}>{{$year_chart_1}}</option>
-                    <option value="{{$year_chart_2}}" {{request('year') == $year_chart_2 ? ' selected' : ''}}>{{$year_chart_2}}</option>
-                    <option value="{{$year_chart_3}}" {{request('year') == $year_chart_3 ? ' selected' : ''}}>{{$year_chart_3}}</option>
+            <div class="col-lg-2 col-md-2 col-sm-2 me-3 mb-4">
+                Year
+                <select name="year" class="select2 form-select date-select">
+                    @if ($countData > 0)
+                    @foreach ($years as $year)
+                    <option value="{{$year->year}}" {{request('year') == $year->year ||  $year->year == $current_year ? ' selected' : ''}}>{{$year->year}}</option>
+                    @endforeach
+                    @else
+                    <option value="{{$current_year}}">{{$current_year}}</option>
+                    @endif
+
                 </select>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2">
