@@ -60,21 +60,23 @@ class LoanExport implements FromCollection, WithHeadings, ShouldAutoSize, WithEv
         return [
             AfterSheet::class    => function (AfterSheet $event) use ($styleArray, $styleTitle, $styleContent) {
                 // $cellRange = 'A1:G1'; // All headers
-                $event->sheet->setCellValue('A1', 'Laporan Peminjaman Barang')->mergeCells("A1:G1")->getStyle('A1:G1')->applyFromArray($styleTitle);
+                $event->sheet->setCellValue('A1', 'Laporan Peminjaman Barang')->mergeCells("A1:H1")->getStyle('A1:H1')->applyFromArray($styleTitle);
                 $event->sheet->getStyle('A2:G2')->applyFromArray($styleArray);
-                $event->sheet->setCellValue('A2', 'Nama');
-                $event->sheet->setCellValue('B2', 'Unit');
-                $event->sheet->setCellValue('C2', 'Disetujui Oleh');
-                $event->sheet->setCellValue('D2', 'Diterima Oleh');
-                $event->sheet->setCellValue('E2', 'Nama Asset');
+                $event->sheet->setCellValue('A2', 'No');
+                $event->sheet->setCellValue('B2', 'Nama');
+                $event->sheet->setCellValue('C2', 'Unit');
+                $event->sheet->setCellValue('D2', 'Disetujui Oleh');
+                $event->sheet->setCellValue('E2', 'Diterima Oleh');
+                $event->sheet->setCellValue('F2', 'Nama Asset');
                 // $event->sheet->setCellValue('E2', 'Kategori Barang Peminjaman');
-                $event->sheet->setCellValue('F2', 'Tanggal Peminjaman');
-                $event->sheet->setCellValue('G2', 'Tanggal Pengembalian');
+                $event->sheet->setCellValue('G2', 'Tanggal Peminjaman');
+                $event->sheet->setCellValue('H2', 'Tanggal Pengembalian');
                 // $event->sheet->setCellValue('H2', 'Status');
-                foreach (range('A', 'G') as $col) {
+                foreach (range('A', 'H') as $col) {
                     $event->sheet->getColumnDimension($col)->setAutoSize(true);
                 }
                 $cell = 3;
+                $i =1;
                 $laporan = Loan::getLoan();
                 foreach ($laporan as $row) {
                     // fetch loan assets 
@@ -83,22 +85,21 @@ class LoanExport implements FromCollection, WithHeadings, ShouldAutoSize, WithEv
                         $assets[] = $loanAsset->name . ' (' . $loanAsset->no_serial . ' | ' .  $loanAsset->category_asset . ')';
                     }
 
-                    $event->sheet->getStyle('A' . $cell . ':' . 'F' . $cell)->applyFromArray($styleContent);
-                    $event->sheet->setCellValue('A' . $cell, $row->name);
-                    $event->sheet->setCellValue('B' . $cell, $row->department_name);
-                    $event->sheet->setCellValue('C' . $cell, $row->approved_by);
-                    $event->sheet->setCellValue('D' . $cell, $row->approved_return);
+                    $event->sheet->getStyle('A' . $cell . ':' . 'H' . $cell)->applyFromArray($styleContent);
+                    $event->sheet->setCellValue('A' . $cell, $i);
+                    $event->sheet->setCellValue('B' . $cell, $row->name);
+                    $event->sheet->setCellValue('C' . $cell, $row->department_name);
+                    $event->sheet->setCellValue('D' . $cell, $row->approved_by);
+                    $event->sheet->setCellValue('E' . $cell, $row->approved_return);
                     $event->sheet->setCellValue(
-                        'E' . $cell,
+                        'F' . $cell,
                         implode(', ', $assets)
                     );
-                    // $event->sheet->setCellValue('E' . $cell, $row->category_asset);
-                    $event->sheet->setCellValue('F' . $cell, $row->loan_date);
-                    $event->sheet->setCellValue('G' . $cell, $row->real_return_date);
+                    $event->sheet->setCellValue('G' . $cell, $row->loan_date);
+                    $event->sheet->setCellValue('H' . $cell, $row->real_return_date);
                     $cell++;
+                    $i++;
                 }
-                // $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(14);
-                // $event->sheet->getStyle($cellRange)->ApplyFromArray($styleArray);
             },
         ];
     }

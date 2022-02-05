@@ -30,7 +30,8 @@ class UnitLog extends Model
                 'unit_logs.complainant_name as complainant_name',
                 'unit_logs.desc_complain as desc_complain',
                 'unit_logs.diagnose as diagnose',
-                'unit_logs.date_fixed as date_fixed'
+                'unit_logs.date_fixed as date_fixed',
+                'unit_logs.created_at as created_at',
             )->get()->toArray();
         return $record;
     }
@@ -45,7 +46,8 @@ class UnitLog extends Model
                     'unit_logs.complainant_name as complainant_name',
                     'unit_logs.desc_complain as desc_complain',
                     'unit_logs.diagnose as diagnose',
-                    'unit_logs.date_fixed as date_fixed'
+                    'unit_logs.date_fixed as date_fixed',
+                    'unit_logs.created_at as created_at',
                 )->where('unit_logs.date_fixed', '=', $fromDates)->get()->toArray();
         } else {
             $record = DB::table('unit_logs')->leftJoin('service_assets', 'unit_logs.asset_id', '=', 'service_assets.id')
@@ -56,7 +58,8 @@ class UnitLog extends Model
                     'unit_logs.complainant_name as complainant_name',
                     'unit_logs.desc_complain as desc_complain',
                     'unit_logs.diagnose as diagnose',
-                    'unit_logs.date_fixed as date_fixed'
+                    'unit_logs.date_fixed as date_fixed',
+                    'unit_logs.created_at as created_at',
                 )->where('unit_logs.date_fixed', '>=', $fromDates)
                 ->where('unit_logs.date_fixed', '<=', $toDates)->get()->toArray();
         }

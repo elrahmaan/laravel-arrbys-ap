@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\AssetExport;
+use App\Imports\AssetImport;
 use App\Models\Asset;
 use App\Models\AssetCategory;
 use App\Models\Serial;
@@ -9,6 +11,8 @@ use App\Models\ServiceAsset;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use Carbon\Carbon;
 
 class AssetController extends Controller
 {
@@ -141,4 +145,14 @@ class AssetController extends Controller
         $service->delete();
         return redirect()->route('asset.index')->with('success', 'Data Deleted!');;
     }
+    public function export_excel()
+    {
+        $filename = Carbon::now()->isoFormat('d-m-YYYY');
+        return Excel::download(new AssetExport, 'Laporan Aset '.$filename.'.xlsx');
+    }
+    public function import(){
+        Excel::import(new AssetImport,request()->file('file'));
+           
+        return back();
+}
 }

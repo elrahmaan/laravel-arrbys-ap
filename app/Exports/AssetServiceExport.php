@@ -9,6 +9,7 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Carbon\Carbon;
 
 class AssetServiceExport implements FromCollection, WithHeadings, ShouldAutoSize, WithEvents, WithHeadingRow
 {
@@ -55,28 +56,34 @@ class AssetServiceExport implements FromCollection, WithHeadings, ShouldAutoSize
         return [
             AfterSheet::class    => function (AfterSheet $event) use ($styleArray, $styleTitle,$styleContent) {
                 // $cellRange = 'A1:G1'; // All headers
-                $event->sheet->setCellValue('A1', 'Laporan Perbaikan Barang')->mergeCells("A1:F1")->getStyle('A1:F1')->applyFromArray($styleTitle);
-                $event->sheet->getStyle('A2:F2')->applyFromArray($styleArray);
-                $event->sheet->setCellValue('A2', 'Nama Asset');
-                $event->sheet->setCellValue('B2', 'Unit');
-                $event->sheet->setCellValue('C2', 'Nama');
-                $event->sheet->setCellValue('D2', 'Deskripsi Masalah');
-                $event->sheet->setCellValue('E2', 'Diagnosa Perbaikan');
-                $event->sheet->setCellValue('F2', 'Tanggal Selesai');
-                foreach (range('A', 'F') as $col) {
+                $event->sheet->setCellValue('A1', 'Laporan Perbaikan Barang')->mergeCells("A1:H1")->getStyle('A1:H1')->applyFromArray($styleTitle);
+                $event->sheet->getStyle('A2:H2')->applyFromArray($styleArray);
+                $event->sheet->setCellValue('A2', 'No');
+                $event->sheet->setCellValue('B2', 'Nama Asset');
+                $event->sheet->setCellValue('C2', 'Unit');
+                $event->sheet->setCellValue('D2', 'Nama');
+                $event->sheet->setCellValue('E2', 'Deskripsi Masalah');
+                $event->sheet->setCellValue('F2', 'Diagnosa Perbaikan');
+                $event->sheet->setCellValue('G2', 'Tanggal Mulai');
+                $event->sheet->setCellValue('H2', 'Tanggal Selesai');
+                foreach (range('A', 'H') as $col) {
                     $event->sheet->getColumnDimension($col)->setAutoSize(true);
                 }
                 $cell=3;
+                $i=1;
                 $laporan = UnitLog::getDataUnit();
                 foreach ($laporan as $row) {
-                    $event->sheet->getStyle('A'.$cell.':'.'F'.$cell)->applyFromArray($styleContent);
-                    $event->sheet->setCellValue('A' . $cell, $row->asset_name);
-                    $event->sheet->setCellValue('B' . $cell, $row->department_name);
-                    $event->sheet->setCellValue('C' . $cell, $row->complainant_name);
-                    $event->sheet->setCellValue('D' . $cell, $row->desc_complain);
-                    $event->sheet->setCellValue('E' . $cell, $row->diagnose);
-                    $event->sheet->setCellValue('F' . $cell, $row->date_fixed);
+                    $event->sheet->getStyle('A'.$cell.':'.'H'.$cell)->applyFromArray($styleContent);
+                    $event->sheet->setCellValue('A' . $cell, $i);
+                    $event->sheet->setCellValue('B' . $cell, $row->asset_name);
+                    $event->sheet->setCellValue('C' . $cell, $row->department_name);
+                    $event->sheet->setCellValue('D' . $cell, $row->complainant_name);
+                    $event->sheet->setCellValue('E' . $cell, $row->desc_complain);
+                    $event->sheet->setCellValue('F' . $cell, $row->diagnose);
+                    $event->sheet->setCellValue('G' . $cell, Carbon::parse(date($row->created_at))->format('Y-m-d'));
+                    $event->sheet->setCellValue('H' . $cell, $row->date_fixed);
                     $cell++;
+                    $i++;
                 }
                 // $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(14);
                 // $event->sheet->getStyle($cellRange)->ApplyFromArray($styleArray);
