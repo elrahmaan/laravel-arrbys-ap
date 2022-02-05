@@ -106,13 +106,54 @@
         <div class="card">
             <div class="card-header">
                 <a href="#">
-                    <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#addData">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addData">
                         Add Data <i class="bi bi-plus-lg"></i>
                     </button>
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#importExcel" class="btn btn-success rounded-3 pl-3 pr-3">Import Data .xlsx
+                        <i class="fa fa-file-excel ml-2"></i></button>
+                        <button type="button" class="btn btn-secondary">
+                            <a style="text-decoration: none;color:white" href="{{ route('export-asset.index') }}">Download Template </a><i class="fa fa-download ml-2"></i>
+                        </button>
                 </a>
                 <!-- Assets Datatable -->
             </div>
-
+            <form action="{{ route('coba.index') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <label>Choose or Drag Here</label>
+                <div class="form-group">
+                    <input type="file" name="file" required="required">
+                </div>
+                <button type="submit" >Impor Su </button>
+            </form>
+            <!-- Modal Import -->
+            <div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <form method="POST" action="#" enctype="multipart/form-data">
+                        <div class="modal-content">
+                            <div class="modal-header bg-success">
+                                <h5 class="modal-title" id="exampleModalLabel" style="color: white">Import Excel</h5>
+                            </div>
+                            <div class="modal-body">
+     
+                                {{ csrf_field() }}
+     
+                                <label>Choose or Drag Here</label>
+                                <div class="form-group">
+                                    <input type="file" name="file" required="required">
+                                </div>
+     
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                                    <i class="bx bx-x d-block d-sm-none"></i>
+                                    <span class="d-none d-sm-block">Cancel</span>
+                                </button>
+                                <button type="submit" class="btn btn-success">Import</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <!-- Add Data Modal -->
             <div class="modal fade text-left" id="addData" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
