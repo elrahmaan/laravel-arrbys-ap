@@ -42,14 +42,6 @@
     line.render();
 </script>
 <script>
-    // $(function() {
-    //     $('.date-select').change(function() {
-    //         $('.loading-text').removeClass('d-none')
-    //         var year = $(this).val()
-    //         console.log(year)
-
-    //     })
-    // })
     $(function() {
         $('.year-select').click(function() {
             $('.loading-text').removeClass('d-none')

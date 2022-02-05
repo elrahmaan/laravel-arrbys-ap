@@ -33,7 +33,16 @@
         });
     });
 </script>
+<script>
+    $(function() {
+        $('.year-select').click(function() {
+            $('.loading-text').removeClass('d-none')
+            var year = $(this).val()
+            console.log(year)
 
+        })
+    })
+</script>
 <!-- Sweet Alert Delete -->
 <script>
     $('.deleted').click(function() {
@@ -74,29 +83,35 @@
 <div class="page-heading">
     <div class="page-title">
         <section class="filter-year ">
-           
         </section>
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
                 <h3>Borrow</h3>
-                <p class="text-subtitle text-muted">Data Borrow</p> 
+                <p class="text-subtitle text-muted">Data Borrow</p>
                 <form action="{{ route('loan.index') }}" method="GET">
-                    <div class="filter d-flex">
+                    <div class="filter d-flex align-items-center">
                         <div class="col-lg-2 col-md-2 col-sm-2 me-3 mb-4">
-                            <select name="year" id="" class="form-select date-select">
-                                <option value="{{$year_chart_1}}" {{request('year') == $year_chart_1 ? ' selected' : ''}}>{{$year_chart_1}}</option>
-                                <option value="{{$year_chart_2}}" {{request('year') == $year_chart_2 ? ' selected' : ''}}>{{$year_chart_2}}</option>
-                                <option value="{{$year_chart_3}}" {{request('year') == $year_chart_3 ? ' selected' : ''}}>{{$year_chart_3}}</option>
+                        Year
+                            <select name="year" class="select2 form-select date-select">
+                                @if ($countLoan > 0)
+                                @foreach ($years as $year)
+                                <option value="{{$year->year}}" {{request('year') == $year->year ||  $year->year == $current_year ? ' selected' : ''}}>{{$year->year}}</option>
+                                @endforeach
+                                @else
+                                <option value="{{$current_year}}">{{$current_year}}</option>
+                                @endif
+                                
                             </select>
                         </div>
                         <div class="col-lg-6 col-md-2 col-sm-2">
                             <button type="submit" class="btn btn-secondary year-select">
-                                Filter by Year
+                                Filter
                             </button>
                         </div>
                     </div>
-                  
-            </form>
+
+                </form>
+                <div class="mb-4 loading-text d-none">Loading ...</div>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
