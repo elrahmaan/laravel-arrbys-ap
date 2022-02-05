@@ -23,4 +23,8 @@ class AssetCategory extends Model
     {
         return $this->hasMany(Asset::class);
     }
+    public function listPrice()
+    {
+        return $this->hasMany(ListPrice::class);
+    }
 }

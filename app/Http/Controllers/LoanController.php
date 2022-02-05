@@ -31,22 +31,21 @@ class LoanController extends Controller
         $serials = Serial::all();
         $carbon = Carbon::now()->toDateString();
         $departments = Department::all();
-        $loans = DB::table('loans')->whereYear('loan_date', $current_year)->get()->where('status', 'Return');
         $loanAssets = LoanAsset::all();
-
-        $year_chart_1 = Carbon::now()->isoFormat('YYYY');
-        $year_chart_2 = $year_chart_1 - 1;
-        $year_chart_3 = $year_chart_1 - 2;
+        $countLoan = DB::table('loans')->count();
+        $years = DB::table("loans")
+            ->selectRaw("DISTINCT year(loan_date) year")
+            ->orderByRaw('year ASC')
+            ->get();
         return view('layouts.loan.index', compact(
-            'data', 
-            'departments', 
-            'carbon', 
-            'serials', 
-            'loans', 
+            'data',
+            'departments',
+            'carbon',
+            'serials',
             'loanAssets',
-            'year_chart_1',
-            'year_chart_2',
-            'year_chart_3',
+            'current_year',
+            'countLoan',
+            'years'
         ));
     }
 
@@ -74,7 +73,6 @@ class LoanController extends Controller
         if ($estimation_return_date < $loan_date) {
             Alert::error('Error', 'Invalid Parameter Date !');
             return redirect('/loan');
-           
         } else {
             $loan = new Loan();
             $countLoan = DB::table('loans')->count();

@@ -76,6 +76,12 @@
                     </a>
                 </li>
                 <li class="sidebar-title">Report</li>
+                {{--<li class="sidebar-item {{ Route::is('lpp.index') ? 'active' : '' }}">
+                    <a href="{{ route('lpp.index') }}" class="sidebar-link">
+                        <i class="bi bi-file-earmark-text-fill"></i>
+                        <span>LPP report</span>
+                    </a>
+                </li>--}}
                 <li class="sidebar-item {{ Route::is('report-repairing.index') ? 'active' : '' }}">
                     <a href="{{ route('report-repairing.index') }}" class="sidebar-link">
                         <i class="bi bi-file-earmark-text-fill"></i>

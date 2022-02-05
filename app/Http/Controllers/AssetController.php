@@ -33,17 +33,19 @@ class AssetController extends Controller
         $assets = DB::table('assets')->whereYear('date', $current_year)->get();
         $serials = Serial::all();
 
-        $year_chart_1 = Carbon::now()->isoFormat('YYYY');
-        $year_chart_2 = $year_chart_1 - 1;
-        $year_chart_3 = $year_chart_1 - 2;
+        $countData = DB::table('assets')->count();
+        $years = DB::table("assets")
+            ->selectRaw("DISTINCT year(date) year")
+            ->orderByRaw('year ASC')
+            ->get();
 
         return view('service-asset.new', compact(
             'categories', 
             'assets',
             'serials',
-            'year_chart_1',
-            'year_chart_2',
-            'year_chart_3',
+            'current_year',
+            'countData',
+            'years'
             ));
        
     }

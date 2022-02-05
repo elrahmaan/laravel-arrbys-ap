@@ -29,21 +29,24 @@ class ServiceAssetController extends Controller
         $departments = Department::all();
         $categories = AssetCategory::all();
         $services = ServiceAsset::latest()->whereYear('date', $current_year)->get()->sortBy('status', SORT_REGULAR, true);
+        // $services = ServiceAsset::orderBy('status', 'desc')->get();
+        // $services = ServiceAsset::all()->sortBy('name');
         $now = Carbon::now()->format('Y-m-d');
         $logs = UnitLog::all();
-
-        $year_chart_1 = Carbon::now()->isoFormat('YYYY');
-        $year_chart_2 = $year_chart_1 - 1;
-        $year_chart_3 = $year_chart_1 - 2;
+        $countData = DB::table('service_assets')->count();
+        $years = DB::table("service_assets")
+            ->selectRaw("DISTINCT year(date) year")
+            ->orderByRaw('year ASC')
+            ->get();
         return view('service-asset.service', compact(
             'departments',
             'services', 
             'categories', 
             'logs', 
             'now',
-            'year_chart_1',
-            'year_chart_2',
-            'year_chart_3',
+            'current_year',
+            'countData',
+            'years'
         ));
     }
 
