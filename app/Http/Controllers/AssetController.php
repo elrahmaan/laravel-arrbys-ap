@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AssetController extends Controller
 {
@@ -31,7 +32,9 @@ class AssetController extends Controller
         $categories = AssetCategory::all();
         $assets = DB::table('assets')->whereYear('date', $current_year)->get();
         $serials = Serial::all();
-
+        // foreach($assets as $asset){
+        //     dd($asset->date);
+        // }
         $countData = DB::table('assets')->count();
         $years = DB::table("assets")
             ->selectRaw("DISTINCT year(date) year")
@@ -39,14 +42,13 @@ class AssetController extends Controller
             ->get();
 
         return view('service-asset.new', compact(
-            'categories', 
+            'categories',
             'assets',
             'serials',
             'current_year',
             'countData',
             'years'
-            ));
-       
+        ));
     }
 
     /**
@@ -167,12 +169,34 @@ class AssetController extends Controller
     }
     public function export_excel()
     {
-        $filename = Carbon::now()->isoFormat('d-m-YYYY');
-        return Excel::download(new AssetExport, 'Laporan Aset '.$filename.'.xlsx');
+        return Excel::download(new AssetExport, 'Template Import Data Aset.xlsx');
     }
-    public function import(){
-        Excel::import(new AssetImport,request()->file('file'));
-           
-        return back();
-}
+    public function import(Request $request)
+    {
+        // Excel::import(new AssetImport, request()->file('file'));
+        //return back();
+
+        $this->validate($request, [
+            'asset' => 'required|mimes:csv,xls,xlsx'
+        ]);
+
+        $import = new AssetImport();
+        $import->import(request()->file('asset'));
+
+        // dd($import->getErrors());
+        
+        if ($import->getErrors()) {
+            Alert::error('Error', $import->getErrors());
+            return redirect()->route('asset.index');
+        }
+        if ($import->getValidateCategory()) {
+            Alert::error('Error', $import->getValidateCategory());
+            return redirect()->route('asset.index');
+        }
+        else {
+            return redirect()->route('asset.index')
+                ->with('success', 'Import Data Successfully!');
+        }
+        
+    }
 }

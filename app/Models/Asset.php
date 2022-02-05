@@ -9,6 +9,7 @@ class Asset extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    protected $fillable = ['id', 'name','category_id', 'category_asset', 'detail_of_specification', 'qty', 'date'];
     // protected $with = ['category', 'serial'];
 
     public function category()

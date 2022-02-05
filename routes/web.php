@@ -44,14 +44,15 @@ Route::middleware(['auth', 'cekrole:superadmin,teknisi,viewer'])->group(function
         'report-loan' => ReportLoanController::class,
     ]);
     //export excel
-    Route::get('/report-asset/export_excel', [AssetController::class, 'export_excel'])->name('export-asset.index');
     Route::get('/report-loans/export_excel', [ReportLoanController::class, 'export_excel'])->name('export-loan.index');
     Route::get('/report-parameter/export_excel_parameter', [ReportLoanController::class, 'export_excel_parameter'])->name('export-loan-parameter');
     Route::get('/report-service/export_excel', [ReportController::class, 'export_excel'])->name('export-service');
     Route::get('/report-service-parameter/export_excel_parameter', [ReportController::class, 'export_excel_parameter'])->name('export-service-parameter');
-    Route::post('assu', [AssetController::class,'import'])->name('coba.index');
+    
 });
 Route::middleware(['auth', 'cekrole:superadmin,teknisi'])->group(function () {
+    Route::get('/report-asset/export_excel', [AssetController::class, 'export_excel'])->name('export-asset.index');
+    Route::post('asset/import', [AssetController::class,'import'])->name('asset.import');
     Route::post('/service/{id}/repair', [ServiceAssetController::class, 'repair']);
     Route::post('/loan/{id}/returned', [LoanController::class, 'returned']);
     Route::get('/department/delete/{id}', [DepartmentController::class, 'destroy']);

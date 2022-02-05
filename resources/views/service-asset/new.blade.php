@@ -129,39 +129,31 @@
                     </button>
                     <button type="button" data-bs-toggle="modal" data-bs-target="#importExcel" class="btn btn-success rounded-3 pl-3 pr-3">Import Data .xlsx
                         <i class="fa fa-file-excel ml-2"></i></button>
-                        <button type="button" class="btn btn-secondary">
-                            <a style="text-decoration: none;color:white" href="{{ route('export-asset.index') }}">Download Template </a><i class="fa fa-download ml-2"></i>
-                        </button>
+
                 </a>
                 <!-- Assets Datatable -->
             </div>
-            <form action="{{ route('coba.index') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <label>Choose or Drag Here</label>
-                <div class="form-group">
-                    <input type="file" name="file" required="required">
-                </div>
-                <button type="submit" >Impor Su </button>
-            </form>
-            <!-- Modal Import -->
             <div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
-                    <form method="POST" action="#" enctype="multipart/form-data">
+                    <form method="POST" action="{{route('asset.import')}}" enctype="multipart/form-data">
+                        @csrf
                         <div class="modal-content">
                             <div class="modal-header bg-success">
                                 <h5 class="modal-title" id="exampleModalLabel" style="color: white">Import Excel</h5>
                             </div>
                             <div class="modal-body">
-     
-                                {{ csrf_field() }}
-     
                                 <label>Choose or Drag Here</label>
                                 <div class="form-group">
-                                    <input type="file" name="file" required="required">
+                                    <input class="form-control" type="file" name="asset" required="required">
                                 </div>
-     
+
                             </div>
                             <div class="modal-footer">
+                                <div class="mr-5">
+                                    <button type="button" class="btn btn-secondary">
+                                        <a style="text-decoration: none;color:white" href="{{ route('export-asset.index') }}">Download Template </a><i class="fa fa-download ml-2"></i>
+                                    </button>
+                                </div>
                                 <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
                                     <i class="bx bx-x d-block d-sm-none"></i>
                                     <span class="d-none d-sm-block">Cancel</span>
