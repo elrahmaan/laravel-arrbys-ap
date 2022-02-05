@@ -89,9 +89,6 @@ class LoanParameterExport implements FromCollection, WithHeadings, ShouldAutoSiz
                 foreach ($laporan as $row) {
                     // fetch loan assets 
                     $loanAssets = Loan::getLoanAsset($row->id);
-                    foreach ($loanAssets as $loanAsset) {
-                        $assets[] = $loanAsset->name . ' (' . $loanAsset->no_serial . ' | ' .  $loanAsset->category_asset . ')';
-                    }
                     $event->sheet->getStyle('A' . $cell . ':' . 'H' . $cell)->applyFromArray($styleContent);
                     $event->sheet->setCellValue('A' . $cell, $i);
                     $event->sheet->setCellValue('B' . $cell, $row->name);
@@ -100,7 +97,7 @@ class LoanParameterExport implements FromCollection, WithHeadings, ShouldAutoSiz
                     $event->sheet->setCellValue('E' . $cell, $row->approved_return);
                     $event->sheet->setCellValue(
                         'F' . $cell,
-                        implode(', ', $assets)
+                        implode(', ', $loanAssets)
                     );
                     // $event->sheet->setCellValue('E' . $cell, $row->category_asset);
                     $event->sheet->setCellValue('G' . $cell, $row->loan_date);

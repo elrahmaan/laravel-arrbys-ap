@@ -61,7 +61,7 @@ class LoanExport implements FromCollection, WithHeadings, ShouldAutoSize, WithEv
             AfterSheet::class    => function (AfterSheet $event) use ($styleArray, $styleTitle, $styleContent) {
                 // $cellRange = 'A1:G1'; // All headers
                 $event->sheet->setCellValue('A1', 'Laporan Peminjaman Barang')->mergeCells("A1:H1")->getStyle('A1:H1')->applyFromArray($styleTitle);
-                $event->sheet->getStyle('A2:G2')->applyFromArray($styleArray);
+                $event->sheet->getStyle('A2:H2')->applyFromArray($styleArray);
                 $event->sheet->setCellValue('A2', 'No');
                 $event->sheet->setCellValue('B2', 'Nama');
                 $event->sheet->setCellValue('C2', 'Unit');
@@ -81,10 +81,6 @@ class LoanExport implements FromCollection, WithHeadings, ShouldAutoSize, WithEv
                 foreach ($laporan as $row) {
                     // fetch loan assets 
                     $loanAssets = Loan::getLoanAsset($row->id);
-                    foreach ($loanAssets as $loanAsset) {
-                        $assets[] = $loanAsset->name . ' (' . $loanAsset->no_serial . ' | ' .  $loanAsset->category_asset . ')';
-                    }
-
                     $event->sheet->getStyle('A' . $cell . ':' . 'H' . $cell)->applyFromArray($styleContent);
                     $event->sheet->setCellValue('A' . $cell, $i);
                     $event->sheet->setCellValue('B' . $cell, $row->name);
@@ -93,7 +89,7 @@ class LoanExport implements FromCollection, WithHeadings, ShouldAutoSize, WithEv
                     $event->sheet->setCellValue('E' . $cell, $row->approved_return);
                     $event->sheet->setCellValue(
                         'F' . $cell,
-                        implode(', ', $assets)
+                        implode(', ', $loanAssets)
                     );
                     $event->sheet->setCellValue('G' . $cell, $row->loan_date);
                     $event->sheet->setCellValue('H' . $cell, $row->real_return_date);

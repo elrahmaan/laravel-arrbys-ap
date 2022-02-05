@@ -44,13 +44,16 @@ class Loan extends Model
     }
     public static function getLoanAsset($id)
     {
-        $record = DB::table('loan_assets')
+        $records = DB::table('loan_assets')
             ->leftJoin('loans', 'loan_assets.loan_id', '=', 'loans.id')
             ->leftJoin('serials', 'loan_assets.serial_id', '=', 'serials.id')
             ->leftJoin('assets', 'serials.asset_id', '=', 'assets.id')
-            ->select('assets.name as name', 'loans.approved_by_return as approved_return', 'serials.no_serial as no_serial', 'loans.approved_by as approved_by', 'assets.category_asset as category_asset', 'loans.loan_date as loan_date', 'loans.real_return_date')
+            ->select('loans.id as id','assets.name as name', 'loans.approved_by_return as approved_return', 'serials.no_serial as no_serial', 'loans.approved_by as approved_by', 'assets.category_asset as category_asset', 'loans.loan_date as loan_date', 'loans.real_return_date')
             ->where('loan_assets.loan_id', $id)->get()->toArray();
-        return $record;
+            foreach ($records as $record) {
+                $recordData[] = $record->name . ' (' . $record->no_serial . ' | ' .  $record->category_asset . ')';
+            }
+        return $recordData;
     }
     public static function getLoanParameter($fromDates, $toDates)
     {
