@@ -199,22 +199,19 @@
                         </div>
                         <div class="card-body">
 
-                            @if ($loans_late > 0)
+                            {{--@if ($loans_late > 0)--}}
                             <?php
                             $count = 0;
                             ?>
                             @foreach ($loan_late as $late)
 
-                            @if ($now > $late->estimation_return_date)
-                            @if ($late->real_return_date > $late->estimation_return_date || $late->real_return_date == null)
-
+                            @if ($now > $late->estimation_return_date && $late->real_return_date == null || $late->real_return_date > $late->estimation_return_date )
                             @php if ($count == 3) break; @endphp
                             <div class="recent-message d-flex px-4 py-3">
                                 <div class="name ms-4">
                                     <!-- <h6 class="text-muted mb-1">ID: {{$late->id}}</h6> -->
-                                    <h5 class="mb-1">{{$late->name}}
-                                        {{-- <span class="badge bg-primary">{{$service->qty}}</span> --}}
-                                    </h5>
+                                    <h5 class="mb-1">{{$late->name}}</h5>
+                                    <h6 class="text-muted mb-1">Phone/ext: {{$late->phone}}</h6>
                                     <p class="mb-0">Estimate to return:<br>{{$late->estimation_return_date}}</p>
                                     @if ($late->status == 'Return')
                                     <p class="mb-0"> <span class="badge bg-success">Return</span></p>
@@ -222,21 +219,19 @@
                                     @else
                                     <p class="mb-0"> <span class="badge bg-warning">In Loan</span></p>
                                     @endif
-
                                 </div>
                             </div>
                             @php $count++; @endphp
 
                             @endif
-                            @endif
                             @endforeach
-                            @else
+                            {{--@else
                             <div class="recent-message d-flex px-4 py-3">
                                 <div class="name ms-4">
                                     <h6 class="text-muted mb-1">None</h6>
                                 </div>
                             </div>
-                            @endif
+                            @endif--}}
 
                         </div>
                     </div>
@@ -302,7 +297,7 @@
             </div>
             <div class="card">
                 <div class="card-header">
-                    <h4>Recent 3 Service</h4>
+                    <h4>Recent 5 Service</h4>
                 </div>
                 <div class="card-content pb-4">
                     @if ($logs > 0)
@@ -311,8 +306,9 @@
                     @if ($log->asset_id == $service->id)
                     <div class="recent-message d-flex px-4 py-3">
                         <div class="name ms-4">
-                            <h6 class="text-muted mb-1">ID: {{$service->id}}</h6>
-                            <h5 class="mb-1">{{$service->name}}</h5> <span class="badge bg-primary"><strong>{{$service->qty}}</strong></span>
+                            <h5 class="mb-1">{{$service->name}}</h5>
+                            <h6 class="text-muted mb-1">Category: {{$service->category_asset}}</h6>
+                            <span class="badge bg-primary"><strong>{{$service->qty}}</strong></span>
                             <p class="mb-0">{{$log->created_at}}</p>
                         </div>
                     </div>

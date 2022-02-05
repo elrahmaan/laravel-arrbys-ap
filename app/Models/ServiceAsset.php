@@ -9,6 +9,7 @@ class ServiceAsset extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    // protected $with = ['category', 'department', 'log'];
 
     public function category()
     {
