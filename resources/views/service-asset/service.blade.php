@@ -95,7 +95,25 @@
             <div class="col-12 col-md-6 order-md-1 order-last">
                 <h3>Service of Assets</h3>
                 <p class="text-subtitle text-muted">Trouble Assets</p>
+                <form action="{{ route('service.index') }}" method="GET">
+                    <div class="filter d-flex ">
+                        <div class="col-lg-2 col-md-2 col-sm-2 me-3 mb-4">
+                            <select name="year" id="" class=" form-select date-select">
+                                <option value="{{$year_chart_1}}" {{request('year') == $year_chart_1 ? ' selected' : ''}}>{{$year_chart_1}}</option>
+                                <option value="{{$year_chart_2}}" {{request('year') == $year_chart_2 ? ' selected' : ''}}>{{$year_chart_2}}</option>
+                                <option value="{{$year_chart_3}}" {{request('year') == $year_chart_3 ? ' selected' : ''}}>{{$year_chart_3}}</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <button type="submit" class="btn btn-secondary year-select">
+                                Filter by Year
+                            </button>
+                        </div>
+                    </div>
+                  
+            </form>
             </div>
+            
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">

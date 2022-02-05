@@ -20,12 +20,31 @@ class ServiceAssetController extends Controller
      */
     public function index()
     {
+        if (request('year')) {
+            $current_year = request('year');
+        } else {
+            $current_year = Carbon::now()->isoFormat('YYYY');
+        }
+
         $departments = Department::all();
         $categories = AssetCategory::all();
-        $services = ServiceAsset::latest()->get()->sortBy('status', SORT_REGULAR, true);
+        $services = ServiceAsset::latest()->whereYear('date', $current_year)->get()->sortBy('status', SORT_REGULAR, true);
         $now = Carbon::now()->format('Y-m-d');
         $logs = UnitLog::all();
-        return view('service-asset.service', compact('departments', 'services', 'categories', 'logs', 'now'));
+
+        $year_chart_1 = Carbon::now()->isoFormat('YYYY');
+        $year_chart_2 = $year_chart_1 - 1;
+        $year_chart_3 = $year_chart_1 - 2;
+        return view('service-asset.service', compact(
+            'departments',
+            'services', 
+            'categories', 
+            'logs', 
+            'now',
+            'year_chart_1',
+            'year_chart_2',
+            'year_chart_3',
+        ));
     }
 
     /**

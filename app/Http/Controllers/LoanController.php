@@ -20,14 +20,34 @@ class LoanController extends Controller
      */
     public function index()
     {
-        $data = Loan::latest()->get()->sortBy('status');
+        if (request('year')) {
+            $current_year = request('year');
+        } else {
+            $current_year = Carbon::now()->isoFormat('YYYY');
+        }
+
+
+        $data = Loan::latest()->whereYear('loan_date', $current_year)->get()->sortBy('status');
         $serials = Serial::all();
         $carbon = Carbon::now()->toDateString();
         $departments = Department::all();
-        $loans = Loan::all()->where('status', 'Return');
+        $loans = DB::table('loans')->whereYear('loan_date', $current_year)->get()->where('status', 'Return');
         $loanAssets = LoanAsset::all();
-        // $cok = Department::all();
-        return view('layouts.loan.index', compact('data', 'departments', 'carbon', 'serials', 'loans', 'loanAssets'));
+
+        $year_chart_1 = Carbon::now()->isoFormat('YYYY');
+        $year_chart_2 = $year_chart_1 - 1;
+        $year_chart_3 = $year_chart_1 - 2;
+        return view('layouts.loan.index', compact(
+            'data', 
+            'departments', 
+            'carbon', 
+            'serials', 
+            'loans', 
+            'loanAssets',
+            'year_chart_1',
+            'year_chart_2',
+            'year_chart_3',
+        ));
     }
 
     /**
