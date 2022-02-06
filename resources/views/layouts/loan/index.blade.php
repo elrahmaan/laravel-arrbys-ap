@@ -1,5 +1,5 @@
 @extends('master')
-@section('title', 'AP1 Series | Loans')
+@section('title', 'AP1 Series | Borrowing')
 @section('body')
 @section('css')
 
@@ -117,7 +117,7 @@
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('home')}}">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Loan</li>
+                        <li class="breadcrumb-item active" aria-current="page">Borrowing</li>
                     </ol>
                 </nav>
             </div>
@@ -226,13 +226,13 @@
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <label for="mobile-id-icon">Detail Loan</label>
+                                            <label for="mobile-id-icon">Borrowing Detail</label>
                                             <div class="position-relative">
                                                 <textarea class="form-control" name="detail_loan" id="" rows="5" required> </textarea>
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <label for="password-id-icon">Loan Date*</label>
+                                            <label for="password-id-icon">Borrowing Date*</label>
                                             <div class="position-relative mb-2">
                                                 <input type="date" required name="loan_date" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
 
@@ -248,7 +248,7 @@
                                         <div class="col-12">
                                             <label for="password-id-icon">Status</label>
                                             <div class="position-relative mb-2">
-                                                <span class="badge bg-warning">In Loan</span>
+                                                <span class="badge bg-warning">Borrowed</span>
                                                 <input type="hidden" name="status" value="In Loan">
                                             </div>
                                         </div>
@@ -311,7 +311,7 @@
                                     <span class="badge bg-success">Return</span>
                                     <input type="hidden" name="update_status" id="" value="Return">
                                     @else
-                                    <span class="badge bg-warning">In Loan</span>
+                                    <span class="badge bg-warning">Borrowed</span>
                                     <input type="hidden" name="update_status" id="" value="In Loan">
                                     @endif
                             <td class="d-flex">
@@ -428,13 +428,13 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
-                                                        <label for="mobile-id-icon">Detail Loan</label>
+                                                        <label for="mobile-id-icon">Borrowing Detail</label>
                                                         <div class="position-relative mb-2">
                                                             <textarea class="form-control" disabled>{{ $data->detail_loan }}</textarea>
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
-                                                        <label for="password-id-icon">Loan Date</label>
+                                                        <label for="password-id-icon">Borrowing Date</label>
                                                         <div class="position-relative mb-2">
                                                             <input disabled type="text" disabled value="{{\Carbon\Carbon::parse($data->loan_date)->isoFormat('D MMM YYYY')}}" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
 
@@ -470,7 +470,7 @@
                                                             @if ($data->status == 'Return')
                                                             <span class="badge bg-success">Return</span>
                                                             @elseif ($data->status == 'In Loan')
-                                                            <span class="badge bg-warning">In Loan</span>
+                                                            <span class="badge bg-warning">Borrowed</span>
                                                             @endif
                                                         </div>
                                                     </div>
@@ -493,7 +493,7 @@
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header bg-dark">
-                                            <h5 class="modal-title white" id="myModalLabel160">Return Loan
+                                            <h5 class="modal-title white" id="myModalLabel160">Return
                                             </h5>
                                             <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                                 <i data-feather="x"></i>
@@ -622,7 +622,7 @@
                                                             </div>
                                                         </div> -->
                                                         <div class="col-12">
-                                                            <label for="password-id-icon">Loan Date</label>
+                                                            <label for="password-id-icon">Borrowing Date</label>
                                                             <div class="position-relative mb-2">
                                                                 <input readonly type="text" value="{{ $data->loan_date }}" name="loan_date" class="form-control" placeholder="Choose a date" id="password-id-icon" required readonly>
                                                             </div>
@@ -814,13 +814,13 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
-                                                            <label for="mobile-id-icon">Detail Loan</label>
+                                                            <label for="mobile-id-icon">Borrowing Detail</label>
                                                             <div class="position-relative">
                                                                 <textarea class="form-control" name="detail_loan" id="" rows="5" required> {{ $data->detail_loan }}</textarea>
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
-                                                            <label for="password-id-icon">Loan Date*</label>
+                                                            <label for="password-id-icon">Borrowing Date*</label>
                                                             <div class="position-relative mb-2">
                                                                 <input type="date" value="{{ $data->loan_date }}" name="loan_date" class="form-control" placeholder="Choose a date" id="password-id-icon" required>
                                                             </div>
@@ -855,7 +855,7 @@
                                                         <div class="col-12">
                                                             <label for="password-id-icon">Status</label>
                                                             <div class="position-relative mb-2">
-                                                                <span class="badge bg-warning">In Loan</span>
+                                                                <span class="badge bg-warning">Borrowed</span>
                                                                 <input type="hidden" name="status" value="{{ $data->status }}">
                                                             </div>
                                                         </div>

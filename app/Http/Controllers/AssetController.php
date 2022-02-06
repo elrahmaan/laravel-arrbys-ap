@@ -70,7 +70,8 @@ class AssetController extends Controller
     public function store(Request $request)
     {
         $asset = new Asset();
-        $asset->id = time();
+        $code = DB::table('assets')->count();
+        $asset->id = Carbon::now()->format('d').($code+1);
         $asset->name = $request->name;
         $asset->category_id = $request->category_id;
         if ($request->file('image')) {

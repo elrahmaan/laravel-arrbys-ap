@@ -1,5 +1,5 @@
 @extends('master')
-@section('title', 'AP1 Series | Loan Report')
+@section('title', 'AP1 Series | Borrowing Report')
 @include('components.sidebar')
 @section('body')
 @section('css')
@@ -60,14 +60,14 @@
 <div class="page-title">
     <div class="row">
         <div class="col-md-6 col-12  order-md-1 order-last">
-            <h3>Loan Reports </i></h3>
+            <h3>Borrowing Reports </i></h3>
             <!-- <p class="text-subtitle text-muted">Navbar will appear in top of the page.</p> -->
         </div>
         <div class="col-12 col-md-6 order-md-2 order-first">
             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{route('home')}}">Dashboard</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Loan Reports</li>
+                    <li class="breadcrumb-item active" aria-current="page">Borrowing Reports</li>
                 </ol>
             </nav>
         </div>
@@ -119,7 +119,7 @@
             <div class="row">
                 <div class="card">
                     <div class="card-header" style="margin-bottom: -20px">
-                        <h4 class="card-title">Data Loan</h4>
+                        <h4 class="card-title">Borrowing Data</h4>
                     </div>
                     <div class="ms-4 col-md-12 buttons">
                         <form action="{{ request('from_date') && request('to_date') ? route('export-loan-parameter') : route('export-loan.index') }}" method="GET">
@@ -140,7 +140,7 @@
                                     <th>Unit</th>
                                     <th>Approved By</th>
                                     <th>Status</th>
-                                    <th>Loan Date</th>
+                                    <th>Borrowing Date</th>
                                 </tr>
                             </thead>
                             <tbody>

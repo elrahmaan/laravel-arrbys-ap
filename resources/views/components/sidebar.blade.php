@@ -68,11 +68,11 @@
                         </li>
                     </ul>
                 </li> -->
-                <li class="sidebar-title">Loan</li>
+                <li class="sidebar-title">Borrowing</li>
                 <li class="sidebar-item {{ Route::is('loan.index') ? 'active' : '' }}">
                     <a href="{{ route('loan.index') }}" class="sidebar-link">
                         <i class="bi bi-arrow-up-right-square-fill"></i>
-                        <span>Loan</span>
+                        <span>Borrowing</span>
                     </a>
                 </li>
                 <li class="sidebar-title">Report</li>
@@ -91,7 +91,7 @@
                 <li class="sidebar-item {{ Route::is('report-loan.index') ? 'active' : '' }}">
                     <a href="{{ route('report-loan.index') }}" class="sidebar-link">
                         <i class="bi bi-file-earmark-text-fill"></i>
-                        <span>Loan Report</span>
+                        <span>Borrowing Report</span>
                     </a>
                 </li>
             </ul>

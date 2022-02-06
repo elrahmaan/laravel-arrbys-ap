@@ -28,7 +28,7 @@
                 ],
             },
             {
-                name: "Loan",
+                name: "Borrowed",
                 data: [
                     '{{$loan_1}}', '{{$loan_2}}', '{{$loan_3}}', '{{$loan_4}}', '{{$loan_5}}', '{{$loan_6}}', '{{$loan_7}}', '{{$loan_8}}', '{{$loan_9}}', '{{$loan_10}}', '{{$loan_11}}', '{{$loan_12}}'
                 ],
@@ -132,7 +132,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <h6 class="text-muted font-semibold">
-                                        In Loan
+                                        Borrowed
                                     </h6>
                                     <h6 class="font-extrabold mb-0 inloan-display">
                                         {{$inloan}}
@@ -153,7 +153,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <h6 class="text-muted font-semibold">
-                                        Return (Loan)
+                                        Return (Borrow)
                                     </h6>
                                     <h6 class="font-extrabold mb-0 return-display">
                                         {{$return}}
@@ -192,7 +192,7 @@
                 <div class="col-12 col-xl-4">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Recent 3 Loan <span class="badge bg-danger">Late</span></h4>
+                            <h4>Recent 3 Borrowed <span class="badge bg-danger">Late</span></h4>
 
                         </div>
                         <div class="card-body">
@@ -215,7 +215,7 @@
                                     <p class="mb-0"> <span class="badge bg-success">Return</span></p>
                                     <p class="mb-0">Returned:<br>{{$late->real_return_date}}</p>
                                     @else
-                                    <p class="mb-0"> <span class="badge bg-warning">In Loan</span></p>
+                                    <p class="mb-0"> <span class="badge bg-warning">Borrowed</span></p>
                                     @endif
                                 </div>
                             </div>
@@ -237,7 +237,7 @@
                 <div class="col-12 col-xl-8">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Assets <span class="badge bg-warning">In Loan</span></h4>
+                            <h4>Assets <span class="badge bg-warning">Borrowed</span></h4>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -332,7 +332,7 @@
             <div class="card">
                 <div class="card-body text-center">
                     <img src="{{ url('/img/loan2.png') }}" width="70" class="mb-2"><br>
-                    <h6 class="mb-1">Total Loan Data</h6>
+                    <h6 class="mb-1">Data Borrowed</h6>
                     <span class="badge bg-primary"><strong>{{$inloan + $return}}</strong></span>
                 </div>
             </div>
