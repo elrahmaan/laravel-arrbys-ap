@@ -91,6 +91,22 @@ class UserController extends Controller
         return redirect('/user')->with('success', 'Data Updated!');
     }
 
+    public function updateProfile(Request $request,$id)
+    {
+        if($request->password != $request->confirm_password){
+            Alert::error('Error', 'Your password and confirmation password do not match');
+            return redirect()->back();
+        }else{
+            $user = User::find($id);
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->role = $request->role;
+            $user -> save();
+            return redirect()->back()->with('success', 'User Updated!');
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      *
