@@ -102,14 +102,15 @@ class ReportController extends Controller
     }
     public function export_excel()
     {
-        $filename = Carbon::now()->isoFormat('d-m-YYYY');
-        return Excel::download(new AssetServiceExport, 'Laporan Perbaikan Asset '.$filename.'.xlsx');
+        $filename = Carbon::now()->toFormattedDateString();
+        return Excel::download(new AssetServiceExport, 'Laporan Perbaikan Asset per-'.$filename.'.xlsx');
     }
     public function export_excel_parameter()
     {
         $fromDates = Carbon::parse(date(request('fromDate')))->format('Y-m-d');
         $toDates = Carbon::parse(date(request('toDate')))->format('Y-m-d');
-        $filename = Carbon::now()->isoFormat('d-m-YYYY');
-        return Excel::download(new AssetServiceParameterExport($fromDates,$toDates), 'Laporan Perbaikan Asset '.$filename.'.xlsx');
+        $filename1 = Carbon::parse(date(request('fromDate')))->toFormattedDateString();
+        $filename2 = Carbon::parse(date(request('toDate')))->toFormattedDateString();
+        return Excel::download(new AssetServiceParameterExport($fromDates,$toDates), 'Laporan Perbaikan Asset per-'.$filename1.' - '.$filename2.'.xlsx');
     }
 }

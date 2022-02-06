@@ -88,8 +88,8 @@ class AssetServiceParameterExport implements FromCollection, WithHeadings, Shoul
                     $event->sheet->setCellValue('D' . $cell, $row->complainant_name);
                     $event->sheet->setCellValue('E' . $cell, $row->desc_complain);
                     $event->sheet->setCellValue('F' . $cell, $row->diagnose);
-                    $event->sheet->setCellValue('G' . $cell, Carbon::parse(date($row->created_at))->format('Y-m-d'));
-                    $event->sheet->setCellValue('H' . $cell, $row->date_fixed);
+                    $event->sheet->setCellValue('G' . $cell, Carbon::parse(date($row->created_at))->toFormattedDateString());
+                    $event->sheet->setCellValue('H' . $cell, Carbon::parse(date($row->date_fixed))->toFormattedDateString());
                     $cell++;
                     $i++;
                 }

@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Models\Loan;
+use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
@@ -100,8 +101,8 @@ class LoanParameterExport implements FromCollection, WithHeadings, ShouldAutoSiz
                         implode(', ', $loanAssets)
                     );
                     // $event->sheet->setCellValue('E' . $cell, $row->category_asset);
-                    $event->sheet->setCellValue('G' . $cell, $row->loan_date);
-                    $event->sheet->setCellValue('H' . $cell, $row->real_return_date);
+                    $event->sheet->setCellValue('G' . $cell, Carbon::parse(date($row->loan_date))->toFormattedDateString());
+                    $event->sheet->setCellValue('H' . $cell, Carbon::parse(date($row->real_return_date))->toFormattedDateString());
                     $cell++;
                     $i++;
                 }
