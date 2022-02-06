@@ -34,7 +34,7 @@ class AssetImport implements ToModel, WithHeadingRow, SkipsOnFailure
             return new Asset([
                 'name'=> $row['nama'],
                 // 'category_id' => $row['kategori'],
-                'category_id' => @$category->id,
+                'category_id' => $category->id,
                 'category_asset' => $row['kategori_aset'],
                 'detail_of_specification' => $row['deskripsi'],
                 'qty' => $row['jumlah'],
