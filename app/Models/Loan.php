@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -28,9 +29,12 @@ class Loan extends Model
 
     public static function getLoan()
     {
+        $current_month = Carbon::now()->format('m');
+        // dd($current_month);
         $record = DB::table('loans')->leftJoin('departments', 'loans.department_id', '=', 'departments.id')
             ->select('loans.id as id', 'loans.approved_by_return as approved_return', 'loans.name as name', 'departments.name as department_name', 'loans.approved_by as approved_by', 'loans.loan_date as loan_date', 'loans.real_return_date')
             ->where('loans.status', 'Return')
+            ->whereMonth('loan_date', $current_month)
             ->get()->toArray();
         return $record;
         // $record = DB::table('loan_assets')

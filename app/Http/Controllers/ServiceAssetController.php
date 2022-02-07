@@ -69,7 +69,8 @@ class ServiceAssetController extends Controller
     public function store(Request $request)
     {
         $asset = new ServiceAsset();
-        $asset->id = time();
+        $code = DB::table('service_assets')->where('id', 'LIKE',  '%' . Carbon::parse(date($request->date))->format('dmY') . '%')->count();
+        $asset->id = Carbon::parse(date($request->date))->format('dmY') . ($code + 1);
         $asset->name = $request->name;
         $asset->category_id = $request->category_id;
         if ($request->file('image')) {

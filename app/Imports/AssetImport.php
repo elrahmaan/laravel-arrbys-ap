@@ -33,7 +33,7 @@ class AssetImport implements ToModel, WithHeadingRow, SkipsOnFailure
         if (empty($this->errors) && empty($this->validateCategory)) {
             $code = DB::table('assets')->where('id', 'LIKE',  '%' . \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['tanggal_masuk'])->format('Ymd') . '%')->count();
             return new Asset([
-                'id' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['tanggal_masuk'])->format('Ymd') . ($code + 1),
+                'id' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['tanggal_masuk'])->format('dmY') . ($code + 1),
                 'name'=> $row['nama'],
                 // 'category_id' => $row['kategori'],
                 'category_id' => @$category->id,

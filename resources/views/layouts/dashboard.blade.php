@@ -207,7 +207,7 @@
                             @php if ($count == 3) break; @endphp
                             <div class="recent-message d-flex px-4 py-3">
                                 <div class="name ms-4">
-                                    <!-- <h6 class="text-muted mb-1">ID: {{$late->id}}</h6> -->
+                                    <h6 class="text-muted mb-1">ID: {{$late->id}}</h6>
                                     <h5 class="mb-1">{{$late->name}}</h5>
                                     <h6 class="text-muted mb-1">Phone/ext: {{$late->phone}}</h6>
                                     <p class="mb-0">Estimate to return:<br>{{$late->estimation_return_date}}</p>
@@ -255,7 +255,7 @@
                                             <td class="col-3">
                                                 <div class="d-flex align-items-center">
                                                     <p class="font-bold ms-3 mb-0">
-                                                        {{$serial->id}}
+                                                        {{$loop->iteration}}
                                                     </p>
                                                 </div>
                                             </td>

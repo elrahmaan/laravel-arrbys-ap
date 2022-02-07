@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -22,6 +23,7 @@ class UnitLog extends Model
     }
     public static function getDataUnit()
     {
+        $current_month = Carbon::now()->format('m');
         $record = DB::table('unit_logs')->leftJoin('service_assets', 'unit_logs.asset_id', '=', 'service_assets.id')
             ->leftJoin('departments', 'unit_logs.department_id', '=', 'departments.id')
             ->select(
@@ -32,7 +34,9 @@ class UnitLog extends Model
                 'unit_logs.diagnose as diagnose',
                 'unit_logs.date_fixed as date_fixed',
                 'unit_logs.created_at as created_at',
-            )->get()->toArray();
+            )
+            ->whereMonth('unit_logs.updated_at', $current_month)
+            ->get()->toArray();
         return $record;
     }
     public static function getServiceParameter($fromDates, $toDates)
