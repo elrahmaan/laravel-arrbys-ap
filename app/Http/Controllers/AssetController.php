@@ -70,8 +70,8 @@ class AssetController extends Controller
     public function store(Request $request)
     {
         $asset = new Asset();
-        $code = DB::table('assets')->count();
-        $asset->id = Carbon::now()->format('d').($code+1);
+        $code = DB::table('assets')->where('id', 'LIKE',  '%' . Carbon::parse(date($request->date))->format('Ymd') . '%')->count();
+        $asset->id = Carbon::parse(date($request->date))->format('Ymd') . ($code + 1);
         $asset->name = $request->name;
         $asset->category_id = $request->category_id;
         if ($request->file('image')) {
@@ -185,7 +185,7 @@ class AssetController extends Controller
         $import->import(request()->file('asset'));
 
         // dd($import->getErrors());
-        
+
         if ($import->getErrors()) {
             Alert::error('Error', $import->getErrors());
             return redirect()->route('asset.index');
@@ -193,11 +193,9 @@ class AssetController extends Controller
         if ($import->getValidateCategory()) {
             Alert::error('Error', $import->getValidateCategory());
             return redirect()->route('asset.index');
-        }
-        else {
+        } else {
             return redirect()->route('asset.index')
                 ->with('success', 'Import Data Successfully!');
         }
-        
     }
 }

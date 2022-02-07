@@ -186,10 +186,10 @@
                             <td class="text-capitalize">{{ $i->role }}</td>
                             @if ($i->id != Auth::user()->id)
                             <td class="d-flex">
-                                <a href="#"><button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#showData{{ $i->id }}">
-                                        <i class="fa fa-eye"></i>
-                                    </button>
-                                </a>
+                                {{--<a href="#"><button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#showData{{ $i->id }}">
+                                <i class="fa fa-eye"></i>
+                                </button>
+                                </a>--}}
                                 <a href="#"><button type="button" class="btn btn-warning me-2" data-bs-toggle="modal" data-bs-target="#editData{{ $i->id }}">
                                         <i class="fa fa-edit"></i>
                                     </button>
