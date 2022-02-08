@@ -35,7 +35,7 @@ class UnitLog extends Model
                 'unit_logs.date_fixed as date_fixed',
                 'unit_logs.created_at as created_at',
             )
-            ->whereMonth('unit_logs.updated_at', $current_month)
+            ->whereMonth('unit_logs.date_fixed', $current_month)
             ->get()->toArray();
         return $record;
     }
