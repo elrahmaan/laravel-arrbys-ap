@@ -137,13 +137,29 @@ class AssetServiceExport implements WithHeadings, WithEvents, WithHeadingRow, Wi
                 $i = 1;
                 $service_date = UnitLog::getDate();
                 foreach ($service_date as $date) {
-                    $event->sheet->setCellValue('B' . $cell, $i . '. ')->getStyle('B' . $cell)->applyFromArray($styleTitleDate);
-                    $event->sheet->setCellValue('C' . $cell, Carbon::parse($date->date_fixed)->isoFormat('DD MMMM YYYY'))->mergeCells('C' . $cell . ':J' . $cell)->getStyle('C' . $cell . ':J' . $cell)->applyFromArray($styleTitleDate, [
-                        'fill' => array(
-                            'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
-                            'color' => array('rgb' => 'D8E4BC')
-                        )
-                    ]);
+                    $event->sheet->setCellValue('B' . $cell, $i . '. ')->getStyle('B' . $cell)
+                    ->getFill()
+                    ->applyFromArray([
+                        $styleTitleDate,
+                        'fillType' => 'solid',
+                            'rotation' => 0,
+                            'color' => [
+                                'rgb' => 'D8E4BC'
+                            ],
+                        ]);
+                    $event->sheet->setCellValue('C' . $cell, Carbon::parse($date->date_fixed)->isoFormat('DD MMMM YYYY'))
+                        ->mergeCells('C' . $cell . ':J' . $cell)
+                        ->getStyle('C' . $cell . ':J' . $cell)->applyFromArray($styleTitleDate);
+                    $event->sheet->getStyle('C' . $cell . ':J' . $cell)
+                        ->getFill()
+                        ->applyFromArray([
+                            'fillType' => 'solid',
+                            'rotation' => 0,
+                            'color' => [
+                                'rgb' => 'D8E4BC'
+                            ],
+                            
+                        ]);
                     $cell++;
                     $services = UnitLog::getLogPerDate($date->date_fixed);
                     $i_data = 1;
@@ -172,6 +188,9 @@ class AssetServiceExport implements WithHeadings, WithEvents, WithHeadingRow, Wi
                 // --------content outside border-----------
                 // left
                 $event->sheet->getStyle('B11:B' . $endRow)->applyFromArray([
+                    'font' => [
+                        'bold' => true,
+                    ],
                     'borders' => [
                         'left' => [
                             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,

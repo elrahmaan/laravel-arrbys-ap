@@ -145,8 +145,29 @@ class AssetServiceParameterExport implements WithHeadings, ShouldAutoSize, WithE
                 $i = 1;
                 $service_date = UnitLog::getDateParameter($this->fromDates, $this->toDates);
                 foreach ($service_date as $date) {
-                    $event->sheet->setCellValue('B' . $cell, $i . '. ');
-                    $event->sheet->setCellValue('C' . $cell, Carbon::parse($date->date_fixed)->isoFormat('DD MMMM YYYY'))->mergeCells('C' . $cell . ':J' . $cell);
+                    $event->sheet->setCellValue('B' . $cell, $i . '. ')->getStyle('B' . $cell)
+                    ->getFill()
+                    ->applyFromArray([
+                        $styleTitleDate,
+                        'fillType' => 'solid',
+                            'rotation' => 0,
+                            'color' => [
+                                'rgb' => 'D8E4BC'
+                            ],
+                        ]);
+                    $event->sheet->setCellValue('C' . $cell, Carbon::parse($date->date_fixed)->isoFormat('DD MMMM YYYY'))
+                        ->mergeCells('C' . $cell . ':J' . $cell)
+                        ->getStyle('C' . $cell . ':J' . $cell)->applyFromArray($styleTitleDate);
+                    $event->sheet->getStyle('C' . $cell . ':J' . $cell)
+                        ->getFill()
+                        ->applyFromArray([
+                            'fillType' => 'solid',
+                            'rotation' => 0,
+                            'color' => [
+                                'rgb' => 'D8E4BC'
+                            ],
+                            
+                        ]);
                     $cell++;
                     $services = UnitLog::getLogPerDate($date->date_fixed);
                     $i_data = 1;
@@ -174,6 +195,9 @@ class AssetServiceParameterExport implements WithHeadings, ShouldAutoSize, WithE
                 // --------content outside border-----------
                 // left
                 $event->sheet->getStyle('B11:B' . $endRow)->applyFromArray([
+                    'font' => [
+                        'bold' => true,
+                    ],
                     'borders' => [
                         'left' => [
                             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
@@ -202,23 +226,6 @@ class AssetServiceParameterExport implements WithHeadings, ShouldAutoSize, WithE
                         ]
                     ],
                 ]);
-
-                // $laporan = UnitLog::getDateParameter($this->fromDates,$this->toDates);
-                // foreach ($laporan as $row) {
-                //     $event->sheet->getStyle('A'.$cell.':'.'H'.$cell)->applyFromArray($styleContent);
-                //     $event->sheet->setCellValue('A' . $cell, $i);
-                //     $event->sheet->setCellValue('B' . $cell, $row->asset_name);
-                //     $event->sheet->setCellValue('C' . $cell, $row->department_name);
-                //     $event->sheet->setCellValue('D' . $cell, $row->complainant_name);
-                //     $event->sheet->setCellValue('E' . $cell, $row->desc_complain);
-                //     $event->sheet->setCellValue('F' . $cell, $row->diagnose);
-                //     $event->sheet->setCellValue('G' . $cell, Carbon::parse(date($row->created_at))->toFormattedDateString());
-                //     $event->sheet->setCellValue('H' . $cell, Carbon::parse(date($row->date_fixed))->toFormattedDateString());
-                //     $cell++;
-                //     $i++;
-                // }
-                // $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(14);
-                // $event->sheet->getStyle($cellRange)->ApplyFromArray($styleArray);
             },
         ];
     }
