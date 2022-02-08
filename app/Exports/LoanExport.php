@@ -23,9 +23,10 @@ class LoanExport implements WithHeadings, WithEvents, WithHeadingRow, WithColumn
         return [
             'A' => 3,
             'B' => 6,
-            'C' => 6,       
-            'E' =>20,
-            'H' => 25, 
+            'C' => 5,
+            'E' => 30,
+            'F' => 40,
+            'K' => 8,
         ];
     }
     public function headings(): array
@@ -62,7 +63,7 @@ class LoanExport implements WithHeadings, WithEvents, WithHeadingRow, WithColumn
                 'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
             ],
         ];
-        $center =[
+        $center = [
             'alignment' => [
                 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
                 'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
@@ -74,13 +75,19 @@ class LoanExport implements WithHeadings, WithEvents, WithHeadingRow, WithColumn
                 'size' => 12
             ],
         ];
+        $styleTitleDate = [
+            'font' => [
+                'bold' => true,
+                'size' => 11
+            ],
+        ];
         $styleContent = [
             'font' => [
                 'bold' => false,
                 'size' => 11
             ],
             'alignment' => [
-                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_JUSTIFY,
                 'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
             ],
             'borders' => [
@@ -92,33 +99,44 @@ class LoanExport implements WithHeadings, WithEvents, WithHeadingRow, WithColumn
 
         ];
         return [
-            AfterSheet::class    => function (AfterSheet $event) use ($styleArray, $styleTitle, $styleContent, $center) {
-                $event->sheet->getStyle('A1:A6')->applyFromArray($styleTitle);
-                $event->sheet->getStyle('H')->getAlignment()->setWrapText(true);
+            AfterSheet::class    => function (AfterSheet $event) use ($styleArray, $styleTitle, $styleTitleDate, $styleContent, $center) {
+                $event->sheet->getDelegate()->getRowDimension('10')->setRowHeight(27);
+                $event->sheet->getStyle('A1:A4')->applyFromArray($styleTitle);
+                $event->sheet->getStyle('F')->getAlignment()->setWrapText(true);
                 $event->sheet->getStyle('E')->getAlignment()->setWrapText(true);
+                $event->sheet->getStyle('K')->getAlignment()->setWrapText(true);
                 $event->sheet->setCellValue('A1', 'PT. Angkasa Pura Airports');
                 $event->sheet->setCellValue('A2', 'Cabang Bandara Juanda - Surabaya');
                 $event->sheet->setCellValue('A4', 'Laporan Peminjaman Barang');
                 $event->sheet->setCellValue('A6', 'Tanggal: ');
-                $event->sheet->setCellValue('C6', Carbon::now()->isoFormat('DD MMMM YYYY'));
-                $event->sheet->setCellValue('F6', 'Periode: ');
-                $event->sheet->setCellValue('G6', Carbon::now()->isoFormat('MMMM YYYY'));
+                $event->sheet->setCellValue('C6', Carbon::now()->isoFormat('DD MMMM YYYY'))->getStyle('C6')->applyFromArray($styleTitleDate);
+                $event->sheet->setCellValue('H5', 'Periode: ');
+                $event->sheet->setCellValue('H6', Carbon::now()->isoFormat('MMMM YYYY'))->getStyle('H6')->applyFromArray($styleTitleDate)->getAlignment()->setWrapText(false);
+
+
                 $event->sheet->setCellValue('B9', 'No')->mergeCells("B9:B10")->getStyle('B9:B10')->applyFromArray($styleArray);
-                $event->sheet->setCellValue('C9', 'Nama')->mergeCells("C9:D10")->getStyle('C9:D10')->applyFromArray($styleArray);
+                $event->sheet->setCellValue('C9', 'Nama Peminjam')->mergeCells("C9:D10")->getStyle('C9:D10')->applyFromArray($styleArray);
                 $event->sheet->setCellValue('E9', 'Unit')->mergeCells("E9:E10")->getStyle('E9:E10')->applyFromArray($styleArray);
-                $event->sheet->setCellValue('F9', 'Disetujui Oleh')->mergeCells("F9:F10")->getStyle('F9:F10')->applyFromArray($styleArray);
-                $event->sheet->setCellValue('G9', 'Diterima Oleh')->mergeCells("G9:G10")->getStyle('G9:G10')->applyFromArray($styleArray);
-                $event->sheet->setCellValue('H9', 'Nama Asset')->mergeCells("H9:H10")->getStyle('H9:H10')->applyFromArray($styleArray);
+                $event->sheet->setCellValue('F9', 'Aset Yang Dipinjam')->mergeCells("F9:F10")->getStyle('F9:F10')->applyFromArray($styleArray);
+
+                $event->sheet->setCellValue('G9', 'Peminjaman')->mergeCells("G9:H9")->getStyle('G9:H9')->applyFromArray($styleArray, $center);
+                $event->sheet->setCellValue('G10', 'Tanggal Pinjam')->getStyle('G10')->applyFromArray($styleArray);
+                $event->sheet->setCellValue('H10', 'Disetujui Oleh')->getStyle('H10')->applyFromArray($styleArray);
+
+                $event->sheet->setCellValue('I9', 'Pengembalian')->mergeCells("I9:J9")->getStyle('I9:J9')->applyFromArray($styleArray, $center);
+                $event->sheet->setCellValue('I10', 'Tanggal Kembali')->getStyle('I10')->applyFromArray($styleArray);
+                $event->sheet->setCellValue('J10', 'Diterima Oleh')->getStyle('J10')->applyFromArray($styleArray);
+                $event->sheet->setCellValue('K9', 'Total Hari')->mergeCells("K9:K10")->getStyle('K9:K10')->applyFromArray($styleArray);
+
                 // $event->sheet->setCellValue('E9', 'Kategori Barang Peminjaman');
                 // $event->sheet->setCellValue('H9', 'Tanggal Peminjaman')->mergeCells("H9:H10")->getStyle('H9:H10')->applyFromArray($styleArray);
-                $event->sheet->setCellValue('I9', 'Tanggal Pengembalian')->mergeCells("I9:I10")->getStyle('I9:I10')->applyFromArray($styleArray);
                 // $event->sheet->setCellValue('H2', 'Status');
 
-                foreach (range('D', 'I') as $col) {
-                    if($col === 'E'){
+                foreach (range('D', 'J') as $col) {
+                    if ($col === 'E') {
                         continue;
                     }
-                    if($col==='H'){
+                    if ($col === 'F') {
                         continue;
                     }
                     $event->sheet->getColumnDimension($col)->setAutoSize(true);
@@ -130,31 +148,51 @@ class LoanExport implements WithHeadings, WithEvents, WithHeadingRow, WithColumn
                 // dd($loan_date);
                 foreach ($loan_date as $date) {
                     // dd($date->loan_date);
+                    $event->sheet->setCellValue('B' . $cell, $i . '. ')->getStyle('B' . $cell)
+                        ->getFill()
+                        ->applyFromArray([
+                            $styleTitleDate,
+                            'fillType' => 'solid',
+                            'rotation' => 0,
+                            'color' => [
+                                'rgb' => 'D8E4BC'
+                            ],
+                        ]);
+                    $event->sheet->setCellValue('C' . $cell, Carbon::parse($date->loan_date)->isoFormat('DD MMMM YYYY'))->mergeCells('C' . $cell . ':K' . $cell)->getStyle('C' . $cell . ':K' . $cell)->applyFromArray($styleTitleDate);
+                    $event->sheet->setCellValue('C' . $cell, Carbon::parse($date->loan_date)->isoFormat('DD MMMM YYYY'))->mergeCells('C' . $cell . ':K' . $cell)->getStyle('C' . $cell . ':K' . $cell)->getFill()->applyFromArray([
+                        'fillType' => 'solid',
+                        'rotation' => 0,
+                        'color' => [
+                            'rgb' => 'D8E4BC'
+                        ],
 
-                    $event->sheet->setCellValue('B' . $cell, $i);
-                    $event->sheet->setCellValue('C' . $cell, Carbon::parse($date->loan_date)->isoFormat('DD MMMM YYYY'))->mergeCells('C' . $cell . ':I' . $cell);
+                    ]);
                     $cell++;
                     $loans = Loan::getLoanPerDate($date->loan_date);
                     $i_data = 1;
                     foreach ($loans as $row) {
                         $cellData = $cell;
+                        $event->sheet->getStyle('B' . $cell . ':' . 'K' . $cellData)->applyFromArray($styleContent);
                         $loanAssets = Loan::getLoanAsset($row->id);
-                        // $event->sheet->setCellValue('B' . $cell, "tes");
-                        // $event->sheet->setCellValue('B' . $cellData, $i);
-                        
+                        $event->sheet->setCellValue('C' . $cellData, $i_data . '. ')->getStyle('C' . $cellData)->applyFromArray($center);
                         $event->sheet->setCellValue('D' . $cellData, $row->name);
-                        $event->sheet->setCellValue('E' . $cellData, $row->department_name);
-                        $event->sheet->setCellValue('F' . $cellData, $row->approved_by);
-                        $event->sheet->setCellValue('G' . $cellData, $row->approved_return);
+                        $event->sheet->setCellValue('E' . $cellData, $row->department_name)->getStyle('E' . $cellData)->applyFromArray($center);
                         $event->sheet->setCellValue(
-                            'H' . $cellData,
-                            implode(', ', $loanAssets)
+                            'F' . $cellData,
+                            implode(',' . PHP_EOL, $loanAssets)
                         );
+                        $event->sheet->setCellValue('G' . $cellData, Carbon::parse($row->loan_date)->isoFormat('DD MMMM YYYY'))->getStyle('G' . $cellData)->applyFromArray($center);
+                        $event->sheet->setCellValue('H' . $cellData, $row->approved_by);
+                        $event->sheet->setCellValue('I' . $cellData, Carbon::parse($row->real_return_date)->isoFormat('DD MMMM YYYY'))->getStyle('I' . $cellData)->applyFromArray($center);
+                        $event->sheet->setCellValue('J' . $cellData, $row->approved_return);
+
+                        $from = \Carbon\Carbon::createFromFormat('Y-m-d', $row->loan_date);
+                        $to = Carbon::createFromFormat('Y-m-d', $row->real_return_date);                        
+                        $event->sheet->setCellValue('K' . $cellData, $to->diffInDays($from))->getStyle('K' . $cellData)->applyFromArray($center);
+
                         // $event->sheet->setCellValue('H' . $cellData, Carbon::parse(date($row->loan_date))->toFormattedDateString());
-                        $event->sheet->setCellValue('I' . $cellData, Carbon::parse($row->real_return_date)->isoFormat('DD MMMM YYYY'));
+
                         $endRow = $cellData;
-                        $event->sheet->getStyle('B' . $cell . ':' . 'I' . $cellData)->applyFromArray($styleContent);
-                        $event->sheet->setCellValue('C' . $cellData, $i_data)->getStyle('C'.$cellData)->applyFromArray($center);
                         $cellData++;
                         $cell = $cellData;
                         $i_data++;
@@ -164,12 +202,15 @@ class LoanExport implements WithHeadings, WithEvents, WithHeadingRow, WithColumn
                 // content outside border
                 //left
                 $event->sheet->getStyle('B11:B' . $endRow)->applyFromArray([
+                    'font' => [
+                        'bold' => true,
+                    ],
                     'borders' => [
                         'left' => [
                             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
                         ],
                         'right' => [
-                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
+                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
                         ]
                     ],
                     'alignment' => [
@@ -177,7 +218,7 @@ class LoanExport implements WithHeadings, WithEvents, WithHeadingRow, WithColumn
                     ],
                 ]);
                 //right
-                $event->sheet->getStyle('I11:I' . $endRow)->applyFromArray([
+                $event->sheet->getStyle('I11:K' . $endRow)->applyFromArray([
                     'borders' => [
                         'right' => [
                             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
@@ -185,7 +226,7 @@ class LoanExport implements WithHeadings, WithEvents, WithHeadingRow, WithColumn
                     ],
                 ]);
                 //bottom
-                $event->sheet->getStyle('B' . $endRow . ':I' . $endRow)->applyFromArray([
+                $event->sheet->getStyle('B' . $endRow . ':K' . $endRow)->applyFromArray([
                     'borders' => [
                         'bottom' => [
                             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,

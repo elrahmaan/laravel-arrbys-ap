@@ -30,6 +30,7 @@ class AssetServiceParameterExport implements WithHeadings, ShouldAutoSize, WithE
             'E' => 30,
             'G' => 25,
             'H' => 25,
+            'K' => 8,
         ];
     }
 
@@ -107,13 +108,14 @@ class AssetServiceParameterExport implements WithHeadings, ShouldAutoSize, WithE
                 $event->sheet->getStyle('E')->getAlignment()->setWrapText(true);
                 $event->sheet->getStyle('G')->getAlignment()->setWrapText(true);
                 $event->sheet->getStyle('H')->getAlignment()->setWrapText(true);
+                $event->sheet->getStyle('K')->getAlignment()->setWrapText(true);
                 $event->sheet->setCellValue('A1', 'PT. Angkasa Pura Airports');
                 $event->sheet->setCellValue('A2', 'Cabang Bandara Juanda - Surabaya');
                 $event->sheet->setCellValue('A4', 'Laporan Perbaikan Asset');
                 $event->sheet->setCellValue('A6', 'Tanggal: ');
                 $event->sheet->setCellValue('C6', Carbon::now()->isoFormat('DD MMMM YYYY'))->getStyle('C6')->applyFromArray($styleTitleDate);
-                $event->sheet->setCellValue('I5', 'Periode: ');
-                $event->sheet->setCellValue('I6', Carbon::parse($this->fromDates)->isoFormat('DD MMMM YYYY') . ' - ' . Carbon::parse($this->toDates)->isoFormat('DD MMMM YYYY'))->getStyle('I6')->applyFromArray($styleTitleDate)->getAlignment()->setWrapText(false);
+                $event->sheet->setCellValue('H5', 'Periode: ');
+                $event->sheet->setCellValue('H6', Carbon::parse($this->fromDates)->isoFormat('DD MMMM YYYY') . ' - ' . Carbon::parse($this->toDates)->isoFormat('DD MMMM YYYY'))->getStyle('H6')->applyFromArray($styleTitleDate)->getAlignment()->setWrapText(false);
 
                 $event->sheet->setCellValue('B9', 'No')->mergeCells("B9:B10")->getStyle('B9:B10')->applyFromArray($styleArray);
                 $event->sheet->setCellValue('C9', 'Nama Asset')->mergeCells("C9:D10")->getStyle('C9:D10')->applyFromArray($styleArray);
@@ -128,6 +130,7 @@ class AssetServiceParameterExport implements WithHeadings, ShouldAutoSize, WithE
                 $event->sheet->setCellValue('I9', 'Tanggal')->mergeCells("I9:J9")->getStyle('I9:J9')->applyFromArray($styleArray, $center);
                 $event->sheet->setCellValue('I10', 'Tanggal Komplain')->getStyle('I10')->applyFromArray($styleArray);
                 $event->sheet->setCellValue('J10', 'Tanggal Selesai')->getStyle('J10')->applyFromArray($styleArray);
+                $event->sheet->setCellValue('K9', 'Total Hari')->mergeCells("K9:K10")->getStyle('K9:K10')->applyFromArray($styleArray);
 
                 foreach (range('D', 'J') as $col) {
                     if ($col === 'E') {
@@ -156,9 +159,9 @@ class AssetServiceParameterExport implements WithHeadings, ShouldAutoSize, WithE
                             ],
                         ]);
                     $event->sheet->setCellValue('C' . $cell, Carbon::parse($date->date_fixed)->isoFormat('DD MMMM YYYY'))
-                        ->mergeCells('C' . $cell . ':J' . $cell)
-                        ->getStyle('C' . $cell . ':J' . $cell)->applyFromArray($styleTitleDate);
-                    $event->sheet->getStyle('C' . $cell . ':J' . $cell)
+                        ->mergeCells('C' . $cell . ':K' . $cell)
+                        ->getStyle('C' . $cell . ':K' . $cell)->applyFromArray($styleTitleDate);
+                    $event->sheet->getStyle('C' . $cell . ':K' . $cell)
                         ->getFill()
                         ->applyFromArray([
                             'fillType' => 'solid',
@@ -173,7 +176,7 @@ class AssetServiceParameterExport implements WithHeadings, ShouldAutoSize, WithE
                     $i_data = 1;
                     foreach ($services as $row) {
                         $cellData = $cell;
-                        $event->sheet->getStyle('B' . $cell . ':' . 'J' . $cellData)->applyFromArray($styleContent);
+                        $event->sheet->getStyle('B' . $cell . ':' . 'K' . $cellData)->applyFromArray($styleContent);
                         $event->sheet->setCellValue('C' . $cellData, $i_data . '. ')->getStyle('C' . $cellData)->applyFromArray($center);
                         $event->sheet->setCellValue('D' . $cellData, $row->asset_name);
                         $event->sheet->setCellValue('E' . $cellData, $row->department_name)->getStyle('E' . $cellData)->applyFromArray($center);
@@ -182,6 +185,11 @@ class AssetServiceParameterExport implements WithHeadings, ShouldAutoSize, WithE
                         $event->sheet->setCellValue('H' . $cellData, $row->diagnose);
                         $event->sheet->setCellValue('I' . $cellData, Carbon::parse($row->date)->isoFormat('DD MMMM YYYY'))->getStyle('I' . $cellData)->applyFromArray($center);
                         $event->sheet->setCellValue('J' . $cellData, Carbon::parse($row->date_fixed)->isoFormat('DD MMMM YYYY'))->getStyle('J' . $cellData)->applyFromArray($center);
+
+                        $to = \Carbon\Carbon::createFromFormat('Y-m-d', $row->date_fixed);
+                        $from = \Carbon\Carbon::createFromFormat('Y-m-d', $row->date);
+                        $event->sheet->setCellValue('K' . $cellData, $to->diffInDays($from))->getStyle('K' . $cellData)->applyFromArray($center);
+
                         $endRow = $cellData;
 
                         // $event->sheet->setCellValue('C' . $cellData, $i_data);
@@ -211,7 +219,7 @@ class AssetServiceParameterExport implements WithHeadings, ShouldAutoSize, WithE
                     ],
                 ]);
                 //right
-                $event->sheet->getStyle('J11:J' . $endRow)->applyFromArray([
+                $event->sheet->getStyle('J11:K' . $endRow)->applyFromArray([
                     'borders' => [
                         'right' => [
                             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
@@ -219,7 +227,7 @@ class AssetServiceParameterExport implements WithHeadings, ShouldAutoSize, WithE
                     ],
                 ]);
                 //bottom
-                $event->sheet->getStyle('B' . $endRow . ':J' . $endRow)->applyFromArray([
+                $event->sheet->getStyle('B' . $endRow . ':K' . $endRow)->applyFromArray([
                     'borders' => [
                         'bottom' => [
                             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,

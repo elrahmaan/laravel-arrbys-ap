@@ -40,6 +40,28 @@ class Loan extends Model
             ->get()->toArray();
         return $record;
     }
+    public static function getDateParameter($fromDates, $toDates)
+    {
+        if ($fromDates == $toDates) {
+            $record = DB::table('loans')
+                ->selectRaw('DISTINCT loan_date')
+                ->where('loans.status', 'Return')
+                ->where('loan_date', $fromDates)
+                ->orderBy('loan_date', 'ASC')
+                ->get()->toArray();
+        } else {
+            $record = DB::table('loans')
+                ->selectRaw('DISTINCT loan_date')
+                ->where('loans.status', 'Return')
+                ->where('loan_date', '>=', $fromDates)
+                ->where('loan_date', '<=', $toDates)
+                ->orderBy('loan_date', 'ASC')
+                ->get()->toArray();
+        }
+        // dd($current_month);
+
+        return $record;
+    }
     public static function getLoanPerDate($date)
     {
         $current_month = Carbon::now()->format('m');
@@ -70,11 +92,11 @@ class Loan extends Model
             ->leftJoin('loans', 'loan_assets.loan_id', '=', 'loans.id')
             ->leftJoin('serials', 'loan_assets.serial_id', '=', 'serials.id')
             ->leftJoin('assets', 'serials.asset_id', '=', 'assets.id')
-            ->select('loans.id as id','assets.name as name', 'loans.approved_by_return as approved_return', 'serials.no_serial as no_serial', 'loans.approved_by as approved_by', 'assets.category_asset as category_asset', 'loans.loan_date as loan_date', 'loans.real_return_date')
+            ->select('loans.id as id', 'assets.name as name', 'loans.approved_by_return as approved_return', 'serials.no_serial as no_serial', 'loans.approved_by as approved_by', 'assets.category_asset as category_asset', 'loans.loan_date as loan_date', 'loans.real_return_date')
             ->where('loan_assets.loan_id', $id)->get()->toArray();
-            foreach ($records as $record) {
-                $recordData[] = $record->name . ' (' . $record->no_serial . ' | ' .  $record->category_asset . ')';
-            }
+        foreach ($records as $record) {
+            $recordData[] = $record->name . ' (' . $record->no_serial . ' [' .  $record->category_asset . '])';
+        }
         return $recordData;
     }
     public static function getLoanParameter($fromDates, $toDates)

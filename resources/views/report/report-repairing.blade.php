@@ -126,7 +126,14 @@
                             <input type="hidden" name="toDate" value="{{ request('to_date') }}">
                             @endif
                             <button type="submit" class="btn btn-success rounded-3 pl-3 pr-3">Print Report .xlsx
-                                <i class="fa fa-print ml-2"></i></button><span>Periode: {{\Carbon\Carbon::now()->isoFormat('MMMM YYYY')}}</span>
+                                <i class="fa fa-print ml-2"></i></button>
+                            <span>Periode:
+                                @if (request('from_date') && request('to_date'))
+                                {{ \Carbon\Carbon::parse(request('from_date'))->isoFormat('DD MMMM YYYY') }} - {{ \Carbon\Carbon::parse(request('to_date'))->isoFormat('DD MMMM YYYY') }}
+                                @else
+                                {{\Carbon\Carbon::now()->isoFormat('MMMM YYYY')}}
+                                @endif
+                            </span>
                         </form>
                     </div>
                     <div class="card-body">
