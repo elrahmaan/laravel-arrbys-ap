@@ -269,7 +269,7 @@
                             <th>Category</th>
                             <th>Image</th>
                             <th>Qty</th>
-                            <th>Date</th>
+                            <th>Date Entry</th>
                             <th>Action</th>
                         </tr>
                     </thead>

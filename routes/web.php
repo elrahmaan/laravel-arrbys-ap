@@ -38,6 +38,7 @@ Route::middleware(['auth', 'cekrole:superadmin'])->group(function () {
 });
 Route::middleware(['auth', 'cekrole:superadmin,teknisi,viewer'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('home');
+    Route::post('/updateProfile/{id}', [UserController::class, 'updateProfile']);
     Route::resources([
         'lpp' => ListPriceController::class,
         'report-repairing' => ReportController::class,

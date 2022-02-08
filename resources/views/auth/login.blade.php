@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="stylesheet" href="assets/css/pages/auth.css">
+    <link rel="shortcut icon" href="{{url('/img/favicon.png')}}" type="image/x-icon">
 </head>
 
 <body>
@@ -21,7 +22,7 @@
                 <div class="col-lg-5 col-12">
                     <div id="auth-left">
                         <div class="auth-logo">
-                            <a href="index.html"><img src="assets/images/logo/logo.png" alt="Logo" style="width: 250px; height: 250px; margin-bottom: -120px; margin-top: -120px"></a>
+                            <a href="index.html"><img src="assets/images/logo/logo.png" alt="Logo" style="width: 400px; height: 300px; margin-bottom: -120px; margin-top: -120px"></a>
                         </div>
                         <h1 class="auth-title">Log in.</h1>
                         <p class="auth-subtitle mb-5">Log in with your data that you entered during registration.</p>

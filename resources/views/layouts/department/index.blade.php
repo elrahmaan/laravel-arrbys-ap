@@ -154,10 +154,10 @@
                             <td>{{ $d->name }}</td>
                             <td>{{ $d->code }}</td>
                             <td class="d-flex">
-                                <a href="#"><button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#showData{{ $d->id }}">
+                                {{--<a href="#"><button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#showData{{ $d->id }}">
                                         <i class="fa fa-eye"></i>
                                     </button>
-                                </a>
+                                </a>--}}
                                 <a href="#"><button type="button" class="btn btn-warning me-2" data-bs-toggle="modal" data-bs-target="#editData{{ $d->id }}">
                                         <i class="fa fa-edit"></i>
                                     </button>

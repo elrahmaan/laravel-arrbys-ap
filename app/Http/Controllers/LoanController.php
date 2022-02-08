@@ -27,7 +27,7 @@ class LoanController extends Controller
         }
 
 
-        $data = Loan::latest()->whereYear('loan_date', $current_year)->get()->sortBy('status');
+        $datas = Loan::latest()->whereYear('loan_date', $current_year)->get();
         $serials = Serial::all();
         $carbon = Carbon::now()->toDateString();
         $departments = Department::all();
@@ -38,7 +38,7 @@ class LoanController extends Controller
             ->orderByRaw('year ASC')
             ->get();
         return view('layouts.loan.index', compact(
-            'data',
+            'datas',
             'departments',
             'carbon',
             'serials',
@@ -75,9 +75,12 @@ class LoanController extends Controller
             return redirect('/loan');
         } else {
             $loan = new Loan();
-            $countLoan = DB::table('loans')->count();
-            $id = $countLoan + 1;
-            $loan->id = $id;
+            // $countLoan = DB::table('loans')->count();
+            $code = DB::table('loans')->where('id', 'LIKE',  '%' . Carbon::parse(date($request->loan_date))->format('dmY') . '%')->count();
+            $loan->id = Carbon::parse(date($request->loan_date))->format('dmY') . ($code + 1);
+
+            // $id = $countLoan + 1;
+            // $loan->id = $id;
             $loan->name = $request->name;
             $loan->status = $request->status;
             $loan->department_id = $request->department_id;
@@ -92,7 +95,7 @@ class LoanController extends Controller
             if ($loan->save()) {
                 foreach ($serials as $serial) {
                     $loanAsset = new LoanAsset();
-                    $loanAsset->loan_id = $id;
+                    $loanAsset->loan_id = $loan->id;
                     $loanAsset->serial_id = $serial;
                     $loanAsset->save();
 

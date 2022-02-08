@@ -8,6 +8,7 @@
     @yield('css')
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="{{url('/img/favicon.png')}}" type="image/x-icon">
     <link rel="stylesheet" href="assets/css/bootstrap.css">
     <link rel="stylesheet" href="assets/vendors/iconly/bold.css">
     <link rel="stylesheet" href="assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
@@ -45,7 +46,7 @@
                                                 @elseif(auth()->user()->role== "teknisi")
                                                 Teknisi
                                                 @else
-                                                Viewer    
+                                                Viewer
                                                 @endif
                                             </p>
                                         </div>
@@ -55,6 +56,14 @@
                                     <li>
                                         <h6 class="dropdown-header">Hello, {{Auth::user()->name}}
                                         </h6>
+                                    </li>
+                                    <li><a class="dropdown-item" role="button" data-bs-toggle="modal" data-bs-target="#editProfile">
+                                            <i class="icon-mid bi bi-person-fill me-2"></i>
+                                            Edit Profile
+                                        </a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            @csrf
+                                        </form>
                                     </li>
                                     <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();" role="button">
@@ -67,6 +76,84 @@
                                         </form>
                                     </li>
                                 </ul>
+                                <div class="modal fade text-left" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header bg-secondary">
+                                                <h5 class="modal-title white" id="myModalLabel160">Edit profile
+                                                </h5>
+                                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                    <i data-feather="x"></i>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="/updateProfile/{{Auth::user()->id}}" class="form form-vertical" method="POST" enctype="multipart/form-data">
+                                                    @csrf
+                                                    <form class="form form-vertical">
+                                                        <div class="form-body">
+                                                            <div class="row">
+                                                            <input type="hidden" name="role" value="{{ Auth::user()->role }}" class="form-control" placeholder="Name" id="first-name-icon">
+                                                                <div class="col-12">
+                                                                    <div class="form-group has-icon-left">
+                                                                        <label for="first-name-icon">Name</label>
+                                                                        <div class="position-relative">
+                                                                            <input type="text" name="name" value="{{ Auth::user()->name }}" class="form-control" placeholder="Name" id="first-name-icon" required>
+                                                                            <div class="form-control-icon">
+                                                                                <i class="bi bi-person-fill"></i>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <div class="form-group has-icon-left">
+                                                                        <label for="email-id-icon">Email</label>
+                                                                        <div class="position-relative">
+                                                                            <input type="email" name="email" value="{{ Auth::user()->email }}" class="form-control" placeholder="Email" id="email-id-icon" required>
+                                                                            <div class="form-control-icon">
+                                                                                <i class="bi bi-envelope-fill"></i>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <div class="form-group has-icon-left">
+                                                                        <label for="first-name-icon">Password</label>
+                                                                        <div class="position-relative">
+                                                                            <input type="password" name="password" class="form-control" placeholder="Type your new password" id="first-name-icon" required>
+                                                                            <div class="form-control-icon">
+                                                                                <i class="bi bi-key-fill"></i>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <div class="form-group has-icon-left">
+                                                                        <label for="first-name-icon">Confirm Password</label>
+                                                                        <div class="position-relative">
+                                                                            <input type="password" name="confirm_password" class="form-control" placeholder="Re-Type your new password" id="first-name-icon" required>
+                                                                            <div class="form-control-icon">
+                                                                                <i class="bi bi-key-fill"></i>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                                                    <i class="bx bx-x d-block d-sm-none"></i>
+                                                    <span class="d-none d-sm-block">Cancel</span>
+                                                </button>
+                                                <button type="submit" class="btn btn-secondary ml-1">
+                                                    <i class="bx bx-check d-block d-sm-none"></i>
+                                                    <span class="d-none d-sm-block">Update</span>
+                                                </button>
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -20,7 +20,9 @@
 <script src="assets/js/pages/form-element-select.js"></script> -->
 <script>
     // Jquery Datatable
-    let jquery_datatable = $("#table1").DataTable()
+    let jquery_datatable = $("#table1").DataTable(
+        {"order": [[ 6, "asc" ]]}
+    )
 </script>
 
 <script>
@@ -273,7 +275,7 @@
                 <table class="table table-hover table-lg" id="table1">
                     <thead>
                         <tr>
-                            <th>No</th>
+                            <th>ID</th>
                             <th>Name</th>
                             <th>Department</th>
                             <th>Approved By</th>
@@ -284,9 +286,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($data as $data)
+                        @foreach ($datas as $data)
                         <tr class="align-items-center">
-                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $data->id }}</td>
                             <td>
                                 {{ $data->name }}
 

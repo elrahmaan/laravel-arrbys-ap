@@ -126,7 +126,7 @@
                             <input type="hidden" name="toDate" value="{{ request('to_date') }}">
                             @endif
                             <button type="submit" class="btn btn-success rounded-3 pl-3 pr-3">Print Report .xlsx
-                                <i class="fa fa-print ml-2"></i></button>
+                                <i class="fa fa-print ml-2"></i></button><span>Periode: {{\Carbon\Carbon::now()->isoFormat('MMMM YYYY')}}</span>
                         </form>
                     </div>
                     <div class="card-body">

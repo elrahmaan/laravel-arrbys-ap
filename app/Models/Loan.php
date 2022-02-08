@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -26,21 +27,42 @@ class Loan extends Model
         return $this->hasMany(LoanAsset::class);
     }
 
-    public static function getLoan()
+    //--------------------- NEW FOR ALL-----------------
+    public static function getDate()
     {
+        $current_month = Carbon::now()->format('m');
+        // dd($current_month);
+        $record = DB::table('loans')
+            ->selectRaw('DISTINCT loan_date')
+            ->where('loans.status', 'Return')
+            ->whereMonth('loan_date', $current_month)
+            ->orderBy('loan_date', 'ASC')
+            ->get()->toArray();
+        return $record;
+    }
+    public static function getLoanPerDate($date)
+    {
+        $current_month = Carbon::now()->format('m');
+        // dd($current_month);
         $record = DB::table('loans')->leftJoin('departments', 'loans.department_id', '=', 'departments.id')
             ->select('loans.id as id', 'loans.approved_by_return as approved_return', 'loans.name as name', 'departments.name as department_name', 'loans.approved_by as approved_by', 'loans.loan_date as loan_date', 'loans.real_return_date')
             ->where('loans.status', 'Return')
+            ->where('loan_date', $date)
             ->get()->toArray();
         return $record;
-        // $record = DB::table('loan_assets')
-        //     ->leftJoin('loans', 'loan_assets.loan_id', '=', 'loans.id')
-        //     ->leftJoin('serials', 'loan_assets.serial_id', '=', 'serials.id')
-        //     ->leftJoin('assets', 'serials.asset_id', '=', 'asset.id')
-        //     ->leftJoin('asset_categories', 'assets.category_id', '=', 'asset_categories.id')
-        //     ->leftJoin('departments', 'loans.department_id', '=', 'departments.id')
-        //     ->select('loans.name as name', 'departments.name as department_name', 'loans.approved_by as approved_by', 'assets.name as asset_name', 'loans.loan_date as loan_date', 'loans.estimation_return_date', 'loans.status')->get()->toArray();
-        // return $record;
+    }
+    //--------------------------------------------------
+
+    public static function getLoan()
+    {
+        $current_month = Carbon::now()->format('m');
+        // dd($current_month);
+        $record = DB::table('loans')->leftJoin('departments', 'loans.department_id', '=', 'departments.id')
+            ->select('loans.id as id', 'loans.approved_by_return as approved_return', 'loans.name as name', 'departments.name as department_name', 'loans.approved_by as approved_by', 'loans.loan_date as loan_date', 'loans.real_return_date')
+            ->where('loans.status', 'Return')
+            ->whereMonth('loan_date', $current_month)
+            ->get()->toArray();
+        return $record;
     }
     public static function getLoanAsset($id)
     {
