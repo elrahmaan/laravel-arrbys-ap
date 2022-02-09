@@ -21,7 +21,7 @@ class UnitLog extends Model
     {
         return $this->belongsTo(ServiceAsset::class);
     }
-    public function getDate()
+    public static function getDate()
     {
         $current_month = Carbon::now()->format('m');
         // dd($current_month);
@@ -32,7 +32,7 @@ class UnitLog extends Model
             ->get()->toArray();
         return $record;
     }
-    public function getDateParameter($fromDates, $toDates)
+    public static function getDateParameter($fromDates, $toDates)
     {
         $current_month = Carbon::now()->format('m');
         // dd($current_month);
