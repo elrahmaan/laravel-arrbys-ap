@@ -36,8 +36,12 @@ class ServiceAssetController extends Controller
         $logs = UnitLog::all();
         $countData = DB::table('service_assets')->count();
         if ($countData > 0) {
+            // $years = DB::table("service_assets")
+            //     ->selectRaw("DISTINCT year(date) AS year")
+            //     ->orderByRaw('year ASC')
+            //     ->get();
             $years = DB::table("service_assets")
-                ->selectRaw("DISTINCT year(date) AS year")
+                ->selectRaw("DISTINCT ON (year(date)) year")
                 ->orderByRaw('year ASC')
                 ->get();
         } else {

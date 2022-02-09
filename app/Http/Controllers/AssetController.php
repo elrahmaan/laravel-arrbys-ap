@@ -38,8 +38,13 @@ class AssetController extends Controller
         $countData = DB::table('assets')->count();
 
         if ($countData > 0) {
+            // $years = DB::table("assets")
+            //     ->selectRaw("DISTINCT year(date) AS year")
+            //     ->orderByRaw('year ASC')
+            //     ->get();
+
             $years = DB::table("assets")
-                ->selectRaw("DISTINCT year(date) AS year")
+                ->selectRaw("DISTINCT ON (year(date)) year")
                 ->orderByRaw('year ASC')
                 ->get();
         } else {
