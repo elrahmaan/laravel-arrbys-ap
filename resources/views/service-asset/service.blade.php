@@ -721,6 +721,17 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
+                                                            <div class="form-group has-icon-left">
+                                                                <label for="first-name-icon">Date Entry</label>
+                                                                <div class="position-relative">
+                                                                    <input type="text" name="date_entry" class="form-control" value="{{\Carbon\Carbon::parse($service->date)->isoFormat('DD MMM YYYY')}}" id="first-name-icon" readonly>
+                                                                    <div class="form-control-icon">
+                                                                        <i class="fa fa-calendar"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
                                                             <label for="password-id-icon">Complain Desc</label>
                                                             <div class="position-relative mb-2">
                                                                 <textarea class="form-control" name="desc_complain" id="" rows="5" readonly>{{$service->desc_complain}}</textarea>

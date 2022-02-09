@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ServiceAssetController extends Controller
 {
@@ -40,9 +41,9 @@ class ServiceAssetController extends Controller
             ->get();
         return view('service-asset.service', compact(
             'departments',
-            'services', 
-            'categories', 
-            'logs', 
+            'services',
+            'categories',
+            'logs',
             'now',
             'current_year',
             'countData',
@@ -158,23 +159,28 @@ class ServiceAssetController extends Controller
 
     public function repair(Request $request, $id)
     {
-        $asset = ServiceAsset::find($id);
-        $asset->status = 'Fixed';
-        $asset->diagnose = $request->diagnose;
-        $asset->date_fixed = $request->date_fixed;
-        $asset->save();
+        if ($request->date_fixed < $request->date_entry) {
+            Alert::error('Error', 'Invalid Parameter Date !');
+            return redirect()->route('service.index');
+        } else {
+            $asset = ServiceAsset::find($id);
+            $asset->status = 'Fixed';
+            $asset->diagnose = $request->diagnose;
+            $asset->date_fixed = $request->date_fixed;
+            $asset->save();
 
 
-        $log = new UnitLog();
-        $log->asset_id = $request->asset_id;
-        $log->complainant_name = $request->complainant_name;
-        $log->department_id = $request->department_id;
-        $log->desc_complain = $request->desc_complain;
-        $log->diagnose = $request->diagnose;
-        $log->date_fixed = $request->date_fixed;
-        $log->save();
+            $log = new UnitLog();
+            $log->asset_id = $request->asset_id;
+            $log->complainant_name = $request->complainant_name;
+            $log->department_id = $request->department_id;
+            $log->desc_complain = $request->desc_complain;
+            $log->diagnose = $request->diagnose;
+            $log->date_fixed = $request->date_fixed;
+            $log->save();
 
-        return redirect()->route('service.index')->with('success', 'Asset Fixed!');;
+            return redirect()->route('service.index')->with('success', 'Asset Fixed!');;
+        }
     }
 
     /**
