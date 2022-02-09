@@ -35,7 +35,7 @@ class LoanController extends Controller
         $countLoan = DB::table('loans')->count();
         if ($countLoan > 0) {
             $years = DB::table("loans")
-                ->selectRaw("DISTINCT year(loan_date) year")
+                ->selectRaw("DISTINCT year(loan_date) AS year")
                 ->orderByRaw('year ASC')
                 ->get();
         } else {

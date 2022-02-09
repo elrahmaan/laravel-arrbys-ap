@@ -37,7 +37,7 @@ class ServiceAssetController extends Controller
         $countData = DB::table('service_assets')->count();
         if ($countData > 0) {
             $years = DB::table("service_assets")
-                ->selectRaw("DISTINCT year(date) year")
+                ->selectRaw("DISTINCT year(date) AS year")
                 ->orderByRaw('year ASC')
                 ->get();
         } else {
