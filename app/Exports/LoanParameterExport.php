@@ -29,6 +29,7 @@ class LoanParameterExport implements WithHeadings, ShouldAutoSize, WithEvents, W
             'C' => 5,
             'E' => 30,
             'F' => 40,
+            'H' => 17,
             'K' => 8,
         ];
     }
@@ -118,8 +119,7 @@ class LoanParameterExport implements WithHeadings, ShouldAutoSize, WithEvents, W
                 $event->sheet->setCellValue('A6', 'Tanggal: ');
                 $event->sheet->setCellValue('C6', Carbon::now()->isoFormat('DD MMMM YYYY'))->getStyle('C6')->applyFromArray($styleTitleDate);
                 $event->sheet->setCellValue('H5', 'Periode: ');
-                $event->sheet->setCellValue('H6', Carbon::now()->isoFormat('MMMM YYYY'))->getStyle('H6')->applyFromArray($styleTitleDate)->getAlignment()->setWrapText(false);
-
+                $event->sheet->setCellValue('H6', Carbon::parse($this->fromDates)->isoFormat('DD MMMM YYYY') . ' - ' . Carbon::parse($this->toDates)->isoFormat('DD MMMM YYYY'))->getStyle('H6')->applyFromArray($styleTitleDate)->getAlignment()->setWrapText(false);
 
                 $event->sheet->setCellValue('B9', 'No')->mergeCells("B9:B10")->getStyle('B9:B10')->applyFromArray($styleArray);
                 $event->sheet->setCellValue('C9', 'Nama Peminjam')->mergeCells("C9:D10")->getStyle('C9:D10')->applyFromArray($styleArray);
@@ -144,6 +144,9 @@ class LoanParameterExport implements WithHeadings, ShouldAutoSize, WithEvents, W
                         continue;
                     }
                     if ($col === 'F') {
+                        continue;
+                    }
+                    if ($col === 'H') {
                         continue;
                     }
                     $event->sheet->getColumnDimension($col)->setAutoSize(true);
@@ -193,7 +196,7 @@ class LoanParameterExport implements WithHeadings, ShouldAutoSize, WithEvents, W
                         $event->sheet->setCellValue('J' . $cellData, $row->approved_return);
 
                         $from = \Carbon\Carbon::createFromFormat('Y-m-d', $row->loan_date);
-                        $to = Carbon::createFromFormat('Y-m-d', $row->real_return_date);                        
+                        $to = Carbon::createFromFormat('Y-m-d', $row->real_return_date);
                         $event->sheet->setCellValue('K' . $cellData, $to->diffInDays($from))->getStyle('K' . $cellData)->applyFromArray($center);
 
                         // $event->sheet->setCellValue('H' . $cellData, Carbon::parse(date($row->loan_date))->toFormattedDateString());

@@ -87,9 +87,17 @@ class AssetExport implements WithHeadings, ShouldAutoSize, WithEvents, WithHeadi
                 $event->sheet->setCellValue('B2', 'Nama');
                 $event->sheet->setCellValue('C2', 'Kategori');
                 $event->sheet->setCellValue('D2', 'Kategori Aset');
-                $event->sheet->setCellValue('E2', 'Deskripsi');
+                $event->sheet->setCellValue('E2', 'Deskripsi Aset');
                 $event->sheet->setCellValue('F2', 'Jumlah');
                 $event->sheet->setCellValue('G2', 'Tanggal Masuk');
+
+                $event->sheet->setCellValue('A3', '1');
+                $event->sheet->setCellValue('B3', 'Rahman');
+                $event->sheet->setCellValue('C3', 'LAPTOP');
+                $event->sheet->setCellValue('D3', 'Asset AP');
+                $event->sheet->setCellValue('E3', 'Ram 8GB');
+                $event->sheet->setCellValue('F3', '1');
+                $event->sheet->setCellValue('G3', '09/02/2022');
 
                 //3
                 // $event->sheet->setCellValue('A1', 'Impor Data Aset')->mergeCells("A1:G1")->getStyle('A1:G1')->applyFromArray($styleTitle);
