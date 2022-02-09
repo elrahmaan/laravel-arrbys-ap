@@ -42,10 +42,14 @@ class DashboardController extends Controller
         $inloan = DB::table('loans')->where('status', 'In Loan')->whereYear('loan_date', $current_year)->count();
         $return = DB::table('loans')->where('status', 'Return')->whereYear('loan_date', $current_year)->count();
         $countData = DB::table('loans')->count();
+        if($countData > 0){
         $years = DB::table("loans")
             ->selectRaw("DISTINCT year(loan_date) year")
             ->orderByRaw('year ASC')
             ->get();
+        }else{
+            $years = $current_year;
+        }
 
         $service_1 = DB::table('unit_logs')
             ->whereMonth('created_at', 1)

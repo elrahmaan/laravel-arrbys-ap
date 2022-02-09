@@ -36,10 +36,15 @@ class AssetController extends Controller
         //     dd($asset->date);
         // }
         $countData = DB::table('assets')->count();
-        $years = DB::table("assets")
-            ->selectRaw("DISTINCT year(date) year")
-            ->orderByRaw('year ASC')
-            ->get();
+
+        if ($countData > 0) {
+            $years = DB::table("assets")
+                ->selectRaw("DISTINCT year(date) year")
+                ->orderByRaw('year ASC')
+                ->get();
+        } else {
+            $years = $current_year;
+        }
 
         return view('service-asset.new', compact(
             'categories',

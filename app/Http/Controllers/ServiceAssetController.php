@@ -35,10 +35,14 @@ class ServiceAssetController extends Controller
         $now = Carbon::now()->format('Y-m-d');
         $logs = UnitLog::all();
         $countData = DB::table('service_assets')->count();
-        $years = DB::table("service_assets")
-            ->selectRaw("DISTINCT year(date) year")
-            ->orderByRaw('year ASC')
-            ->get();
+        if ($countData > 0) {
+            $years = DB::table("service_assets")
+                ->selectRaw("DISTINCT year(date) year")
+                ->orderByRaw('year ASC')
+                ->get();
+        } else {
+            $years = $current_year;
+        }
         return view('service-asset.service', compact(
             'departments',
             'services',

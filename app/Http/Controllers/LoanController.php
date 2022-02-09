@@ -33,10 +33,14 @@ class LoanController extends Controller
         $departments = Department::all();
         $loanAssets = LoanAsset::all();
         $countLoan = DB::table('loans')->count();
-        $years = DB::table("loans")
-            ->selectRaw("DISTINCT year(loan_date) year")
-            ->orderByRaw('year ASC')
-            ->get();
+        if ($countLoan > 0) {
+            $years = DB::table("loans")
+                ->selectRaw("DISTINCT year(loan_date) year")
+                ->orderByRaw('year ASC')
+                ->get();
+        } else {
+            $years = $current_year;
+        }
         return view('layouts.loan.index', compact(
             'datas',
             'departments',
