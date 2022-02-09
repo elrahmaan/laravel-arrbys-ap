@@ -42,10 +42,11 @@ class AssetController extends Controller
             //     ->selectRaw("DISTINCT year(date) AS year")
             //     ->orderByRaw('year ASC')
             //     ->get();
-
+            
+            //pgsql
             $years = DB::table("assets")
-                ->selectRaw("DISTINCT ON (year(date)) year")
-                ->orderByRaw('year ASC')
+                ->selectRaw("DISTINCT EXTRACT (YEAR FROM date) AS YEAR")
+                ->orderByRaw('YEAR ASC')
                 ->get();
         } else {
             $years = $current_year;

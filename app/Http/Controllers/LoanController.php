@@ -39,9 +39,10 @@ class LoanController extends Controller
             //     ->orderByRaw('year ASC')
             //     ->get();
 
+            //pgsql
             $years = DB::table("loans")
-                ->selectRaw("DISTINCT ON (year(loan_date)) year")
-                ->orderByRaw('year ASC')
+                ->selectRaw("DISTINCT EXTRACT (YEAR FROM loan_date) AS YEAR")
+                ->orderByRaw('YEAR ASC')
                 ->get();
         } else {
             $years = $current_year;
