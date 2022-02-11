@@ -1,4 +1,4 @@
-@extends('master')
+@extends('layouts.master.master')
 @section('title', 'AP1 Series | Users')
 @section('body')
 @section('css')

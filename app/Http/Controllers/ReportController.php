@@ -32,7 +32,7 @@ class ReportController extends Controller
             }
             
         }
-        return view('report.report-repairing',compact('report','found'));
+        return view('layouts.pages.report.report-repairing',compact('report','found'));
     }
 
     /**

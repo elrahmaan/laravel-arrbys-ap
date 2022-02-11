@@ -38,21 +38,21 @@ class AssetController extends Controller
         $countData = DB::table('assets')->count();
 
         if ($countData > 0) {
-            // $years = DB::table("assets")
-            //     ->selectRaw("DISTINCT year(date) AS year")
-            //     ->orderByRaw('year ASC')
-            //     ->get();
+            $years = DB::table("assets")
+                ->selectRaw("DISTINCT year(date) AS year")
+                ->orderByRaw('year ASC')
+                ->get();
             
             //pgsql
-            $years = DB::table("assets")
-                ->selectRaw("DISTINCT EXTRACT (YEAR FROM date) AS YEAR")
-                ->orderByRaw('YEAR ASC')
-                ->get();
+            // $years = DB::table("assets")
+            //     ->selectRaw("DISTINCT EXTRACT (YEAR FROM date) AS YEAR")
+            //     ->orderByRaw('YEAR ASC')
+            //     ->get();
         } else {
             $years = $current_year;
         }
 
-        return view('service-asset.new', compact(
+        return view('layouts.pages.asset', compact(
             'categories',
             'assets',
             'serials',

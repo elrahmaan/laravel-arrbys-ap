@@ -1,4 +1,4 @@
-@extends('master')
+@extends('layouts.master.master')
 @section('title', 'AP1 Series | Department')
 @section('body')
 @section('css')

@@ -15,7 +15,7 @@ class DepartmentController extends Controller
     public function index()
     {
         $data = Department::all();
-        return view('layouts.department.index', compact('data'));
+        return view('layouts.pages.department', compact('data'));
     }
 
     /**
@@ -43,7 +43,7 @@ class DepartmentController extends Controller
         if ($validate) {
             Department::insert($validate);
         }
-        return redirect('/department')->with('success', 'Data Added');
+        return redirect()->route('department.index')->with('success', 'Data Added');
     }
 
     /**

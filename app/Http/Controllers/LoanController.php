@@ -34,20 +34,20 @@ class LoanController extends Controller
         $loanAssets = LoanAsset::all();
         $countLoan = DB::table('loans')->count();
         if ($countLoan > 0) {
-            // $years = DB::table("loans")
-            //     ->selectRaw("DISTINCT year(loan_date) AS year")
-            //     ->orderByRaw('year ASC')
-            //     ->get();
+            $years = DB::table("loans")
+                ->selectRaw("DISTINCT year(loan_date) AS year")
+                ->orderByRaw('year ASC')
+                ->get();
 
             //pgsql
-            $years = DB::table("loans")
-                ->selectRaw("DISTINCT EXTRACT (YEAR FROM loan_date) AS YEAR")
-                ->orderByRaw('YEAR ASC')
-                ->get();
+            // $years = DB::table("loans")
+            //     ->selectRaw("DISTINCT EXTRACT (YEAR FROM loan_date) AS YEAR")
+            //     ->orderByRaw('YEAR ASC')
+            //     ->get();
         } else {
             $years = $current_year;
         }
-        return view('layouts.loan.index', compact(
+        return view('layouts.pages.loan', compact(
             'datas',
             'departments',
             'carbon',
@@ -113,7 +113,7 @@ class LoanController extends Controller
                     $serialData->is_borrowed = true;
                     $serialData->save();
                 }
-                return redirect('/loan')->with('success', 'Data Added !');
+                return redirect()->route('loan.index')->with('success', 'Data Added !');
             }
         }
     }
@@ -156,7 +156,7 @@ class LoanController extends Controller
             $serialData->save();
         }
         $loan->save();
-        return redirect('/loan')->with('success', 'Loan Returned!');
+        return redirect()->route('loan.index')->with('success', 'Loan Returned!');
     }
     /**
      * Update the specified resource in storage.
@@ -223,7 +223,7 @@ class LoanController extends Controller
         //     }
         //     return redirect('/loan')->with('success', 'Data Added !');
         // }
-        return redirect('/loan')->with('success', 'Data Updated!');
+        return redirect()->route('loan.index')->with('success', 'Data Updated!');
     }
 
     /**
@@ -244,6 +244,6 @@ class LoanController extends Controller
             }
         }
         Loan::find($id)->delete();
-        return redirect('/loan')->with('success', 'Data Deleted!');
+        return redirect()->route('loan.index')->with('success', 'Data Deleted!');
     }
 }

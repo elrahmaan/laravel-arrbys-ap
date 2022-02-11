@@ -16,7 +16,7 @@ class UserController extends Controller
     public function index()
     {
         $user = User::all();
-        return view('layouts.user', compact('user'));
+        return view('layouts.pages.user', compact('user'));
     }
 
     /**
@@ -49,7 +49,7 @@ class UserController extends Controller
         //     'role' => $request->role,
         //     'password' => Hash::make($request->password),
         // ]);
-        return redirect('/user')->with('success', 'Data Added!');
+        return redirect()->route('user.index')->with('success', 'Data Added!');
     }
 
     /**
@@ -88,7 +88,7 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->role = $request->role;
         $user -> save();
-        return redirect('/user')->with('success', 'Data Updated!');
+        return redirect()->route('user.index')->with('success', 'Data Updated!');
     }
 
     public function updateProfile(Request $request,$id)
@@ -117,6 +117,6 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $user -> delete();
-        return redirect('/user')->with('success', 'Data Deleted!');
+        return redirect()->route('user.index')->with('success', 'Data Deleted!');
     }
 }

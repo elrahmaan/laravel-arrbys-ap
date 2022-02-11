@@ -35,7 +35,7 @@ class ReportLoanController extends Controller
                     $found = false;
                 }
         }
-        return view('report.report-loan', compact('loan', 'carbon','found'));
+        return view('layouts.pages.report.report-loan', compact('loan', 'carbon','found'));
     }
 
     /**
@@ -116,67 +116,6 @@ class ReportLoanController extends Controller
         $filename1 = Carbon::parse(request('fromDate'))->isoFormat('DD MMMM YYYY');
         $filename2 = Carbon::parse(request('toDate'))->isoFormat('DD MMMM YYYY');
         return Excel::download(new LoanParameterExport($fromDates,$toDates), 'Laporan Peminjaman Asset per '.$filename1.' - '.$filename2.'.xlsx');
-
-    //     $spreedsheet = new Spreadsheet();
-    //     $sheet = $spreedsheet->getActiveSheet();
-
-    //     $styleArray = [
-    //         'font' => [
-    //             'bold' => true,
-    //             'size' => 13
-    //         ],
-    //     ];
-    //     $styleTitle = [
-    //         'font' => [
-    //             'bold' => true,
-    //             'size' => 15
-    //         ],
-    //         'alignment' => [
-    //             'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-    //         ],
-    //     ];
-    //     $styleContent = [
-    //         'font' => [
-    //             'bold' => false,
-    //             'size' => 12
-    //         ],
-    //         'alignment' => [
-    //             'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
-    //         ],
-    //     ];
-    //    $sheet->setCellValue('A1','Laporan Peminjaman Barang')->mergeCells('A1:H1')->getStyle('A1:H1')->applyFromArray($styleTitle);
-    //    $sheet->getStyle('A2:H2')->applyFromArray($styleArray);
-    //    $sheet->setCellValue('A2','Nama');
-    //    $sheet->setCellValue('B2','Unit');
-    //    $sheet->setCellValue('C2','Disetujui Oleh');
-    //    $sheet->setCellValue('D2','Nama Barang');
-    //    $sheet->setCellValue('E2','Kategori Barang Peminjaman');
-    //    $sheet->setCellValue('F2','Tanggal Peminjaman');
-    //    $sheet->setCellValue('G2','Tanggal Pengembalian');
-    //    $sheet->setCellValue('H2','Status');
-    //    foreach(range('A','I')as $col)
-    //    {
-    //        $sheet->getColumnDimension($col)->setAutoSize(true);
-    //    }
-    //    $cell = 3;
-    //    $report = Loan::getLoanParameter($fromDates,$toDates);
-    //    foreach ($report as $row) {
-    //     $sheet->getStyle('A'.$cell.':'.'H'.$cell)->applyFromArray($styleContent);
-    //     $sheet->setCellValue('A' . $cell, $row->name);
-    //     $sheet->setCellValue('B' . $cell, $row->department_name);
-    //     $sheet->setCellValue('C' . $cell, $row->approved_by);
-    //     $sheet->setCellValue('D' . $cell, $row->equipment);
-    //     $sheet->setCellValue('E' . $cell, $row->category_asset);
-    //     $sheet->setCellValue('F' . $cell, $row->loan_date);
-    //     $sheet->setCellValue('G' . $cell, $row->estimation_return_date);
-    //     $sheet->setCellValue('H' . $cell, $row->status);
-    //     $cell++;
-    // }
-    // $writer = new Xlsx($spreedsheet);
-    // header('Content-Type: application/vnd.ms-excel');
-    // $filename = 'loan'. '.xlsx';
-    // header('Content-Disposition: attachment; filename="' . $filename . '"');
-    // $writer->save('php://output');
 
     }
 }

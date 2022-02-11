@@ -19,7 +19,7 @@ class CategoryController extends Controller
         $id = $countCategory + 1;
 
         $categories = AssetCategory::all();
-        return view('categories.category', compact('id', 'categories'));
+        return view('layouts.pages.category', compact('id', 'categories'));
     }
 
     /**
