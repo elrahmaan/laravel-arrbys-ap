@@ -44,16 +44,16 @@ class DashboardController extends Controller
         $countData = DB::table('loans')->count();
         if ($countData > 0) {
             // mysql
-            $years = DB::table("loans")
-                ->selectRaw("DISTINCT year(loan_date) AS year")
-                ->orderByRaw('year ASC')
-                ->get();
+            // $years = DB::table("loans")
+            //     ->selectRaw("DISTINCT year(loan_date) AS year")
+            //     ->orderByRaw('year ASC')
+            //     ->get();
 
             //pgsql
-            // $years = DB::table("loans")
-            //     ->selectRaw("DISTINCT EXTRACT (YEAR FROM loan_date) AS YEAR")
-            //     ->orderByRaw('YEAR ASC')
-            //     ->get();
+            $years = DB::table("loans")
+                ->selectRaw("DISTINCT EXTRACT (YEAR FROM loan_date) AS YEAR")
+                ->orderByRaw('YEAR ASC')
+                ->get();
         } else {
             $years = $current_year;
         }
