@@ -327,7 +327,7 @@
                             <td>{{$service->id}}</td>
                             <td>{{$service->name}}</td>
                             <td>{{$service->category->name}}</td>
-                            <td><img src="{{asset($service->image)}}" alt="" style="max-height: 40px"></td>
+                            <td><img src="{{url($service->image)}}" alt="" style="max-height: 40px"></td>
                             <td>{{$service->qty}}</td>
                             <td>{{\Carbon\Carbon::parse($service->date)->isoFormat('D MMM YYYY')}} <span class="badge bg-light-secondary">{{$to->diffInDays($from)}} days</span> </td>
                             <td>
@@ -412,7 +412,7 @@
                                                         <div class="col-12">
                                                             <label for="email-id-icon">Image</label>
                                                             <div class="position-relative mb-2">
-                                                                <img src="{{asset($service->image)}}" alt="" style="max-width: 450px">
+                                                                <img src="{{url($service->image)}}" alt="" style="max-width: 450px">
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
@@ -595,7 +595,7 @@
                                                         <div class="col-12">
                                                             <label for="email-id-icon">Image</label>
                                                             <div class="position-relative">
-                                                                <img class="mb-2" src="{{asset($service->image)}}" alt="" width="100">
+                                                                <img class="mb-2" src="{{url($service->image)}}" alt="" width="100">
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
@@ -716,7 +716,7 @@
                                                         <div class="col-12">
                                                             <label for="email-id-icon">Image</label>
                                                             <div class="position-relative">
-                                                                <img class="mb-2" src="{{asset($service->image)}}" alt="" width="100">
+                                                                <img class="mb-2" src="{{url($service->image)}}" alt="" width="100">
                                                                 <!-- <input class="form-control" name="image" type="file" id="formFile"> -->
                                                             </div>
                                                         </div>

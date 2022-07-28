@@ -291,7 +291,7 @@
                             @endif
                             @endforeach
 
-                            <td><img src="{{ asset($asset->image) }}" alt="" style="max-height: 40px"></td>
+                            <td><img src="{{ url($asset->image) }}" alt="" style="max-height: 40px"></td>
                             <td>{{ $asset->qty }}</td>
                             <td>{{\Carbon\Carbon::parse($asset->date)->isoFormat('D MMM YYYY')}}</td>
                             <td class="d-flex">
@@ -365,7 +365,7 @@
                                                         <div class="col-12">
                                                             <label for="email-id-icon">Image</label>
                                                             <div class="position-relative mb-2">
-                                                                <img src="{{ asset($asset->image) }}" alt="" style="max-height: 300px">
+                                                                <img src="{{ url($asset->image) }}" alt="" style="max-height: 300px">
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
@@ -463,7 +463,7 @@
                                                         <div class="col-12">
                                                             <label for="email-id-icon">Image</label>
                                                             <div class="position-relative mb-2">
-                                                                <img class="mb-2" src="{{ asset($asset->image) }}" alt="" style="max-height: 300px">
+                                                                <img class="mb-2" src="{{ url($asset->image) }}" alt="" style="max-height: 300px">
                                                                 <input class="form-control" name="image" type="file" id="formFile" accept="image/*">
                                                                 <!-- <img src="" alt=""> -->
                                                             </div>
